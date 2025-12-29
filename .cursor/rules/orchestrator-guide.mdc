@@ -1,0 +1,224 @@
+---
+alwaysApply: true
+description: NEAR Localnet Orchestrator - master deployment orchestration for 5-layer NEAR simulator stack
+---
+
+# NEAR Localnet Orchestrator Guide
+
+**Master orchestration tool for deploying the complete NEAR Localnet Simulator Stack**
+
+## Project Overview
+
+The NEAR Localnet Orchestrator is a TypeScript-based tool that manages the deployment of a 5-layer NEAR Protocol simulation infrastructure. It provides intelligent dependency resolution, health checking, and deployment orchestration.
+
+## 5-Layer Architecture
+
+This orchestrator manages the deployment of all layers:
+
+```
+Layer 1: near_base          → AWSNodeRunner (NEAR RPC node)
+Layer 2: near_services      → near-localnet-services (faucet, utilities)
+Layer 3: chain_signatures   → cross-chain-simulator (MPC + Chain Signatures)
+Layer 4: intents_protocol   → near-intents-simulator (1Click API)
+Layer 5: user_applications  → Developer's dApp (not managed)
+```
+
+**Architecture Document**: `/CORRECTED_ARCHITECTURE.md` is the source of truth.
+
+## Key Concepts
+
+### Layer Dependencies
+
+Each layer depends on the layer below it:
+- Layer 2 requires Layer 1 (needs NEAR RPC URL)
+- Layer 3 requires Layer 2 (needs services + NEAR RPC)
+- Layer 4 requires Layer 3 (needs Chain Signatures API)
+- Layer 5 requires Layer 4 (uses Intents API)
+
+### MPC is Embedded in Layer 3
+
+**Critical**: MPC infrastructure is NOT a separate layer. It's embedded within the Chain Signatures layer (Layer 3). The `cross-chain-simulator` repository includes the MPC code and deploys it as part of Layer 3.
+
+### Configuration File
+
+`config/simulators.config.yaml` defines:
+- Global AWS settings (profile, region, account)
+- Layer definitions and dependencies
+- Deployment configuration for each layer
+- Output specifications
+
+## Commands
+
+### Deploy All Layers
+```bash
+npx near-orchestrator deploy
+```
+
+### Deploy Specific Layers
+```bash
+npx near-orchestrator deploy near_base near_services chain_signatures
+```
+
+### Verify Health (No Deploy)
+```bash
+npx near-orchestrator verify
+```
+
+### View Status
+```bash
+npx near-orchestrator status
+```
+
+### Destroy All
+```bash
+npx near-orchestrator destroy
+```
+
+### List Available Layers
+```bash
+npx near-orchestrator list
+```
+
+## Layer Classes
+
+### Implemented Layers
+
+```
+src/layers/
+├── BaseLayer.ts               # Abstract base for all layers
+├── NearBaseLayer.ts           # Layer 1: NEAR Base
+├── NearServicesLayer.ts       # Layer 2: NEAR Services
+├── ChainSignaturesLayer.ts    # Layer 3: Chain Signatures (includes MPC)
+└── IntentsProtocolLayer.ts    # Layer 4: Intents Protocol
+```
+
+### Layer Responsibilities
+
+**NearBaseLayer (Layer 1)**:
+- Deploys NEAR RPC node via AWSNodeRunner CDK
+- Exports: rpc_url, network_id, vpc_id
+
+**NearServicesLayer (Layer 2)**:
+- Deploys faucet Lambda via CDK
+- Exports: faucet_endpoint, faucet_lambda_arn
+
+**ChainSignaturesLayer (Layer 3)**:
+- Deploys MPC infrastructure (3-8 nodes)
+- Deploys v1.signer contract
+- Exports: v1_signer_contract_id, mpc_node_endpoints, chain_signatures_config
+
+**IntentsProtocolLayer (Layer 4)**:
+- Configures Intents simulator
+- Installs npm dependencies
+- Exports: intents_simulator_ready, supported_chains
+
+## Development Patterns
+
+### Adding a New Layer
+
+1. Create layer class extending `BaseLayer` in `src/layers/`
+2. Implement required methods: `verify()`, `deploy()`, `getOutputs()`, `destroy()`
+3. Add layer to `config/simulators.config.yaml`
+4. Update `Orchestrator.ts` `createLayerInstance()` switch statement
+5. Update `src/index.ts` `handleList()` function
+
+### Layer Output Pattern
+
+```typescript
+async getOutputs(): Promise<LayerOutput> {
+  const outputs: Record<string, string> = {
+    deployed: 'true',
+    deploy_timestamp: new Date().toISOString(),
+    // ... layer-specific outputs
+  };
+
+  // Get outputs from dependency layers
+  const nearOutputs = this.getDependencyOutputs('near_base');
+  if (nearOutputs) {
+    outputs.near_rpc_url = nearOutputs.outputs.rpc_url;
+  }
+
+  return this.createLayerOutput(outputs);
+}
+```
+
+### Health Check Pattern
+
+```typescript
+async verify(): Promise<VerifyResult> {
+  const existingEndpoint = this.context.layerConfig.config.existing_endpoint;
+
+  if (existingEndpoint) {
+    const healthResult = await this.runHealthCheck(existingEndpoint);
+    
+    if (healthResult) {
+      return {
+        skip: true,
+        reason: 'Existing endpoint is operational',
+        existingOutput: this.createLayerOutput({...})
+      };
+    }
+  }
+
+  return { skip: false };
+}
+```
+
+## Deployment Flow
+
+```
+1. Initialize Orchestrator
+   ↓
+2. Load config (simulators.config.yaml)
+   ↓
+3. Resolve dependencies (topological sort)
+   ↓
+4. For each layer in order:
+   a. Verify health
+   b. Skip if healthy
+   c. Deploy if needed
+   d. Read outputs
+   e. Store outputs for next layer
+   ↓
+5. Save deployment state
+```
+
+## Troubleshooting
+
+### Layer Not Found Error
+```
+Error: Unknown layer type: xyz
+```
+→ Check layer name in config matches switch statement in `Orchestrator.ts`
+
+### Dependency Not Available
+```
+Error: NEAR base layer outputs not available
+```
+→ Ensure dependency layer is deployed first
+
+### CDK Deployment Fails
+→ Check AWS credentials: `aws sts get-caller-identity --profile shai-sandbox-profile`
+→ Review CloudFormation events in AWS Console
+→ Check logs in `logs/orchestrator.log`
+
+## Files to Know
+
+- `src/Orchestrator.ts` - Main orchestration logic
+- `src/index.ts` - CLI interface
+- `src/layers/*.ts` - Layer implementations
+- `config/simulators.config.yaml` - Layer configuration
+- `deployment-state.json` - Current deployment state
+- `ARCHITECTURE.md` - Detailed architecture documentation
+
+## AWS Profile
+
+All commands use: `--profile shai-sandbox-profile`
+
+## Important Notes
+
+1. **No MPC Layer**: MPC is part of chain_signatures (Layer 3)
+2. **No Optional Layers**: All 5 layers are part of the standard stack
+3. **Source of Truth**: `ARCHITECTURE.md` and `/CORRECTED_ARCHITECTURE.md`
+4. **Clean Build**: Run `npm run build` after layer changes
+5. **Layer Order Matters**: Deploy in sequence 1 → 2 → 3 → 4

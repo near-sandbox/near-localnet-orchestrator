@@ -1,0 +1,810 @@
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-09T01:31:39.163Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-09T01:31:39.167Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-09T01:31:39.168Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-09T01:31:42.643Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-09T01:31:42.647Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-09T01:31:42.647Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layers","timestamp":"2025-12-09T01:31:42.647Z"}
+{"component":"Orchestrator","level":"info","message":"✅ ✅ All layers are healthy - no deployment needed","timestamp":"2025-12-09T01:31:42.648Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-09T01:34:01.361Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-09T01:34:01.366Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-09T01:34:01.366Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layers","timestamp":"2025-12-09T01:34:01.367Z"}
+{"component":"Orchestrator","level":"info","message":"✅ ✅ All layers are healthy - no deployment needed","timestamp":"2025-12-09T01:34:01.367Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-09T01:35:33.074Z"}
+{"component":"Orchestrator","level":"debug","message":"Loading configuration from config/simulators.config.yaml","timestamp":"2025-12-09T01:35:33.075Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-09T01:35:33.078Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-09T01:35:33.079Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layers","timestamp":"2025-12-09T01:35:33.079Z"}
+{"component":"Orchestrator","level":"info","message":"✅ ✅ All layers are healthy - no deployment needed","timestamp":"2025-12-09T01:35:33.079Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-09T01:35:37.503Z"}
+{"component":"Orchestrator","level":"debug","message":"Loading configuration from config/simulators.config.yaml","timestamp":"2025-12-09T01:35:37.504Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-09T01:35:37.507Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-09T01:35:37.508Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layers","timestamp":"2025-12-09T01:35:37.508Z"}
+{"component":"Orchestrator","level":"info","message":"✅ ✅ All layers are healthy - no deployment needed","timestamp":"2025-12-09T01:35:37.508Z"}
+{"component":"Test","level":"debug","message":"Performing thorough NEAR RPC health check: http://10.0.55.70:3030","timestamp":"2025-12-09T01:35:40.799Z"}
+{"component":"Test","level":"debug","message":"❌ Health check: http://10.0.55.70:3030 (10017ms)","timestamp":"2025-12-09T01:35:50.816Z"}
+{"component":"Test","level":"debug","message":"NEAR RPC health check failed: timeout of 10000ms exceeded","timestamp":"2025-12-09T01:35:50.817Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-09T01:35:54.461Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Performing thorough health check of existing NEAR RPC at: http://10.0.55.70:3030","timestamp":"2025-12-09T01:35:54.466Z"}
+{"component":"Orchestrator","level":"debug","message":"Loading configuration from /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/config/simulators.config.yaml","timestamp":"2025-12-09T01:35:54.462Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-09T01:35:54.465Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-09T01:35:54.466Z"}
+{"component":"Orchestrator","level":"debug","message":"Performing thorough NEAR RPC health check: http://10.0.55.70:3030","timestamp":"2025-12-09T01:35:54.466Z"}
+{"component":"Orchestrator","level":"debug","message":"❌ Health check: http://10.0.55.70:3030 (15014ms)","timestamp":"2025-12-09T01:36:09.480Z"}
+{"component":"Orchestrator:near_base","level":"error","message":"Existing NEAR RPC health check failed: timeout of 15000ms exceeded","timestamp":"2025-12-09T01:36:09.481Z"}
+{"component":"Orchestrator","level":"debug","message":"NEAR RPC health check failed: timeout of 15000ms exceeded","timestamp":"2025-12-09T01:36:09.481Z"}
+{"component":"Orchestrator:near_base","level":"warn","message":"Will proceed with deployment since existing RPC is not operational","timestamp":"2025-12-09T01:36:09.481Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-09T01:36:19.319Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-09T01:36:19.323Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-09T01:36:19.324Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layers","timestamp":"2025-12-09T01:36:19.324Z"}
+{"component":"Orchestrator","level":"info","message":"✅ ✅ All layers are healthy - no deployment needed","timestamp":"2025-12-09T01:36:19.324Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-09T01:36:22.570Z"}
+{"component":"Orchestrator","level":"debug","message":"Loading configuration from config/simulators.config.yaml","timestamp":"2025-12-09T01:36:22.572Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-09T01:36:22.574Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-09T01:36:22.575Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layers","timestamp":"2025-12-09T01:36:22.575Z"}
+{"component":"Orchestrator","level":"info","message":"✅ ✅ All layers are healthy - no deployment needed","timestamp":"2025-12-09T01:36:22.575Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-09T01:36:25.626Z"}
+{"component":"Orchestrator","level":"debug","message":"Loading configuration from /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/config/simulators.config.yaml","timestamp":"2025-12-09T01:36:25.628Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-09T01:36:25.630Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-09T01:36:25.631Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-09T01:36:33.349Z"}
+{"component":"Orchestrator","level":"debug","message":"Loading configuration from config/simulators.config.yaml","timestamp":"2025-12-09T01:36:33.350Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-09T01:36:33.353Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-09T01:36:33.354Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layers","timestamp":"2025-12-09T01:36:33.354Z"}
+{"component":"Orchestrator","level":"info","message":"✅ ✅ All layers are healthy - no deployment needed","timestamp":"2025-12-09T01:36:33.354Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-09T01:36:38.191Z"}
+{"component":"Orchestrator","level":"debug","message":"Loading configuration from config/simulators.config.yaml","timestamp":"2025-12-09T01:36:38.192Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-09T01:36:38.195Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-09T01:36:38.195Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layers","timestamp":"2025-12-09T01:36:38.196Z"}
+{"component":"Orchestrator","level":"info","message":"✅ ✅ All layers are healthy - no deployment needed","timestamp":"2025-12-09T01:36:38.196Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-09T01:36:55.675Z"}
+{"component":"Orchestrator","level":"debug","message":"Loading configuration from config/simulators.config.yaml","timestamp":"2025-12-09T01:36:55.677Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-09T01:36:55.680Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-09T01:36:55.680Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layers","timestamp":"2025-12-09T01:36:55.681Z"}
+{"component":"Orchestrator","level":"debug","message":"Layers to check: ","timestamp":"2025-12-09T01:36:55.681Z"}
+{"component":"Orchestrator","level":"info","message":"✅ ✅ All layers are healthy - no deployment needed","timestamp":"2025-12-09T01:36:55.681Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-09T01:37:14.236Z"}
+{"component":"Orchestrator","level":"debug","message":"Loading configuration from config/simulators.config.yaml","timestamp":"2025-12-09T01:37:14.237Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-09T01:37:14.241Z"}
+{"component":"Orchestrator","level":"debug","message":"Config loaded: 3 layers","timestamp":"2025-12-09T01:37:14.242Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-09T01:37:14.242Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layers","timestamp":"2025-12-09T01:37:14.242Z"}
+{"component":"Orchestrator","level":"debug","message":"Layers to check: ","timestamp":"2025-12-09T01:37:14.242Z"}
+{"component":"Orchestrator","level":"info","message":"✅ ✅ All layers are healthy - no deployment needed","timestamp":"2025-12-09T01:37:14.242Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-09T01:37:42.374Z"}
+{"component":"Orchestrator","level":"debug","message":"Loading configuration from config/simulators.config.yaml","timestamp":"2025-12-09T01:37:42.375Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-09T01:37:42.378Z"}
+{"component":"Orchestrator","level":"debug","message":"Config loaded: 3 layers","timestamp":"2025-12-09T01:37:42.379Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-09T01:37:42.379Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layers","timestamp":"2025-12-09T01:37:42.379Z"}
+{"component":"Orchestrator","level":"debug","message":"Layers to check: ","timestamp":"2025-12-09T01:37:42.379Z"}
+{"component":"Orchestrator","level":"info","message":"✅ ✅ All layers are healthy - no deployment needed","timestamp":"2025-12-09T01:37:42.379Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-09T01:37:45.418Z"}
+{"component":"Orchestrator","level":"debug","message":"Loading configuration from config/simulators.config.yaml","timestamp":"2025-12-09T01:37:45.419Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-09T01:37:45.422Z"}
+{"component":"Orchestrator","level":"debug","message":"Config loaded: 3 layers","timestamp":"2025-12-09T01:37:45.423Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-09T01:37:45.423Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layers","timestamp":"2025-12-09T01:37:45.423Z"}
+{"component":"Orchestrator","level":"debug","message":"Layers to check: ","timestamp":"2025-12-09T01:37:45.423Z"}
+{"component":"Orchestrator","level":"info","message":"✅ ✅ All layers are healthy - no deployment needed","timestamp":"2025-12-09T01:37:45.423Z"}
+{"component":"Test","level":"debug","message":"Loading configuration from /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/config/simulators.config.yaml","timestamp":"2025-12-09T01:37:48.335Z"}
+{"component":"Test","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-09T01:37:48.341Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-09T01:39:56.948Z"}
+{"component":"Orchestrator","level":"debug","message":"Loading configuration from config/simulators.config.yaml","timestamp":"2025-12-09T01:39:56.949Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-09T01:39:56.952Z"}
+{"component":"Orchestrator","level":"debug","message":"Config loaded: 3 layers","timestamp":"2025-12-09T01:39:56.953Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-09T01:39:56.953Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layers","timestamp":"2025-12-09T01:39:56.953Z"}
+{"component":"Orchestrator","level":"debug","message":"Layers to check: ","timestamp":"2025-12-09T01:39:56.953Z"}
+{"component":"Orchestrator","level":"info","message":"✅ ✅ All layers are healthy - no deployment needed","timestamp":"2025-12-09T01:39:56.953Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-09T01:39:59.925Z"}
+{"component":"Orchestrator","level":"debug","message":"Loading configuration from config/simulators.config.yaml","timestamp":"2025-12-09T01:39:59.926Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-09T01:39:59.929Z"}
+{"component":"Orchestrator","level":"debug","message":"Config loaded: 3 layers","timestamp":"2025-12-09T01:39:59.929Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-09T01:39:59.929Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layers","timestamp":"2025-12-09T01:39:59.930Z"}
+{"component":"Orchestrator","level":"debug","message":"Layers to check: ","timestamp":"2025-12-09T01:39:59.930Z"}
+{"component":"Orchestrator","level":"info","message":"✅ ✅ All layers are healthy - no deployment needed","timestamp":"2025-12-09T01:39:59.930Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-09T01:40:05.472Z"}
+{"component":"Orchestrator","level":"debug","message":"Loading configuration from /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/config/simulators.config.yaml","timestamp":"2025-12-09T01:40:05.474Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-09T01:40:05.476Z"}
+{"component":"Orchestrator","level":"debug","message":"Config loaded: 3 layers","timestamp":"2025-12-09T01:40:05.479Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-09T01:40:05.479Z"}
+{"component":"Orchestrator","level":"debug","message":"ConfigManager has cache: yes","timestamp":"2025-12-09T01:40:05.480Z"}
+{"component":"Orchestrator","level":"debug","message":"getEnabledLayers() returned: near_base, mpc_core, cross_chain_app","timestamp":"2025-12-09T01:40:05.480Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-09T01:40:26.465Z"}
+{"component":"Orchestrator","level":"debug","message":"Loading configuration from config/simulators.config.yaml","timestamp":"2025-12-09T01:40:26.467Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-09T01:40:26.470Z"}
+{"component":"Orchestrator","level":"debug","message":"Config loaded: 3 layers","timestamp":"2025-12-09T01:40:26.471Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-09T01:40:26.471Z"}
+{"component":"Orchestrator","level":"debug","message":"ConfigManager has cache: yes","timestamp":"2025-12-09T01:40:26.471Z"}
+{"component":"Orchestrator","level":"debug","message":"getEnabledLayers() returned: near_base, mpc_core, cross_chain_app","timestamp":"2025-12-09T01:40:26.472Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-09T01:40:29.680Z"}
+{"component":"Orchestrator","level":"debug","message":"Loading configuration from config/simulators.config.yaml","timestamp":"2025-12-09T01:40:29.681Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-09T01:40:29.684Z"}
+{"component":"Orchestrator","level":"debug","message":"Config loaded: 3 layers","timestamp":"2025-12-09T01:40:29.685Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-09T01:40:29.685Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layers","timestamp":"2025-12-09T01:40:29.685Z"}
+{"component":"Orchestrator","level":"debug","message":"Layers to check: ","timestamp":"2025-12-09T01:40:29.685Z"}
+{"component":"Orchestrator","level":"info","message":"✅ ✅ All layers are healthy - no deployment needed","timestamp":"2025-12-09T01:40:29.685Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-09T01:40:37.501Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Performing thorough health check of existing NEAR RPC at: http://10.0.55.70:3030","timestamp":"2025-12-09T01:40:37.507Z"}
+{"component":"Orchestrator","level":"debug","message":"Loading configuration from config/simulators.config.yaml","timestamp":"2025-12-09T01:40:37.502Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-09T01:40:37.505Z"}
+{"component":"Orchestrator","level":"debug","message":"Config loaded: 3 layers","timestamp":"2025-12-09T01:40:37.505Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-09T01:40:37.505Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layers","timestamp":"2025-12-09T01:40:37.506Z"}
+{"component":"Orchestrator","level":"debug","message":"ConfigManager has cache: yes","timestamp":"2025-12-09T01:40:37.506Z"}
+{"component":"Orchestrator","level":"debug","message":"getEnabledLayers() returned: near_base, mpc_core, cross_chain_app","timestamp":"2025-12-09T01:40:37.506Z"}
+{"component":"Orchestrator","level":"debug","message":"Layers to check: near_base, mpc_core, cross_chain_app","timestamp":"2025-12-09T01:40:37.506Z"}
+{"component":"Orchestrator","level":"debug","message":"Verifying layer: near_base","timestamp":"2025-12-09T01:40:37.506Z"}
+{"component":"Orchestrator","level":"debug","message":"Performing thorough NEAR RPC health check: http://10.0.55.70:3030","timestamp":"2025-12-09T01:40:37.507Z"}
+{"component":"Orchestrator","level":"debug","message":"❌ Health check: http://10.0.55.70:3030 (15015ms)","timestamp":"2025-12-09T01:40:52.522Z"}
+{"component":"Orchestrator:near_base","level":"error","message":"Existing NEAR RPC health check failed: timeout of 15000ms exceeded","timestamp":"2025-12-09T01:40:52.523Z"}
+{"component":"Orchestrator","level":"debug","message":"NEAR RPC health check failed: timeout of 15000ms exceeded","timestamp":"2025-12-09T01:40:52.523Z"}
+{"component":"Orchestrator","level":"debug","message":"Layer near_base verify result: skip=false, reason=none","timestamp":"2025-12-09T01:40:52.523Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Layer 'near_base' requires deployment","timestamp":"2025-12-09T01:40:52.523Z"}
+{"component":"Orchestrator","level":"debug","message":"Verifying layer: mpc_core","timestamp":"2025-12-09T01:40:52.523Z"}
+{"component":"Orchestrator","level":"debug","message":"Performing thorough MPC node health check: http://10.0.158.39:3030","timestamp":"2025-12-09T01:40:52.525Z"}
+{"component":"Orchestrator","level":"debug","message":"Checking HTTP health: http://10.0.158.39:3030","timestamp":"2025-12-09T01:40:52.525Z"}
+{"component":"Orchestrator","level":"debug","message":"Performing thorough MPC node health check: http://10.0.136.232:3030","timestamp":"2025-12-09T01:40:52.526Z"}
+{"component":"Orchestrator","level":"debug","message":"Checking HTTP health: http://10.0.136.232:3030","timestamp":"2025-12-09T01:40:52.526Z"}
+{"component":"Orchestrator","level":"debug","message":"Performing thorough MPC node health check: http://10.0.168.179:3030","timestamp":"2025-12-09T01:40:52.527Z"}
+{"component":"Orchestrator","level":"debug","message":"Checking HTTP health: http://10.0.168.179:3030","timestamp":"2025-12-09T01:40:52.527Z"}
+{"component":"Orchestrator:near_base","level":"warn","message":"Will proceed with deployment since existing RPC is not operational","timestamp":"2025-12-09T01:40:52.523Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"Performing thorough health checks on 3 existing MPC nodes","timestamp":"2025-12-09T01:40:52.524Z"}
+{"component":"Orchestrator:mpc_core","level":"debug","message":"Checking MPC node 1/3: http://10.0.158.39:3030","timestamp":"2025-12-09T01:40:52.524Z"}
+{"component":"Orchestrator:mpc_core","level":"debug","message":"Checking MPC node 2/3: http://10.0.136.232:3030","timestamp":"2025-12-09T01:40:52.526Z"}
+{"component":"Orchestrator:mpc_core","level":"debug","message":"Checking MPC node 3/3: http://10.0.168.179:3030","timestamp":"2025-12-09T01:40:52.527Z"}
+{"component":"Orchestrator","level":"debug","message":"❌ Health check: http://10.0.158.39:3030 (10005ms)","timestamp":"2025-12-09T01:41:02.530Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"MPC node health check results:","timestamp":"2025-12-09T01:41:02.534Z"}
+{"component":"Orchestrator","level":"debug","message":"❌ Health check: http://10.0.136.232:3030 (10005ms)","timestamp":"2025-12-09T01:41:02.531Z"}
+{"component":"Orchestrator","level":"debug","message":"❌ Health check: http://10.0.168.179:3030 (10006ms)","timestamp":"2025-12-09T01:41:02.533Z"}
+{"component":"Orchestrator","level":"debug","message":"Layer mpc_core verify result: skip=false, reason=none","timestamp":"2025-12-09T01:41:02.535Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Layer 'mpc_core' requires deployment","timestamp":"2025-12-09T01:41:02.535Z"}
+{"component":"Orchestrator","level":"debug","message":"Verifying layer: cross_chain_app","timestamp":"2025-12-09T01:41:02.535Z"}
+{"component":"Orchestrator","level":"debug","message":"Layer cross_chain_app verify result: skip=false, reason=none","timestamp":"2025-12-09T01:41:02.536Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Layer 'cross_chain_app' requires deployment","timestamp":"2025-12-09T01:41:02.536Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"  ❌ http://10.0.158.39:3030: HTTP connectivity failed: timeout of 10000ms exceeded","timestamp":"2025-12-09T01:41:02.534Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"  ❌ http://10.0.136.232:3030: HTTP connectivity failed: timeout of 10000ms exceeded","timestamp":"2025-12-09T01:41:02.534Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"  ❌ http://10.0.168.179:3030: HTTP connectivity failed: timeout of 10000ms exceeded","timestamp":"2025-12-09T01:41:02.535Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"Only 0/3 MPC nodes are operational. Proceeding with deployment.","timestamp":"2025-12-09T01:41:02.535Z"}
+{"component":"Orchestrator:cross_chain_app","level":"info","message":"Cross-chain application layer always deploys (no verification available)","timestamp":"2025-12-09T01:41:02.535Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-09T01:41:06.145Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Performing thorough health check of existing NEAR RPC at: http://10.0.55.70:3030","timestamp":"2025-12-09T01:41:06.151Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-09T01:41:06.149Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-09T01:41:06.150Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layers","timestamp":"2025-12-09T01:41:06.150Z"}
+{"component":"Orchestrator:near_base","level":"error","message":"Existing NEAR RPC health check failed: timeout of 15000ms exceeded","timestamp":"2025-12-09T01:41:21.161Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Layer 'near_base' requires deployment","timestamp":"2025-12-09T01:41:21.162Z"}
+{"component":"Orchestrator:near_base","level":"warn","message":"Will proceed with deployment since existing RPC is not operational","timestamp":"2025-12-09T01:41:21.161Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"Performing thorough health checks on 3 existing MPC nodes","timestamp":"2025-12-09T01:41:21.163Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"MPC node health check results:","timestamp":"2025-12-09T01:41:31.167Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Layer 'mpc_core' requires deployment","timestamp":"2025-12-09T01:41:31.168Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"  ❌ http://10.0.158.39:3030: HTTP connectivity failed: timeout of 10000ms exceeded","timestamp":"2025-12-09T01:41:31.167Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"  ❌ http://10.0.136.232:3030: HTTP connectivity failed: timeout of 10000ms exceeded","timestamp":"2025-12-09T01:41:31.168Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"  ❌ http://10.0.168.179:3030: HTTP connectivity failed: timeout of 10000ms exceeded","timestamp":"2025-12-09T01:41:31.168Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"Only 0/3 MPC nodes are operational. Proceeding with deployment.","timestamp":"2025-12-09T01:41:31.168Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Layer 'cross_chain_app' requires deployment","timestamp":"2025-12-09T01:41:31.168Z"}
+{"component":"Orchestrator:cross_chain_app","level":"info","message":"Cross-chain application layer always deploys (no verification available)","timestamp":"2025-12-09T01:41:31.168Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-09T01:41:46.305Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Performing thorough health check of existing NEAR RPC at: http://10.0.55.70:3030","timestamp":"2025-12-09T01:41:46.311Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-09T01:41:46.310Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-09T01:41:46.310Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layers","timestamp":"2025-12-09T01:41:46.311Z"}
+{"component":"Orchestrator:near_base","level":"error","message":"Existing NEAR RPC health check failed: timeout of 15000ms exceeded","timestamp":"2025-12-09T01:42:01.344Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Layer 'near_base' requires deployment","timestamp":"2025-12-09T01:42:01.353Z"}
+{"component":"Orchestrator:near_base","level":"warn","message":"Will proceed with deployment since existing RPC is not operational","timestamp":"2025-12-09T01:42:01.352Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"Performing thorough health checks on 3 existing MPC nodes","timestamp":"2025-12-09T01:42:01.365Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"MPC node health check results:","timestamp":"2025-12-09T01:42:11.381Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Layer 'mpc_core' requires deployment","timestamp":"2025-12-09T01:42:11.382Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"  ❌ http://10.0.158.39:3030: HTTP connectivity failed: timeout of 10000ms exceeded","timestamp":"2025-12-09T01:42:11.382Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"  ❌ http://10.0.136.232:3030: HTTP connectivity failed: timeout of 10000ms exceeded","timestamp":"2025-12-09T01:42:11.382Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"  ❌ http://10.0.168.179:3030: HTTP connectivity failed: timeout of 10000ms exceeded","timestamp":"2025-12-09T01:42:11.382Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"Only 0/3 MPC nodes are operational. Proceeding with deployment.","timestamp":"2025-12-09T01:42:11.382Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Layer 'cross_chain_app' requires deployment","timestamp":"2025-12-09T01:42:11.384Z"}
+{"component":"Orchestrator:cross_chain_app","level":"info","message":"Cross-chain application layer always deploys (no verification available)","timestamp":"2025-12-09T01:42:11.384Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-09T02:50:38.253Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Performing thorough health check of existing NEAR RPC at: http://10.0.55.70:3030","timestamp":"2025-12-09T02:50:38.259Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-09T02:50:38.257Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-09T02:50:38.258Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layers","timestamp":"2025-12-09T02:50:38.258Z"}
+{"component":"Orchestrator:near_base","level":"error","message":"Existing NEAR RPC health check failed: timeout of 15000ms exceeded","timestamp":"2025-12-09T02:50:53.268Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Layer 'near_base' requires deployment","timestamp":"2025-12-09T02:50:53.269Z"}
+{"component":"Orchestrator:near_base","level":"warn","message":"Will proceed with deployment since existing RPC is not operational","timestamp":"2025-12-09T02:50:53.269Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"Performing thorough health checks on 3 existing MPC nodes","timestamp":"2025-12-09T02:50:53.269Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"MPC node health check results:","timestamp":"2025-12-09T02:51:03.274Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Layer 'mpc_core' requires deployment","timestamp":"2025-12-09T02:51:03.275Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"  ❌ http://10.0.158.39:3030: HTTP connectivity failed: timeout of 10000ms exceeded","timestamp":"2025-12-09T02:51:03.275Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"  ❌ http://10.0.136.232:3030: HTTP connectivity failed: timeout of 10000ms exceeded","timestamp":"2025-12-09T02:51:03.275Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"  ❌ http://10.0.168.179:3030: HTTP connectivity failed: timeout of 10000ms exceeded","timestamp":"2025-12-09T02:51:03.275Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"Only 0/3 MPC nodes are operational. Proceeding with deployment.","timestamp":"2025-12-09T02:51:03.275Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Layer 'cross_chain_app' requires deployment","timestamp":"2025-12-09T02:51:03.276Z"}
+{"component":"Orchestrator:cross_chain_app","level":"info","message":"Cross-chain application layer always deploys (no verification available)","timestamp":"2025-12-09T02:51:03.276Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-09T02:57:00.259Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Performing thorough health check of existing NEAR RPC at: http://10.0.55.70:3030","timestamp":"2025-12-09T02:57:00.265Z"}
+{"component":"Orchestrator","level":"debug","message":"Loading configuration from config/simulators.config.yaml","timestamp":"2025-12-09T02:57:00.261Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-09T02:57:00.263Z"}
+{"component":"Orchestrator","level":"debug","message":"Config loaded: 3 layers","timestamp":"2025-12-09T02:57:00.264Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-09T02:57:00.264Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layers","timestamp":"2025-12-09T02:57:00.264Z"}
+{"component":"Orchestrator","level":"debug","message":"Layers to check: near_base, mpc_core, cross_chain_app","timestamp":"2025-12-09T02:57:00.265Z"}
+{"component":"Orchestrator","level":"debug","message":"Performing thorough NEAR RPC health check: http://10.0.55.70:3030","timestamp":"2025-12-09T02:57:00.265Z"}
+{"component":"Orchestrator","level":"debug","message":"❌ Health check: http://10.0.55.70:3030 (15012ms)","timestamp":"2025-12-09T02:57:15.278Z"}
+{"component":"Orchestrator:near_base","level":"error","message":"Existing NEAR RPC health check failed: timeout of 15000ms exceeded","timestamp":"2025-12-09T02:57:15.278Z"}
+{"component":"Orchestrator","level":"debug","message":"NEAR RPC health check failed: timeout of 15000ms exceeded","timestamp":"2025-12-09T02:57:15.278Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Layer 'near_base' requires deployment","timestamp":"2025-12-09T02:57:15.278Z"}
+{"component":"Orchestrator","level":"debug","message":"$ aws ec2 describe-instances --filters Name=private-ip-address,Values=10.0.158.39 --query Reservations[0].Instances[0].InstanceId --output text --profile shai-sandbox-profile --region us-east-1 (in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator)","timestamp":"2025-12-09T02:57:15.280Z"}
+{"component":"Orchestrator:near_base","level":"warn","message":"Will proceed with deployment since existing RPC is not operational","timestamp":"2025-12-09T02:57:15.278Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"Performing thorough health checks on 3 existing MPC nodes","timestamp":"2025-12-09T02:57:15.279Z"}
+{"component":"Orchestrator","level":"debug","message":"✅ Command completed: aws ec2 describe-instances --filters Name=private-ip-address,Values=10.0.158.39 --query Reservations[0].Instances[0].InstanceId --output text --profile shai-sandbox-profile --region us-east-1 (1281ms, exit code: 0)","timestamp":"2025-12-09T02:57:16.561Z"}
+{"component":"Orchestrator","level":"debug","message":"$ aws ec2 describe-instances --filters Name=private-ip-address,Values=10.0.136.232 --query Reservations[0].Instances[0].InstanceId --output text --profile shai-sandbox-profile --region us-east-1 (in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator)","timestamp":"2025-12-09T02:57:16.561Z"}
+{"component":"Orchestrator","level":"debug","message":"✅ Command completed: aws ec2 describe-instances --filters Name=private-ip-address,Values=10.0.136.232 --query Reservations[0].Instances[0].InstanceId --output text --profile shai-sandbox-profile --region us-east-1 (920ms, exit code: 0)","timestamp":"2025-12-09T02:57:17.481Z"}
+{"component":"Orchestrator","level":"debug","message":"$ aws ec2 describe-instances --filters Name=private-ip-address,Values=10.0.168.179 --query Reservations[0].Instances[0].InstanceId --output text --profile shai-sandbox-profile --region us-east-1 (in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator)","timestamp":"2025-12-09T02:57:17.481Z"}
+{"component":"Orchestrator","level":"debug","message":"✅ Command completed: aws ec2 describe-instances --filters Name=private-ip-address,Values=10.0.168.179 --query Reservations[0].Instances[0].InstanceId --output text --profile shai-sandbox-profile --region us-east-1 (1909ms, exit code: 0)","timestamp":"2025-12-09T02:57:19.390Z"}
+{"component":"Orchestrator:mpc_core","level":"debug","message":"Checking MPC node 1/3: http://10.0.158.39:3030","timestamp":"2025-12-09T02:57:19.390Z"}
+{"component":"Orchestrator","level":"debug","message":"Performing thorough MPC node health check: http://10.0.158.39:3030","timestamp":"2025-12-09T02:57:19.390Z"}
+{"component":"Orchestrator","level":"debug","message":"Checking HTTP health: http://10.0.158.39:3030","timestamp":"2025-12-09T02:57:19.390Z"}
+{"component":"Orchestrator","level":"debug","message":"Performing thorough MPC node health check: http://10.0.136.232:3030","timestamp":"2025-12-09T02:57:19.391Z"}
+{"component":"Orchestrator","level":"debug","message":"Checking HTTP health: http://10.0.136.232:3030","timestamp":"2025-12-09T02:57:19.391Z"}
+{"component":"Orchestrator","level":"debug","message":"Performing thorough MPC node health check: http://10.0.168.179:3030","timestamp":"2025-12-09T02:57:19.392Z"}
+{"component":"Orchestrator","level":"debug","message":"Checking HTTP health: http://10.0.168.179:3030","timestamp":"2025-12-09T02:57:19.392Z"}
+{"component":"Orchestrator:mpc_core","level":"debug","message":"Checking MPC node 2/3: http://10.0.136.232:3030","timestamp":"2025-12-09T02:57:19.391Z"}
+{"component":"Orchestrator:mpc_core","level":"debug","message":"Checking MPC node 3/3: http://10.0.168.179:3030","timestamp":"2025-12-09T02:57:19.391Z"}
+{"component":"Orchestrator","level":"debug","message":"❌ Health check: http://10.0.158.39:3030 (10005ms)","timestamp":"2025-12-09T02:57:29.395Z"}
+{"component":"Orchestrator","level":"debug","message":"External access failed, trying SSM health check for instance i-0ca3e3ae6d3f04e1c","timestamp":"2025-12-09T02:57:29.396Z"}
+{"component":"Orchestrator","level":"debug","message":"Checking MPC node health via SSM for instance: i-0ca3e3ae6d3f04e1c","timestamp":"2025-12-09T02:57:29.396Z"}
+{"component":"Orchestrator","level":"debug","message":"$ aws ssm send-command --instance-ids i-0ca3e3ae6d3f04e1c --document-name AWS-RunShellScript --parameters commands=[\"ps aux | grep -v grep | grep -E \"(mpc|docker.*mpc)\" | wc -l && echo \"---\" && echo \"NEAR_SKIP\" && echo \"---\" && timeout 5 netstat -tln 2>/dev/null | grep -c -E \":(3030|8080|24567)\" || timeout 5 ss -tln | grep -c -E \":(3030|8080|24567)\" || echo \"0\" && echo \"---\" && find /var/log -name \"*mpc*\" -type f -newermt \"5 minutes ago\" 2>/dev/null | wc -l || echo \"0\"\"] --profile shai-sandbox-profile --region us-east-1 --output text --query Command.CommandId (in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator)","timestamp":"2025-12-09T02:57:29.396Z"}
+{"component":"Orchestrator","level":"debug","message":"❌ Health check: http://10.0.136.232:3030 (10010ms)","timestamp":"2025-12-09T02:57:29.401Z"}
+{"component":"Orchestrator","level":"debug","message":"External access failed, trying SSM health check for instance i-00436a1c5f4974398","timestamp":"2025-12-09T02:57:29.402Z"}
+{"component":"Orchestrator","level":"debug","message":"Checking MPC node health via SSM for instance: i-00436a1c5f4974398","timestamp":"2025-12-09T02:57:29.402Z"}
+{"component":"Orchestrator","level":"debug","message":"$ aws ssm send-command --instance-ids i-00436a1c5f4974398 --document-name AWS-RunShellScript --parameters commands=[\"ps aux | grep -v grep | grep -E \"(mpc|docker.*mpc)\" | wc -l && echo \"---\" && echo \"NEAR_SKIP\" && echo \"---\" && timeout 5 netstat -tln 2>/dev/null | grep -c -E \":(3030|8080|24567)\" || timeout 5 ss -tln | grep -c -E \":(3030|8080|24567)\" || echo \"0\" && echo \"---\" && find /var/log -name \"*mpc*\" -type f -newermt \"5 minutes ago\" 2>/dev/null | wc -l || echo \"0\"\"] --profile shai-sandbox-profile --region us-east-1 --output text --query Command.CommandId (in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator)","timestamp":"2025-12-09T02:57:29.402Z"}
+{"component":"Orchestrator","level":"debug","message":"❌ Health check: http://10.0.168.179:3030 (10013ms)","timestamp":"2025-12-09T02:57:29.405Z"}
+{"component":"Orchestrator","level":"debug","message":"External access failed, trying SSM health check for instance i-07dc819739c4bb39c","timestamp":"2025-12-09T02:57:29.405Z"}
+{"component":"Orchestrator","level":"debug","message":"Checking MPC node health via SSM for instance: i-07dc819739c4bb39c","timestamp":"2025-12-09T02:57:29.405Z"}
+{"component":"Orchestrator","level":"debug","message":"$ aws ssm send-command --instance-ids i-07dc819739c4bb39c --document-name AWS-RunShellScript --parameters commands=[\"ps aux | grep -v grep | grep -E \"(mpc|docker.*mpc)\" | wc -l && echo \"---\" && echo \"NEAR_SKIP\" && echo \"---\" && timeout 5 netstat -tln 2>/dev/null | grep -c -E \":(3030|8080|24567)\" || timeout 5 ss -tln | grep -c -E \":(3030|8080|24567)\" || echo \"0\" && echo \"---\" && find /var/log -name \"*mpc*\" -type f -newermt \"5 minutes ago\" 2>/dev/null | wc -l || echo \"0\"\"] --profile shai-sandbox-profile --region us-east-1 --output text --query Command.CommandId (in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator)","timestamp":"2025-12-09T02:57:29.405Z"}
+{"component":"Orchestrator","level":"debug","message":"❌ Command completed: aws ssm send-command --instance-ids i-00436a1c5f4974398 --document-name AWS-RunShellScript --parameters commands=[\"ps aux | grep -v grep | grep -E \"(mpc|docker.*mpc)\" | wc -l && echo \"---\" && echo \"NEAR_SKIP\" && echo \"---\" && timeout 5 netstat -tln 2>/dev/null | grep -c -E \":(3030|8080|24567)\" || timeout 5 ss -tln | grep -c -E \":(3030|8080|24567)\" || echo \"0\" && echo \"---\" && find /var/log -name \"*mpc*\" -type f -newermt \"5 minutes ago\" 2>/dev/null | wc -l || echo \"0\"\"] --profile shai-sandbox-profile --region us-east-1 --output text --query Command.CommandId (597ms, exit code: 252)","timestamp":"2025-12-09T02:57:29.999Z"}
+{"component":"Orchestrator","level":"debug","message":"❌ Command completed: aws ssm send-command --instance-ids i-0ca3e3ae6d3f04e1c --document-name AWS-RunShellScript --parameters commands=[\"ps aux | grep -v grep | grep -E \"(mpc|docker.*mpc)\" | wc -l && echo \"---\" && echo \"NEAR_SKIP\" && echo \"---\" && timeout 5 netstat -tln 2>/dev/null | grep -c -E \":(3030|8080|24567)\" || timeout 5 ss -tln | grep -c -E \":(3030|8080|24567)\" || echo \"0\" && echo \"---\" && find /var/log -name \"*mpc*\" -type f -newermt \"5 minutes ago\" 2>/dev/null | wc -l || echo \"0\"\"] --profile shai-sandbox-profile --region us-east-1 --output text --query Command.CommandId (605ms, exit code: 252)","timestamp":"2025-12-09T02:57:30.001Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"MPC node health check results:","timestamp":"2025-12-09T02:57:30.002Z"}
+{"component":"Orchestrator","level":"debug","message":"❌ Command completed: aws ssm send-command --instance-ids i-07dc819739c4bb39c --document-name AWS-RunShellScript --parameters commands=[\"ps aux | grep -v grep | grep -E \"(mpc|docker.*mpc)\" | wc -l && echo \"---\" && echo \"NEAR_SKIP\" && echo \"---\" && timeout 5 netstat -tln 2>/dev/null | grep -c -E \":(3030|8080|24567)\" || timeout 5 ss -tln | grep -c -E \":(3030|8080|24567)\" || echo \"0\" && echo \"---\" && find /var/log -name \"*mpc*\" -type f -newermt \"5 minutes ago\" 2>/dev/null | wc -l || echo \"0\"\"] --profile shai-sandbox-profile --region us-east-1 --output text --query Command.CommandId (597ms, exit code: 252)","timestamp":"2025-12-09T02:57:30.002Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Layer 'mpc_core' requires deployment","timestamp":"2025-12-09T02:57:30.002Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Layer 'cross_chain_app' requires deployment","timestamp":"2025-12-09T02:57:30.003Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"  ❌ http://10.0.158.39:3030: SSM command failed: \nError parsing parameter '--parameters': Expected: ',', received: '(' for input:\n commands=[\"ps aux | grep -v grep | grep -E \"(mpc|docker.*mpc)\" | wc -l && echo \"---\" && echo \"NEAR_SKIP\" && echo \"---\" && timeout 5 netstat -tln 2>/dev/null | grep -c -E \":(3030|8080|24567)\" || timeout 5 ss -tln | grep -c -E \":(3030|8080|24567)\" || echo \"0\" && echo \"---\" && find /var/log -name \"*mpc*\" -type f -newermt \"5 minutes ago\" 2>/dev/null | wc -l || echo \"0\"\"]\n                                            ^\n","timestamp":"2025-12-09T02:57:30.002Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"  ❌ http://10.0.136.232:3030: SSM command failed: \nError parsing parameter '--parameters': Expected: ',', received: '(' for input:\n commands=[\"ps aux | grep -v grep | grep -E \"(mpc|docker.*mpc)\" | wc -l && echo \"---\" && echo \"NEAR_SKIP\" && echo \"---\" && timeout 5 netstat -tln 2>/dev/null | grep -c -E \":(3030|8080|24567)\" || timeout 5 ss -tln | grep -c -E \":(3030|8080|24567)\" || echo \"0\" && echo \"---\" && find /var/log -name \"*mpc*\" -type f -newermt \"5 minutes ago\" 2>/dev/null | wc -l || echo \"0\"\"]\n                                            ^\n","timestamp":"2025-12-09T02:57:30.002Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"  ❌ http://10.0.168.179:3030: SSM command failed: \nError parsing parameter '--parameters': Expected: ',', received: '(' for input:\n commands=[\"ps aux | grep -v grep | grep -E \"(mpc|docker.*mpc)\" | wc -l && echo \"---\" && echo \"NEAR_SKIP\" && echo \"---\" && timeout 5 netstat -tln 2>/dev/null | grep -c -E \":(3030|8080|24567)\" || timeout 5 ss -tln | grep -c -E \":(3030|8080|24567)\" || echo \"0\" && echo \"---\" && find /var/log -name \"*mpc*\" -type f -newermt \"5 minutes ago\" 2>/dev/null | wc -l || echo \"0\"\"]\n                                            ^\n","timestamp":"2025-12-09T02:57:30.002Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"Only 0/3 MPC nodes are operational. Proceeding with deployment.","timestamp":"2025-12-09T02:57:30.002Z"}
+{"component":"Orchestrator:cross_chain_app","level":"info","message":"Cross-chain application layer always deploys (no verification available)","timestamp":"2025-12-09T02:57:30.003Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-09T02:57:33.758Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Performing thorough health check of existing NEAR RPC at: http://10.0.55.70:3030","timestamp":"2025-12-09T02:57:33.763Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-09T02:57:33.762Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-09T02:57:33.762Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layers","timestamp":"2025-12-09T02:57:33.762Z"}
+{"component":"Orchestrator:near_base","level":"error","message":"Existing NEAR RPC health check failed: timeout of 15000ms exceeded","timestamp":"2025-12-09T02:57:48.777Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Layer 'near_base' requires deployment","timestamp":"2025-12-09T02:57:48.778Z"}
+{"component":"Orchestrator:near_base","level":"warn","message":"Will proceed with deployment since existing RPC is not operational","timestamp":"2025-12-09T02:57:48.778Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"Performing thorough health checks on 3 existing MPC nodes","timestamp":"2025-12-09T02:57:48.779Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"MPC node health check results:","timestamp":"2025-12-09T02:58:02.151Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Layer 'mpc_core' requires deployment","timestamp":"2025-12-09T02:58:02.151Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"  ❌ http://10.0.158.39:3030: SSM command failed: \nError parsing parameter '--parameters': Expected: ',', received: '(' for input:\n commands=[\"ps aux | grep -v grep | grep -E \"(mpc|docker.*mpc)\" | wc -l && echo \"---\" && echo \"NEAR_SKIP\" && echo \"---\" && timeout 5 netstat -tln 2>/dev/null | grep -c -E \":(3030|8080|24567)\" || timeout 5 ss -tln | grep -c -E \":(3030|8080|24567)\" || echo \"0\" && echo \"---\" && find /var/log -name \"*mpc*\" -type f -newermt \"5 minutes ago\" 2>/dev/null | wc -l || echo \"0\"\"]\n                                            ^\n","timestamp":"2025-12-09T02:58:02.151Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"  ❌ http://10.0.136.232:3030: SSM command failed: \nError parsing parameter '--parameters': Expected: ',', received: '(' for input:\n commands=[\"ps aux | grep -v grep | grep -E \"(mpc|docker.*mpc)\" | wc -l && echo \"---\" && echo \"NEAR_SKIP\" && echo \"---\" && timeout 5 netstat -tln 2>/dev/null | grep -c -E \":(3030|8080|24567)\" || timeout 5 ss -tln | grep -c -E \":(3030|8080|24567)\" || echo \"0\" && echo \"---\" && find /var/log -name \"*mpc*\" -type f -newermt \"5 minutes ago\" 2>/dev/null | wc -l || echo \"0\"\"]\n                                            ^\n","timestamp":"2025-12-09T02:58:02.151Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"  ❌ http://10.0.168.179:3030: SSM command failed: \nError parsing parameter '--parameters': Expected: ',', received: '(' for input:\n commands=[\"ps aux | grep -v grep | grep -E \"(mpc|docker.*mpc)\" | wc -l && echo \"---\" && echo \"NEAR_SKIP\" && echo \"---\" && timeout 5 netstat -tln 2>/dev/null | grep -c -E \":(3030|8080|24567)\" || timeout 5 ss -tln | grep -c -E \":(3030|8080|24567)\" || echo \"0\" && echo \"---\" && find /var/log -name \"*mpc*\" -type f -newermt \"5 minutes ago\" 2>/dev/null | wc -l || echo \"0\"\"]\n                                            ^\n","timestamp":"2025-12-09T02:58:02.151Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"Only 0/3 MPC nodes are operational. Proceeding with deployment.","timestamp":"2025-12-09T02:58:02.151Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Layer 'cross_chain_app' requires deployment","timestamp":"2025-12-09T02:58:02.152Z"}
+{"component":"Orchestrator:cross_chain_app","level":"info","message":"Cross-chain application layer always deploys (no verification available)","timestamp":"2025-12-09T02:58:02.152Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-09T02:58:14.151Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Performing thorough health check of existing NEAR RPC at: http://10.0.55.70:3030","timestamp":"2025-12-09T02:58:14.157Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-09T02:58:14.155Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-09T02:58:14.156Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layers","timestamp":"2025-12-09T02:58:14.156Z"}
+{"component":"Orchestrator:near_base","level":"error","message":"Existing NEAR RPC health check failed: timeout of 15000ms exceeded","timestamp":"2025-12-09T02:58:29.177Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Layer 'near_base' requires deployment","timestamp":"2025-12-09T02:58:29.178Z"}
+{"component":"Orchestrator:near_base","level":"warn","message":"Will proceed with deployment since existing RPC is not operational","timestamp":"2025-12-09T02:58:29.178Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"Performing thorough health checks on 3 existing MPC nodes","timestamp":"2025-12-09T02:58:29.179Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"MPC node health check results:","timestamp":"2025-12-09T02:58:43.048Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Layer 'mpc_core' requires deployment","timestamp":"2025-12-09T02:58:43.048Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"  ❌ http://10.0.158.39:3030: SSM command failed: \nError parsing parameter '--parameters': Expected: ',', received: '-' for input:\n commands=[\"ps aux | grep -v grep | grep mpc | wc -l && echo \"---\" && echo \"NEAR_SKIP\" && echo \"---\" && timeout 5 netstat -tln 2>/dev/null | grep -c \":3030|:8080|:24567\" || timeout 5 ss -tln | grep -c \":3030|:8080|:24567\" || echo \"0\" && echo \"---\" && find /var/log -name \"*mpc*\" -type f -newermt \"5 minutes ago\" 2>/dev/null | wc -l || echo \"0\"\"]\n                                                             ^\n","timestamp":"2025-12-09T02:58:43.048Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"  ❌ http://10.0.136.232:3030: SSM command failed: \nError parsing parameter '--parameters': Expected: ',', received: '-' for input:\n commands=[\"ps aux | grep -v grep | grep mpc | wc -l && echo \"---\" && echo \"NEAR_SKIP\" && echo \"---\" && timeout 5 netstat -tln 2>/dev/null | grep -c \":3030|:8080|:24567\" || timeout 5 ss -tln | grep -c \":3030|:8080|:24567\" || echo \"0\" && echo \"---\" && find /var/log -name \"*mpc*\" -type f -newermt \"5 minutes ago\" 2>/dev/null | wc -l || echo \"0\"\"]\n                                                             ^\n","timestamp":"2025-12-09T02:58:43.048Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"  ❌ http://10.0.168.179:3030: SSM command failed: \nError parsing parameter '--parameters': Expected: ',', received: '-' for input:\n commands=[\"ps aux | grep -v grep | grep mpc | wc -l && echo \"---\" && echo \"NEAR_SKIP\" && echo \"---\" && timeout 5 netstat -tln 2>/dev/null | grep -c \":3030|:8080|:24567\" || timeout 5 ss -tln | grep -c \":3030|:8080|:24567\" || echo \"0\" && echo \"---\" && find /var/log -name \"*mpc*\" -type f -newermt \"5 minutes ago\" 2>/dev/null | wc -l || echo \"0\"\"]\n                                                             ^\n","timestamp":"2025-12-09T02:58:43.048Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"Only 0/3 MPC nodes are operational. Proceeding with deployment.","timestamp":"2025-12-09T02:58:43.048Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Layer 'cross_chain_app' requires deployment","timestamp":"2025-12-09T02:58:43.049Z"}
+{"component":"Orchestrator:cross_chain_app","level":"info","message":"Cross-chain application layer always deploys (no verification available)","timestamp":"2025-12-09T02:58:43.049Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-09T02:58:54.524Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Performing thorough health check of existing NEAR RPC at: http://10.0.55.70:3030","timestamp":"2025-12-09T02:58:54.530Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-09T02:58:54.528Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-09T02:58:54.529Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layers","timestamp":"2025-12-09T02:58:54.529Z"}
+{"component":"Orchestrator:near_base","level":"error","message":"Existing NEAR RPC health check failed: timeout of 15000ms exceeded","timestamp":"2025-12-09T02:59:09.556Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Layer 'near_base' requires deployment","timestamp":"2025-12-09T02:59:09.557Z"}
+{"component":"Orchestrator:near_base","level":"warn","message":"Will proceed with deployment since existing RPC is not operational","timestamp":"2025-12-09T02:59:09.557Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"Performing thorough health checks on 3 existing MPC nodes","timestamp":"2025-12-09T02:59:09.558Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-09T03:05:51.049Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Performing thorough health check of existing NEAR RPC at: http://10.0.55.70:3030","timestamp":"2025-12-09T03:05:51.054Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-09T03:05:51.053Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-09T03:05:51.054Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layers","timestamp":"2025-12-09T03:05:51.054Z"}
+{"component":"Orchestrator:near_base","level":"error","message":"Existing NEAR RPC health check failed: timeout of 15000ms exceeded","timestamp":"2025-12-09T03:06:06.068Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Layer 'near_base' requires deployment","timestamp":"2025-12-09T03:06:06.071Z"}
+{"component":"Orchestrator:near_base","level":"warn","message":"Will proceed with deployment since existing RPC is not operational","timestamp":"2025-12-09T03:06:06.071Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"Performing thorough health checks on 3 existing MPC nodes","timestamp":"2025-12-09T03:06:06.073Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"MPC node health check results:","timestamp":"2025-12-09T03:06:20.369Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Layer 'mpc_core' requires deployment","timestamp":"2025-12-09T03:06:20.370Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"  ❌ http://10.0.158.39:3030: SSM command failed: \nError parsing parameter '--parameters': Expected: ',', received: '0' for input:\n commands=[\"ps aux | grep -v grep | grep mpc | wc -l 2>/dev/null || echo \"0\"; echo \"---\"; echo \"NEAR_SKIP\"; echo \"---\"; netstat -tln 2>/dev/null | grep -c \":3030\\|:8080\\|:24567\" 2>/dev/null || ss -tln 2>/dev/null | grep -c \":3030\\|:8080\\|:24567\" 2>/dev/null || echo \"0\"; echo \"---\"; find /var/log -name \"*mpc*\" -type f 2>/dev/null | wc -l 2>/dev/null || echo \"0\"\"]\n                                                                         ^\n","timestamp":"2025-12-09T03:06:20.369Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"  ❌ http://10.0.136.232:3030: SSM command failed: \nError parsing parameter '--parameters': Expected: ',', received: '0' for input:\n commands=[\"ps aux | grep -v grep | grep mpc | wc -l 2>/dev/null || echo \"0\"; echo \"---\"; echo \"NEAR_SKIP\"; echo \"---\"; netstat -tln 2>/dev/null | grep -c \":3030\\|:8080\\|:24567\" 2>/dev/null || ss -tln 2>/dev/null | grep -c \":3030\\|:8080\\|:24567\" 2>/dev/null || echo \"0\"; echo \"---\"; find /var/log -name \"*mpc*\" -type f 2>/dev/null | wc -l 2>/dev/null || echo \"0\"\"]\n                                                                         ^\n","timestamp":"2025-12-09T03:06:20.369Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"  ❌ http://10.0.168.179:3030: SSM command failed: \nError parsing parameter '--parameters': Expected: ',', received: '0' for input:\n commands=[\"ps aux | grep -v grep | grep mpc | wc -l 2>/dev/null || echo \"0\"; echo \"---\"; echo \"NEAR_SKIP\"; echo \"---\"; netstat -tln 2>/dev/null | grep -c \":3030\\|:8080\\|:24567\" 2>/dev/null || ss -tln 2>/dev/null | grep -c \":3030\\|:8080\\|:24567\" 2>/dev/null || echo \"0\"; echo \"---\"; find /var/log -name \"*mpc*\" -type f 2>/dev/null | wc -l 2>/dev/null || echo \"0\"\"]\n                                                                         ^\n","timestamp":"2025-12-09T03:06:20.369Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"Only 0/3 MPC nodes are operational. Proceeding with deployment.","timestamp":"2025-12-09T03:06:20.370Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Layer 'cross_chain_app' requires deployment","timestamp":"2025-12-09T03:06:20.370Z"}
+{"component":"Orchestrator:cross_chain_app","level":"info","message":"Cross-chain application layer always deploys (no verification available)","timestamp":"2025-12-09T03:06:20.370Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-09T03:06:46.511Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Performing thorough health check of existing NEAR RPC at: http://10.0.55.70:3030","timestamp":"2025-12-09T03:06:46.516Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-09T03:06:46.515Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-09T03:06:46.515Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layers","timestamp":"2025-12-09T03:06:46.516Z"}
+{"component":"Orchestrator:near_base","level":"error","message":"Existing NEAR RPC health check failed: timeout of 15000ms exceeded","timestamp":"2025-12-09T03:07:01.529Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Layer 'near_base' requires deployment","timestamp":"2025-12-09T03:07:01.530Z"}
+{"component":"Orchestrator:near_base","level":"warn","message":"Will proceed with deployment since existing RPC is not operational","timestamp":"2025-12-09T03:07:01.530Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"Performing thorough health checks on 3 existing MPC nodes","timestamp":"2025-12-09T03:07:01.532Z"}
+{"component":"Orchestrator","level":"warn","message":"MPC node i-00436a1c5f4974398 health issues via SSM (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:07:19.759Z"}
+{"component":"Orchestrator","level":"warn","message":"MPC node i-07dc819739c4bb39c health issues via SSM (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:07:19.761Z"}
+{"component":"Orchestrator","level":"warn","message":"MPC node i-0ca3e3ae6d3f04e1c health issues via SSM (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:07:19.763Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"MPC node health check results:","timestamp":"2025-12-09T03:07:19.763Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Layer 'mpc_core' requires deployment","timestamp":"2025-12-09T03:07:19.764Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Layer 'cross_chain_app' requires deployment","timestamp":"2025-12-09T03:07:19.764Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"  ❌ http://10.0.158.39:3030: Health check failed (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:07:19.763Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"  ❌ http://10.0.136.232:3030: Health check failed (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:07:19.763Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"  ❌ http://10.0.168.179:3030: Health check failed (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:07:19.763Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"Only 0/3 MPC nodes are operational. Proceeding with deployment.","timestamp":"2025-12-09T03:07:19.764Z"}
+{"component":"Orchestrator:cross_chain_app","level":"info","message":"Cross-chain application layer always deploys (no verification available)","timestamp":"2025-12-09T03:07:19.764Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-09T03:40:37.424Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-09T03:40:37.429Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-09T03:40:37.429Z"}
+{"component":"Orchestrator","level":"info","message":"🎯 Starting orchestration process","timestamp":"2025-12-09T03:40:37.429Z"}
+{"component":"Orchestrator","level":"info","message":"📋 Execution plan: ","timestamp":"2025-12-09T03:40:37.430Z"}
+{"component":"Orchestrator","level":"info","message":"✅ ✅ Orchestration completed successfully in 1ms","timestamp":"2025-12-09T03:40:37.430Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-09T03:40:40.931Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Performing thorough health check of existing NEAR RPC at: http://10.0.55.70:3030","timestamp":"2025-12-09T03:40:40.937Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-09T03:40:40.935Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-09T03:40:40.936Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layers","timestamp":"2025-12-09T03:40:40.936Z"}
+{"component":"Orchestrator:near_base","level":"error","message":"Existing NEAR RPC health check failed: timeout of 15000ms exceeded","timestamp":"2025-12-09T03:40:55.953Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Layer 'near_base' requires deployment","timestamp":"2025-12-09T03:40:55.954Z"}
+{"component":"Orchestrator:near_base","level":"warn","message":"Will proceed with deployment since existing RPC is not operational","timestamp":"2025-12-09T03:40:55.953Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"Performing thorough health checks on 3 existing MPC nodes","timestamp":"2025-12-09T03:40:55.954Z"}
+{"component":"Orchestrator","level":"warn","message":"MPC node i-07dc819739c4bb39c health issues via SSM (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:41:15.976Z"}
+{"component":"Orchestrator","level":"warn","message":"MPC node i-00436a1c5f4974398 health issues via SSM (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:41:15.998Z"}
+{"component":"Orchestrator","level":"warn","message":"MPC node i-0ca3e3ae6d3f04e1c health issues via SSM (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:41:16.001Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"MPC node health check results:","timestamp":"2025-12-09T03:41:16.001Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Layer 'mpc_core' requires deployment","timestamp":"2025-12-09T03:41:16.002Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Layer 'cross_chain_app' requires deployment","timestamp":"2025-12-09T03:41:16.002Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"  ❌ http://10.0.158.39:3030: Health check failed (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:41:16.001Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"  ❌ http://10.0.136.232:3030: Health check failed (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:41:16.001Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"  ❌ http://10.0.168.179:3030: Health check failed (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:41:16.001Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"Only 0/3 MPC nodes are operational. Proceeding with deployment.","timestamp":"2025-12-09T03:41:16.001Z"}
+{"component":"Orchestrator:cross_chain_app","level":"info","message":"Cross-chain application layer always deploys (no verification available)","timestamp":"2025-12-09T03:41:16.002Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-09T03:41:20.413Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"Performing thorough health checks on 3 existing MPC nodes","timestamp":"2025-12-09T03:41:20.419Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-09T03:41:20.417Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-09T03:41:20.418Z"}
+{"component":"Orchestrator","level":"info","message":"🎯 Starting orchestration process","timestamp":"2025-12-09T03:41:20.419Z"}
+{"component":"Orchestrator","level":"info","message":"📋 Execution plan: mpc_core","timestamp":"2025-12-09T03:41:20.419Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layer 'mpc_core'...","timestamp":"2025-12-09T03:41:20.419Z"}
+{"component":"Orchestrator","level":"warn","message":"MPC node i-0ca3e3ae6d3f04e1c health issues via SSM (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:41:38.367Z"}
+{"component":"Orchestrator","level":"warn","message":"MPC node i-00436a1c5f4974398 health issues via SSM (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:41:38.397Z"}
+{"component":"Orchestrator","level":"warn","message":"MPC node i-07dc819739c4bb39c health issues via SSM (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:41:38.405Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"MPC node health check results:","timestamp":"2025-12-09T03:41:38.405Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-09T03:44:20.129Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Checking existing NEAR RPC infrastructure at: http://10.0.55.70:3030","timestamp":"2025-12-09T03:44:20.136Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-09T03:44:20.134Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-09T03:44:20.135Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layers","timestamp":"2025-12-09T03:44:20.135Z"}
+{"component":"Orchestrator:near_base","level":"warn","message":"External access to NEAR RPC failed: timeout of 15000ms exceeded","timestamp":"2025-12-09T03:44:35.152Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Checking if NEAR infrastructure exists via AWS APIs...","timestamp":"2025-12-09T03:44:35.153Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"✅ NEAR infrastructure exists and is properly secured","timestamp":"2025-12-09T03:44:37.342Z"}
+{"component":"Orchestrator","level":"info","message":"⏭️  Skipping layer 'near_base': Existing NEAR infrastructure exists and is properly secured (network isolation expected)","timestamp":"2025-12-09T03:44:37.342Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"- Instance: i-05be3caaffbafb8c1","timestamp":"2025-12-09T03:44:37.342Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"- VPC: vpc-0ad7ab6659e0293ae","timestamp":"2025-12-09T03:44:37.342Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"- Network isolation is working correctly","timestamp":"2025-12-09T03:44:37.342Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"Performing thorough health checks on 3 existing MPC nodes","timestamp":"2025-12-09T03:44:37.343Z"}
+{"component":"Orchestrator","level":"warn","message":"MPC node i-00436a1c5f4974398 health issues via SSM (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:44:54.948Z"}
+{"component":"Orchestrator","level":"warn","message":"MPC node i-0ca3e3ae6d3f04e1c health issues via SSM (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:44:54.968Z"}
+{"component":"Orchestrator","level":"warn","message":"MPC node i-07dc819739c4bb39c health issues via SSM (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:44:54.970Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"MPC node health check results:","timestamp":"2025-12-09T03:44:54.971Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Layer 'mpc_core' requires deployment","timestamp":"2025-12-09T03:44:54.971Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Layer 'cross_chain_app' requires deployment","timestamp":"2025-12-09T03:44:54.971Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"  ❌ http://10.0.158.39:3030: Health check failed (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:44:54.971Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"  ❌ http://10.0.136.232:3030: Health check failed (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:44:54.971Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"  ❌ http://10.0.168.179:3030: Health check failed (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:44:54.971Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"Only 0/3 MPC nodes are operational. Proceeding with deployment.","timestamp":"2025-12-09T03:44:54.971Z"}
+{"component":"Orchestrator:cross_chain_app","level":"info","message":"Cross-chain application layer always deploys (no verification available)","timestamp":"2025-12-09T03:44:54.971Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-09T03:44:59.748Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"Performing thorough health checks on 3 existing MPC nodes","timestamp":"2025-12-09T03:44:59.753Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-09T03:44:59.751Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-09T03:44:59.752Z"}
+{"component":"Orchestrator","level":"info","message":"🎯 Starting orchestration process","timestamp":"2025-12-09T03:44:59.753Z"}
+{"component":"Orchestrator","level":"info","message":"📋 Execution plan: mpc_core","timestamp":"2025-12-09T03:44:59.753Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layer 'mpc_core'...","timestamp":"2025-12-09T03:44:59.753Z"}
+{"component":"Orchestrator","level":"warn","message":"MPC node i-07dc819739c4bb39c health issues via SSM (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:45:17.241Z"}
+{"component":"Orchestrator","level":"warn","message":"MPC node i-00436a1c5f4974398 health issues via SSM (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:45:17.318Z"}
+{"component":"Orchestrator","level":"warn","message":"MPC node i-0ca3e3ae6d3f04e1c health issues via SSM (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:45:17.320Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"MPC node health check results:","timestamp":"2025-12-09T03:45:17.320Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-09T03:45:58.826Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Checking existing NEAR RPC infrastructure at: http://10.0.55.70:3030","timestamp":"2025-12-09T03:45:58.833Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-09T03:45:58.831Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-09T03:45:58.832Z"}
+{"component":"Orchestrator","level":"info","message":"🎯 Starting orchestration process","timestamp":"2025-12-09T03:45:58.832Z"}
+{"component":"Orchestrator","level":"info","message":"📋 Execution plan: near_base → mpc_core","timestamp":"2025-12-09T03:45:58.832Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layer 'near_base'...","timestamp":"2025-12-09T03:45:58.833Z"}
+{"component":"Orchestrator:near_base","level":"warn","message":"External access to NEAR RPC failed: timeout of 15000ms exceeded","timestamp":"2025-12-09T03:46:13.847Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Checking if NEAR infrastructure exists via AWS APIs...","timestamp":"2025-12-09T03:46:13.847Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"✅ NEAR infrastructure exists and is properly secured","timestamp":"2025-12-09T03:46:15.719Z"}
+{"component":"Orchestrator","level":"info","message":"⏭️  Skipping layer 'near_base': Existing NEAR infrastructure exists and is properly secured (network isolation expected)","timestamp":"2025-12-09T03:46:15.719Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"- Instance: i-05be3caaffbafb8c1","timestamp":"2025-12-09T03:46:15.719Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"- VPC: vpc-0ad7ab6659e0293ae","timestamp":"2025-12-09T03:46:15.719Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"- Network isolation is working correctly","timestamp":"2025-12-09T03:46:15.719Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layer 'mpc_core'...","timestamp":"2025-12-09T03:46:15.719Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"Performing thorough health checks on 3 existing MPC nodes","timestamp":"2025-12-09T03:46:15.719Z"}
+{"component":"Orchestrator","level":"warn","message":"MPC node i-0ca3e3ae6d3f04e1c health issues via SSM (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:46:34.214Z"}
+{"component":"Orchestrator","level":"warn","message":"MPC node i-00436a1c5f4974398 health issues via SSM (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:46:34.239Z"}
+{"component":"Orchestrator","level":"warn","message":"MPC node i-07dc819739c4bb39c health issues via SSM (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:46:34.257Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"MPC node health check results:","timestamp":"2025-12-09T03:46:34.257Z"}
+{"component":"Orchestrator","level":"info","message":"📦 Deploying layer 'mpc_core'...","timestamp":"2025-12-09T03:46:34.257Z"}
+{"component":"Orchestrator","level":"info","message":"Ensuring repository: mpc (https://github.com/shaiss/mpc)","timestamp":"2025-12-09T03:46:34.257Z"}
+{"component":"Orchestrator","level":"info","message":"Cloning repository: https://github.com/shaiss/mpc -> /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/workspace/mpc","timestamp":"2025-12-09T03:46:34.257Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"  ❌ http://10.0.158.39:3030: Health check failed (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:46:34.257Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"  ❌ http://10.0.136.232:3030: Health check failed (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:46:34.257Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"  ❌ http://10.0.168.179:3030: Health check failed (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:46:34.257Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"Only 0/3 MPC nodes are operational. Proceeding with deployment.","timestamp":"2025-12-09T03:46:34.257Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"🚀 Starting: Deploying MPC Core Layer","timestamp":"2025-12-09T03:46:34.257Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Cloned repository to /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/workspace/mpc","timestamp":"2025-12-09T03:46:35.156Z"}
+{"component":"Orchestrator","level":"info","message":"Setting up Rust project at /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/workspace/mpc","timestamp":"2025-12-09T03:46:35.156Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Repository ready: mpc","timestamp":"2025-12-09T03:46:36.048Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"Installing CDK dependencies in infra/aws-cdk","timestamp":"2025-12-09T03:46:36.049Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"Generating MPC configuration","timestamp":"2025-12-09T03:46:42.997Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Starting: CDK deploy in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/workspace/mpc/infra/aws-cdk","timestamp":"2025-12-09T03:46:42.998Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"✅ MPC configuration written to: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/workspace/mpc/infra/aws-cdk/config.local.json","timestamp":"2025-12-09T03:46:42.998Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"Deploying CDK stacks in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/workspace/mpc/infra/aws-cdk","timestamp":"2025-12-09T03:46:42.998Z"}
+{"component":"Orchestrator","level":"info","message":"Running: cdk deploy --profile shai-sandbox-profile --region us-east-1 mpc-network --require-approval never --outputs-file cdk-outputs.json","timestamp":"2025-12-09T03:46:42.998Z"}
+{"component":"Orchestrator","error":{"exitCode":1,"stderr":"Command failed with exit code 1: npx cdk deploy --profile shai-sandbox-profile --region us-east-1 mpc-network --require-approval never --outputs-file cdk-outputs.json","stdout":""},"level":"error","message":"Command failed: npx cdk deploy --profile shai-sandbox-profile --region us-east-1 mpc-network --require-approval never --outputs-file cdk-outputs.json","timestamp":"2025-12-09T03:46:48.730Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"❌ Failed: MPC Core Layer deployment CDK deployment failed: Command failed with exit code 1: npx cdk deploy --profile shai-sandbox-profile --region us-east-1 mpc-network --require-approval never --outputs-file cdk-outputs.json","stack":"Error: CDK deployment failed: Command failed with exit code 1: npx cdk deploy --profile shai-sandbox-profile --region us-east-1 mpc-network --require-approval never --outputs-file cdk-outputs.json\n    at MpcCoreLayer.deployCdkStacks (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/layers/BaseLayer.js:159:19)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async MpcCoreLayer.deploy (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/layers/MpcCoreLayer.js:131:34)\n    at async Orchestrator.processLayer (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/Orchestrator.js:226:34)\n    at async Orchestrator.run (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/Orchestrator.js:111:33)\n    at async handleDeploy (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/index.js:156:20)\n    at async runCommand (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/index.js:111:17)\n    at async Command.<anonymous> (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/index.js:33:5)","timestamp":"2025-12-09T03:46:48.731Z"}
+{"component":"Orchestrator","level":"error","message":"❌ Failed: CDK deploy in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/workspace/mpc/infra/aws-cdk","timestamp":"2025-12-09T03:46:48.730Z"}
+{"component":"Orchestrator","level":"error","message":"Deployment failed for layer 'mpc_core': CDK deployment failed: Command failed with exit code 1: npx cdk deploy --profile shai-sandbox-profile --region us-east-1 mpc-network --require-approval never --outputs-file cdk-outputs.json","timestamp":"2025-12-09T03:46:48.731Z"}
+{"component":"Orchestrator","level":"error","message":"❌ Layer 'mpc_core' failed. Stopping execution.","timestamp":"2025-12-09T03:46:48.731Z"}
+{"component":"Orchestrator","level":"warn","message":"🔄 Rolling back 1 successfully deployed layers...","timestamp":"2025-12-09T03:46:48.731Z"}
+{"component":"Orchestrator","level":"info","message":"Ensuring repository: AWSNodeRunner (https://github.com/near-sandbox/AWSNodeRunner)","timestamp":"2025-12-09T03:46:48.732Z"}
+{"component":"Orchestrator","level":"info","message":"Cloning repository: https://github.com/near-sandbox/AWSNodeRunner -> /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/workspace/AWSNodeRunner","timestamp":"2025-12-09T03:46:48.732Z"}
+{"component":"Orchestrator","error":{"exitCode":128,"stderr":"Command failed with exit code 128: git clone --branch main https://github.com/near-sandbox/AWSNodeRunner /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/workspace/AWSNodeRunner","stdout":""},"level":"error","message":"Command failed: git clone --branch main https://github.com/near-sandbox/AWSNodeRunner /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/workspace/AWSNodeRunner","timestamp":"2025-12-09T03:46:49.042Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-09T03:47:22.691Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Checking existing NEAR RPC infrastructure at: http://10.0.55.70:3030","timestamp":"2025-12-09T03:47:22.700Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-09T03:47:22.698Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-09T03:47:22.699Z"}
+{"component":"Orchestrator","level":"info","message":"🎯 Starting orchestration process","timestamp":"2025-12-09T03:47:22.700Z"}
+{"component":"Orchestrator","level":"info","message":"📋 Execution plan: near_base → mpc_core","timestamp":"2025-12-09T03:47:22.700Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layer 'near_base'...","timestamp":"2025-12-09T03:47:22.700Z"}
+{"component":"Orchestrator:near_base","level":"warn","message":"External access to NEAR RPC failed: timeout of 15000ms exceeded","timestamp":"2025-12-09T03:47:37.718Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Checking if NEAR infrastructure exists via AWS APIs...","timestamp":"2025-12-09T03:47:37.719Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"✅ NEAR infrastructure exists and is properly secured","timestamp":"2025-12-09T03:47:40.058Z"}
+{"component":"Orchestrator","level":"info","message":"⏭️  Skipping layer 'near_base': Existing NEAR infrastructure exists and is properly secured (network isolation expected)","timestamp":"2025-12-09T03:47:40.058Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"- Instance: i-05be3caaffbafb8c1","timestamp":"2025-12-09T03:47:40.058Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"- VPC: vpc-0ad7ab6659e0293ae","timestamp":"2025-12-09T03:47:40.058Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"- Network isolation is working correctly","timestamp":"2025-12-09T03:47:40.058Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layer 'mpc_core'...","timestamp":"2025-12-09T03:47:40.058Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"Performing thorough health checks on 3 existing MPC nodes","timestamp":"2025-12-09T03:47:40.059Z"}
+{"component":"Orchestrator","level":"warn","message":"MPC node i-07dc819739c4bb39c health issues via SSM (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:47:57.620Z"}
+{"component":"Orchestrator","level":"warn","message":"MPC node i-00436a1c5f4974398 health issues via SSM (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:47:57.641Z"}
+{"component":"Orchestrator","level":"warn","message":"MPC node i-0ca3e3ae6d3f04e1c health issues via SSM (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:47:57.647Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"MPC node health check results:","timestamp":"2025-12-09T03:47:57.647Z"}
+{"component":"Orchestrator","level":"info","message":"📦 Deploying layer 'mpc_core'...","timestamp":"2025-12-09T03:47:57.647Z"}
+{"component":"Orchestrator","level":"info","message":"Ensuring repository: mpc (https://github.com/shaiss/mpc)","timestamp":"2025-12-09T03:47:57.647Z"}
+{"component":"Orchestrator","level":"info","message":"Updating repository at /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/workspace/mpc","timestamp":"2025-12-09T03:47:57.647Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"  ❌ http://10.0.158.39:3030: Health check failed (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:47:57.647Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"  ❌ http://10.0.136.232:3030: Health check failed (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:47:57.647Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"  ❌ http://10.0.168.179:3030: Health check failed (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:47:57.647Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"Only 0/3 MPC nodes are operational. Proceeding with deployment.","timestamp":"2025-12-09T03:47:57.647Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"🚀 Starting: Deploying MPC Core Layer","timestamp":"2025-12-09T03:47:57.647Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Updated repository to latest main","timestamp":"2025-12-09T03:47:58.004Z"}
+{"component":"Orchestrator","level":"info","message":"Setting up Rust project at /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/workspace/mpc","timestamp":"2025-12-09T03:47:58.004Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Repository ready: mpc","timestamp":"2025-12-09T03:47:58.365Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"Installing CDK dependencies in infra/aws-cdk","timestamp":"2025-12-09T03:47:58.365Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"Generating MPC configuration","timestamp":"2025-12-09T03:47:59.304Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Starting: CDK deploy in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/workspace/mpc/infra/aws-cdk","timestamp":"2025-12-09T03:47:59.305Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"✅ MPC configuration written to: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/workspace/mpc/infra/aws-cdk/config.local.json","timestamp":"2025-12-09T03:47:59.305Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"Deploying CDK stacks in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/workspace/mpc/infra/aws-cdk","timestamp":"2025-12-09T03:47:59.305Z"}
+{"component":"Orchestrator","level":"info","message":"Running: cdk deploy --profile shai-sandbox-profile --region us-east-1 MpcStandaloneStack --require-approval never --outputs-file cdk-outputs.json","timestamp":"2025-12-09T03:47:59.305Z"}
+{"component":"Orchestrator","error":{"exitCode":1,"stderr":"Command failed with exit code 1: npx cdk deploy --profile shai-sandbox-profile --region us-east-1 MpcStandaloneStack --require-approval never --outputs-file cdk-outputs.json","stdout":""},"level":"error","message":"Command failed: npx cdk deploy --profile shai-sandbox-profile --region us-east-1 MpcStandaloneStack --require-approval never --outputs-file cdk-outputs.json","timestamp":"2025-12-09T03:52:40.592Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"❌ Failed: MPC Core Layer deployment CDK deployment failed: Command failed with exit code 1: npx cdk deploy --profile shai-sandbox-profile --region us-east-1 MpcStandaloneStack --require-approval never --outputs-file cdk-outputs.json","stack":"Error: CDK deployment failed: Command failed with exit code 1: npx cdk deploy --profile shai-sandbox-profile --region us-east-1 MpcStandaloneStack --require-approval never --outputs-file cdk-outputs.json\n    at MpcCoreLayer.deployCdkStacks (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/layers/BaseLayer.js:159:19)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async MpcCoreLayer.deploy (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/layers/MpcCoreLayer.js:131:34)\n    at async Orchestrator.processLayer (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/Orchestrator.js:226:34)\n    at async Orchestrator.run (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/Orchestrator.js:111:33)\n    at async handleDeploy (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/index.js:156:20)\n    at async runCommand (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/index.js:111:17)\n    at async Command.<anonymous> (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/index.js:33:5)","timestamp":"2025-12-09T03:52:40.593Z"}
+{"component":"Orchestrator","level":"error","message":"❌ Failed: CDK deploy in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/workspace/mpc/infra/aws-cdk","timestamp":"2025-12-09T03:52:40.592Z"}
+{"component":"Orchestrator","level":"error","message":"Deployment failed for layer 'mpc_core': CDK deployment failed: Command failed with exit code 1: npx cdk deploy --profile shai-sandbox-profile --region us-east-1 MpcStandaloneStack --require-approval never --outputs-file cdk-outputs.json","timestamp":"2025-12-09T03:52:40.593Z"}
+{"component":"Orchestrator","level":"error","message":"❌ Layer 'mpc_core' failed. Stopping execution.","timestamp":"2025-12-09T03:52:40.593Z"}
+{"component":"Orchestrator","level":"warn","message":"🔄 Rolling back 1 successfully deployed layers...","timestamp":"2025-12-09T03:52:40.593Z"}
+{"component":"Orchestrator","level":"info","message":"Ensuring repository: AWSNodeRunner (https://github.com/near-sandbox/AWSNodeRunner)","timestamp":"2025-12-09T03:52:40.594Z"}
+{"component":"Orchestrator","level":"info","message":"Cloning repository: https://github.com/near-sandbox/AWSNodeRunner -> /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/workspace/AWSNodeRunner","timestamp":"2025-12-09T03:52:40.594Z"}
+{"component":"Orchestrator","error":{"exitCode":128,"stderr":"Command failed with exit code 128: git clone --branch main https://github.com/near-sandbox/AWSNodeRunner /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/workspace/AWSNodeRunner","stdout":""},"level":"error","message":"Command failed: git clone --branch main https://github.com/near-sandbox/AWSNodeRunner /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/workspace/AWSNodeRunner","timestamp":"2025-12-09T03:52:40.859Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-09T03:53:31.506Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Checking existing NEAR RPC infrastructure at: http://10.0.55.70:3030","timestamp":"2025-12-09T03:53:31.512Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-09T03:53:31.510Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-09T03:53:31.511Z"}
+{"component":"Orchestrator","level":"info","message":"🎯 Starting orchestration process","timestamp":"2025-12-09T03:53:31.511Z"}
+{"component":"Orchestrator","level":"info","message":"📋 Execution plan: near_base → mpc_core","timestamp":"2025-12-09T03:53:31.512Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layer 'near_base'...","timestamp":"2025-12-09T03:53:31.512Z"}
+{"component":"Orchestrator:near_base","level":"warn","message":"External access to NEAR RPC failed: timeout of 15000ms exceeded","timestamp":"2025-12-09T03:53:46.523Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Checking if NEAR infrastructure exists via AWS APIs...","timestamp":"2025-12-09T03:53:46.523Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"✅ NEAR infrastructure exists and is properly secured","timestamp":"2025-12-09T03:53:48.667Z"}
+{"component":"Orchestrator","level":"info","message":"⏭️  Skipping layer 'near_base': Existing NEAR infrastructure exists and is properly secured (network isolation expected)","timestamp":"2025-12-09T03:53:48.667Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"- Instance: i-05be3caaffbafb8c1","timestamp":"2025-12-09T03:53:48.667Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"- VPC: vpc-0ad7ab6659e0293ae","timestamp":"2025-12-09T03:53:48.667Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"- Network isolation is working correctly","timestamp":"2025-12-09T03:53:48.667Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layer 'mpc_core'...","timestamp":"2025-12-09T03:53:48.668Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"Performing thorough health checks on 3 existing MPC nodes","timestamp":"2025-12-09T03:53:48.668Z"}
+{"component":"Orchestrator","level":"warn","message":"MPC node i-00436a1c5f4974398 health issues via SSM (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:54:06.268Z"}
+{"component":"Orchestrator","level":"warn","message":"MPC node i-0ca3e3ae6d3f04e1c health issues via SSM (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:54:06.272Z"}
+{"component":"Orchestrator","level":"warn","message":"MPC node i-07dc819739c4bb39c health issues via SSM (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:54:06.293Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"MPC node health check results:","timestamp":"2025-12-09T03:54:06.293Z"}
+{"component":"Orchestrator","level":"info","message":"📦 Deploying layer 'mpc_core'...","timestamp":"2025-12-09T03:54:06.293Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"  ❌ http://10.0.158.39:3030: Health check failed (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:54:06.293Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"  ❌ http://10.0.136.232:3030: Health check failed (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:54:06.293Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"  ❌ http://10.0.168.179:3030: Health check failed (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:54:06.293Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"Only 0/3 MPC nodes are operational. Proceeding with deployment.","timestamp":"2025-12-09T03:54:06.293Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"🚀 Starting: Deploying MPC Core Layer","timestamp":"2025-12-09T03:54:06.293Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"MPC infrastructure already exists, verifying services...","timestamp":"2025-12-09T03:54:07.108Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"Found 3 MPC instances: i-0ca3e3ae6d3f04e1c, i-07dc819739c4bb39c, i-00436a1c5f4974398","timestamp":"2025-12-09T03:54:07.856Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"Checking services on instance i-0ca3e3ae6d3f04e1c...","timestamp":"2025-12-09T03:54:07.856Z"}
+{"component":"Orchestrator:mpc_core","level":"warn","message":"Service check inconclusive on instance i-0ca3e3ae6d3f04e1c: Failed\n","timestamp":"2025-12-09T03:54:19.798Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"Checking services on instance i-07dc819739c4bb39c...","timestamp":"2025-12-09T03:54:19.798Z"}
+{"component":"Orchestrator:mpc_core","level":"warn","message":"Service check inconclusive on instance i-07dc819739c4bb39c: Failed\n","timestamp":"2025-12-09T03:54:31.413Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"Checking services on instance i-00436a1c5f4974398...","timestamp":"2025-12-09T03:54:31.413Z"}
+{"component":"Orchestrator:mpc_core","level":"warn","message":"Service check inconclusive on instance i-00436a1c5f4974398: Failed\n","timestamp":"2025-12-09T03:54:42.947Z"}
+{"component":"Orchestrator","level":"info","message":"📤 Getting outputs for layer 'mpc_core'...","timestamp":"2025-12-09T03:54:42.947Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"✅ MPC services verified and running","timestamp":"2025-12-09T03:54:42.947Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"Reading MPC Core Layer outputs","timestamp":"2025-12-09T03:54:42.948Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"✅ MPC infrastructure deployed with 3 nodes","timestamp":"2025-12-09T03:54:43.753Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Layer 'mpc_core' deployed successfully","timestamp":"2025-12-09T03:54:43.753Z"}
+{"component":"Orchestrator","level":"info","message":"✅ ✅ Orchestration completed successfully in 72244ms","timestamp":"2025-12-09T03:54:43.755Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-09T03:54:47.642Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Checking existing NEAR RPC infrastructure at: http://10.0.55.70:3030","timestamp":"2025-12-09T03:54:47.648Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-09T03:54:47.646Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-09T03:54:47.647Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layers","timestamp":"2025-12-09T03:54:47.647Z"}
+{"component":"Orchestrator:near_base","level":"warn","message":"External access to NEAR RPC failed: timeout of 15000ms exceeded","timestamp":"2025-12-09T03:55:02.665Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Checking if NEAR infrastructure exists via AWS APIs...","timestamp":"2025-12-09T03:55:02.665Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"✅ NEAR infrastructure exists and is properly secured","timestamp":"2025-12-09T03:55:04.818Z"}
+{"component":"Orchestrator","level":"info","message":"⏭️  Skipping layer 'near_base': Existing NEAR infrastructure exists and is properly secured (network isolation expected)","timestamp":"2025-12-09T03:55:04.819Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"- Instance: i-05be3caaffbafb8c1","timestamp":"2025-12-09T03:55:04.819Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"- VPC: vpc-0ad7ab6659e0293ae","timestamp":"2025-12-09T03:55:04.819Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"- Network isolation is working correctly","timestamp":"2025-12-09T03:55:04.819Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"Performing thorough health checks on 3 existing MPC nodes","timestamp":"2025-12-09T03:55:04.821Z"}
+{"component":"Orchestrator","level":"warn","message":"MPC node i-0ca3e3ae6d3f04e1c health issues via SSM (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:55:24.472Z"}
+{"component":"Orchestrator","level":"warn","message":"MPC node i-00436a1c5f4974398 health issues via SSM (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:55:24.476Z"}
+{"component":"Orchestrator","level":"warn","message":"MPC node i-07dc819739c4bb39c health issues via SSM (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:55:24.478Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"MPC node health check results:","timestamp":"2025-12-09T03:55:24.478Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Layer 'mpc_core' requires deployment","timestamp":"2025-12-09T03:55:24.479Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Layer 'cross_chain_app' requires deployment","timestamp":"2025-12-09T03:55:24.479Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"  ❌ http://10.0.158.39:3030: Health check failed (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:55:24.478Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"  ❌ http://10.0.136.232:3030: Health check failed (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:55:24.479Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"  ❌ http://10.0.168.179:3030: Health check failed (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:55:24.479Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"Only 0/3 MPC nodes are operational. Proceeding with deployment.","timestamp":"2025-12-09T03:55:24.479Z"}
+{"component":"Orchestrator:cross_chain_app","level":"info","message":"Cross-chain application layer always deploys (no verification available)","timestamp":"2025-12-09T03:55:24.479Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-09T03:55:29.693Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Checking existing NEAR RPC infrastructure at: http://10.0.55.70:3030","timestamp":"2025-12-09T03:55:29.700Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-09T03:55:29.697Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-09T03:55:29.698Z"}
+{"component":"Orchestrator","level":"info","message":"🎯 Starting orchestration process","timestamp":"2025-12-09T03:55:29.699Z"}
+{"component":"Orchestrator","level":"info","message":"📋 Execution plan: near_base → mpc_core → cross_chain_app","timestamp":"2025-12-09T03:55:29.699Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layer 'near_base'...","timestamp":"2025-12-09T03:55:29.699Z"}
+{"component":"Orchestrator:near_base","level":"warn","message":"External access to NEAR RPC failed: timeout of 15000ms exceeded","timestamp":"2025-12-09T03:55:44.719Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Checking if NEAR infrastructure exists via AWS APIs...","timestamp":"2025-12-09T03:55:44.720Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"✅ NEAR infrastructure exists and is properly secured","timestamp":"2025-12-09T03:55:46.593Z"}
+{"component":"Orchestrator","level":"info","message":"⏭️  Skipping layer 'near_base': Existing NEAR infrastructure exists and is properly secured (network isolation expected)","timestamp":"2025-12-09T03:55:46.593Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"- Instance: i-05be3caaffbafb8c1","timestamp":"2025-12-09T03:55:46.593Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"- VPC: vpc-0ad7ab6659e0293ae","timestamp":"2025-12-09T03:55:46.593Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"- Network isolation is working correctly","timestamp":"2025-12-09T03:55:46.593Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layer 'mpc_core'...","timestamp":"2025-12-09T03:55:46.594Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"Performing thorough health checks on 3 existing MPC nodes","timestamp":"2025-12-09T03:55:46.594Z"}
+{"component":"Orchestrator","level":"warn","message":"MPC node i-0ca3e3ae6d3f04e1c health issues via SSM (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:56:04.157Z"}
+{"component":"Orchestrator","level":"warn","message":"MPC node i-00436a1c5f4974398 health issues via SSM (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:56:04.160Z"}
+{"component":"Orchestrator","level":"warn","message":"MPC node i-07dc819739c4bb39c health issues via SSM (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:56:04.181Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"MPC node health check results:","timestamp":"2025-12-09T03:56:04.182Z"}
+{"component":"Orchestrator","level":"info","message":"📦 Deploying layer 'mpc_core'...","timestamp":"2025-12-09T03:56:04.182Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"  ❌ http://10.0.158.39:3030: Health check failed (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:56:04.182Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"  ❌ http://10.0.136.232:3030: Health check failed (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:56:04.182Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"  ❌ http://10.0.168.179:3030: Health check failed (0/4): processes=NO, near=FAIL, ports=NO, script=ISSUES","timestamp":"2025-12-09T03:56:04.182Z"}
+{"component":"Orchestrator:mpc_core","level":"error","message":"Only 0/3 MPC nodes are operational. Proceeding with deployment.","timestamp":"2025-12-09T03:56:04.182Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"🚀 Starting: Deploying MPC Core Layer","timestamp":"2025-12-09T03:56:04.182Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"MPC infrastructure already exists, verifying services...","timestamp":"2025-12-09T03:56:04.952Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"Found 3 MPC instances: i-0ca3e3ae6d3f04e1c, i-07dc819739c4bb39c, i-00436a1c5f4974398","timestamp":"2025-12-09T03:56:05.689Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"Checking services on instance i-0ca3e3ae6d3f04e1c...","timestamp":"2025-12-09T03:56:05.689Z"}
+{"component":"Orchestrator:mpc_core","level":"warn","message":"Service check inconclusive on instance i-0ca3e3ae6d3f04e1c: Failed\n","timestamp":"2025-12-09T03:56:17.215Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"Checking services on instance i-07dc819739c4bb39c...","timestamp":"2025-12-09T03:56:17.215Z"}
+{"component":"Orchestrator:mpc_core","level":"warn","message":"Service check inconclusive on instance i-07dc819739c4bb39c: Failed\n","timestamp":"2025-12-09T03:56:29.765Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"Checking services on instance i-00436a1c5f4974398...","timestamp":"2025-12-09T03:56:29.765Z"}
+{"component":"Orchestrator:mpc_core","level":"warn","message":"Service check inconclusive on instance i-00436a1c5f4974398: Failed\n","timestamp":"2025-12-09T03:56:41.359Z"}
+{"component":"Orchestrator","level":"info","message":"📤 Getting outputs for layer 'mpc_core'...","timestamp":"2025-12-09T03:56:41.359Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"✅ MPC services verified and running","timestamp":"2025-12-09T03:56:41.359Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"Reading MPC Core Layer outputs","timestamp":"2025-12-09T03:56:41.360Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"✅ MPC infrastructure deployed with 3 nodes","timestamp":"2025-12-09T03:56:42.175Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Layer 'mpc_core' deployed successfully","timestamp":"2025-12-09T03:56:42.175Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layer 'cross_chain_app'...","timestamp":"2025-12-09T03:56:42.176Z"}
+{"component":"Orchestrator","level":"info","message":"📦 Deploying layer 'cross_chain_app'...","timestamp":"2025-12-09T03:56:42.176Z"}
+{"component":"Orchestrator","level":"info","message":"Ensuring repository: cross-chain-simulator (https://github.com/near-sandbox/cross-chain-simulator)","timestamp":"2025-12-09T03:56:42.176Z"}
+{"component":"Orchestrator","level":"info","message":"Cloning repository: https://github.com/near-sandbox/cross-chain-simulator -> /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/workspace/cross-chain-simulator","timestamp":"2025-12-09T03:56:42.177Z"}
+{"component":"Orchestrator:cross_chain_app","level":"info","message":"Cross-chain application layer always deploys (no verification available)","timestamp":"2025-12-09T03:56:42.176Z"}
+{"component":"Orchestrator:cross_chain_app","level":"info","message":"🚀 Starting: Deploying Cross-Chain Application Layer","timestamp":"2025-12-09T03:56:42.176Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Cloned repository to /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/workspace/cross-chain-simulator","timestamp":"2025-12-09T03:56:42.473Z"}
+{"component":"Orchestrator","level":"info","message":"Setting up Node.js project at /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/workspace/cross-chain-simulator","timestamp":"2025-12-09T03:56:42.474Z"}
+{"component":"Orchestrator","level":"info","message":"Installing npm dependencies...","timestamp":"2025-12-09T03:56:42.474Z"}
+{"component":"Orchestrator","level":"info","message":"✅ npm dependencies installed","timestamp":"2025-12-09T03:56:43.974Z"}
+{"component":"Orchestrator:cross_chain_app","level":"info","message":"Preparing environment variables for setup script","timestamp":"2025-12-09T03:56:43.974Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Repository ready: cross-chain-simulator","timestamp":"2025-12-09T03:56:43.974Z"}
+{"component":"Orchestrator:cross_chain_app","level":"info","message":"Executing script: setup-mpc-app.ts in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/workspace/cross-chain-simulator/scripts","timestamp":"2025-12-09T03:56:43.974Z"}
+{"component":"Orchestrator","error":{"exitCode":1,"stderr":"Command failed with exit code 1: node -r ts-node/register setup-mpc-app.ts","stdout":""},"level":"error","message":"Command failed: node -r ts-node/register setup-mpc-app.ts","timestamp":"2025-12-09T03:56:44.220Z"}
+{"component":"Orchestrator:cross_chain_app","level":"error","message":"❌ Failed: Cross-Chain Application Layer deployment Setup script failed: Script execution failed with exit code 1","stack":"Error: Setup script failed: Script execution failed with exit code 1\n    at CrossChainAppLayer.deploy (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/layers/CrossChainAppLayer.js:85:23)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async Orchestrator.processLayer (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/Orchestrator.js:226:34)\n    at async Orchestrator.run (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/Orchestrator.js:111:33)\n    at async handleDeploy (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/index.js:156:20)\n    at async runCommand (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/index.js:111:17)\n    at async Command.<anonymous> (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/index.js:33:5)","timestamp":"2025-12-09T03:56:44.220Z"}
+{"component":"Orchestrator","level":"error","message":"Deployment failed for layer 'cross_chain_app': Setup script failed: Script execution failed with exit code 1","timestamp":"2025-12-09T03:56:44.220Z"}
+{"component":"Orchestrator","level":"error","message":"❌ Layer 'cross_chain_app' failed. Stopping execution.","timestamp":"2025-12-09T03:56:44.220Z"}
+{"component":"Orchestrator","level":"warn","message":"🔄 Rolling back 2 successfully deployed layers...","timestamp":"2025-12-09T03:56:44.220Z"}
+{"component":"Orchestrator","level":"info","message":"Ensuring repository: mpc (https://github.com/shaiss/mpc)","timestamp":"2025-12-09T03:56:44.221Z"}
+{"component":"Orchestrator","level":"info","message":"Updating repository at /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/workspace/mpc","timestamp":"2025-12-09T03:56:44.221Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"🚀 Starting: Destroying MPC Core Layer","timestamp":"2025-12-09T03:56:44.221Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Updated repository to latest main","timestamp":"2025-12-09T03:56:44.478Z"}
+{"component":"Orchestrator","level":"info","message":"Setting up Rust project at /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/workspace/mpc","timestamp":"2025-12-09T03:56:44.479Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Repository ready: mpc","timestamp":"2025-12-09T03:56:44.826Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"Installing CDK dependencies in infra/aws-cdk","timestamp":"2025-12-09T03:56:44.826Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Starting: CDK destroy in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/workspace/mpc/infra/aws-cdk","timestamp":"2025-12-09T03:56:46.409Z"}
+{"component":"Orchestrator","level":"info","message":"Running: cdk destroy --profile shai-sandbox-profile --region us-east-1 MpcStandaloneStack --force --require-approval never","timestamp":"2025-12-09T03:56:46.409Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Completed: CDK destroy in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/workspace/mpc/infra/aws-cdk (138960ms)","timestamp":"2025-12-09T03:59:05.370Z"}
+{"component":"Orchestrator:mpc_core","level":"info","message":"✅ MPC Core Layer destroyed successfully","timestamp":"2025-12-09T03:59:05.370Z"}
+{"component":"Orchestrator","level":"info","message":"🗑️  Layer 'mpc_core' destroyed","timestamp":"2025-12-09T03:59:05.371Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Rolled back layer 'mpc_core'","timestamp":"2025-12-09T03:59:05.371Z"}
+{"component":"Orchestrator","level":"info","message":"Ensuring repository: AWSNodeRunner (https://github.com/near-sandbox/AWSNodeRunner)","timestamp":"2025-12-09T03:59:05.372Z"}
+{"component":"Orchestrator","level":"info","message":"Cloning repository: https://github.com/near-sandbox/AWSNodeRunner -> /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/workspace/AWSNodeRunner","timestamp":"2025-12-09T03:59:05.372Z"}
+{"component":"Orchestrator","error":{"exitCode":128,"stderr":"Command failed with exit code 128: git clone --branch main https://github.com/near-sandbox/AWSNodeRunner /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/workspace/AWSNodeRunner","stdout":""},"level":"error","message":"Command failed: git clone --branch main https://github.com/near-sandbox/AWSNodeRunner /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/workspace/AWSNodeRunner","timestamp":"2025-12-09T03:59:05.639Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-22T18:38:18.506Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"🚀 Starting: Deploying NEAR Base Layer (AWSNodeRunner)","timestamp":"2025-12-22T18:38:18.512Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-22T18:38:18.510Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-22T18:38:18.511Z"}
+{"component":"Orchestrator","level":"info","message":"🎯 Starting orchestration process","timestamp":"2025-12-22T18:38:18.511Z"}
+{"component":"Orchestrator","level":"info","message":"📋 Execution plan: near_base → near_services","timestamp":"2025-12-22T18:38:18.511Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layer 'near_base'...","timestamp":"2025-12-22T18:38:18.511Z"}
+{"component":"Orchestrator","level":"info","message":"📦 Deploying layer 'near_base'...","timestamp":"2025-12-22T18:38:18.511Z"}
+{"component":"Orchestrator","level":"info","message":"Ensuring repository: AWSNodeRunner (https://github.com/near-sandbox/AWSNodeRunner)","timestamp":"2025-12-22T18:38:18.512Z"}
+{"component":"Orchestrator","level":"info","message":"Cloning repository: https://github.com/near-sandbox/AWSNodeRunner -> /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/workspace/AWSNodeRunner","timestamp":"2025-12-22T18:38:18.512Z"}
+{"component":"Orchestrator","error":{"exitCode":128,"stderr":"Command failed with exit code 128: git clone --branch main https://github.com/near-sandbox/AWSNodeRunner /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/workspace/AWSNodeRunner","stdout":""},"level":"error","message":"Command failed: git clone --branch main https://github.com/near-sandbox/AWSNodeRunner /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/workspace/AWSNodeRunner","timestamp":"2025-12-22T18:38:18.698Z"}
+{"component":"Orchestrator:near_base","level":"error","message":"❌ Failed: NEAR Base Layer deployment Failed to clone repository: Command failed with exit code 128: git clone --branch main https://github.com/near-sandbox/AWSNodeRunner /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/workspace/AWSNodeRunner","stack":"Error: Failed to clone repository: Command failed with exit code 128: git clone --branch main https://github.com/near-sandbox/AWSNodeRunner /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/workspace/AWSNodeRunner\n    at GitManager.cloneRepo (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/utils/GitManager.js:82:19)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async GitManager.ensureRepo (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/utils/GitManager.js:63:13)\n    at async NearBaseLayer.ensureRepository (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/layers/BaseLayer.js:122:27)\n    at async NearBaseLayer.deploy (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/layers/NearBaseLayer.js:167:30)\n    at async Orchestrator.processLayer (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/Orchestrator.js:227:34)\n    at async Orchestrator.run (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/Orchestrator.js:112:33)\n    at async handleDeploy (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/index.js:156:20)\n    at async runCommand (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/index.js:111:17)\n    at async Command.<anonymous> (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/index.js:33:5)","timestamp":"2025-12-22T18:38:18.699Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-22T18:39:43.131Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Checking existing NEAR RPC infrastructure at: http://10.0.55.70:3030","timestamp":"2025-12-22T18:39:43.137Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-22T18:39:43.135Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-22T18:39:43.136Z"}
+{"component":"Orchestrator","level":"info","message":"🎯 Starting orchestration process","timestamp":"2025-12-22T18:39:43.136Z"}
+{"component":"Orchestrator","level":"info","message":"📋 Execution plan: near_base → near_services","timestamp":"2025-12-22T18:39:43.136Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layer 'near_base'...","timestamp":"2025-12-22T18:39:43.137Z"}
+{"component":"Orchestrator:near_base","level":"warn","message":"External access to NEAR RPC failed: timeout of 15000ms exceeded","timestamp":"2025-12-22T18:39:58.148Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Checking if NEAR infrastructure exists via AWS APIs...","timestamp":"2025-12-22T18:39:58.148Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"✅ NEAR infrastructure exists and is properly secured","timestamp":"2025-12-22T18:40:00.183Z"}
+{"component":"Orchestrator","level":"info","message":"⏭️  Skipping layer 'near_base': Existing NEAR infrastructure exists and is properly secured (network isolation expected)","timestamp":"2025-12-22T18:40:00.183Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"- Instance: i-05be3caaffbafb8c1","timestamp":"2025-12-22T18:40:00.183Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"- VPC: vpc-0ad7ab6659e0293ae","timestamp":"2025-12-22T18:40:00.183Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"- Network isolation is working correctly","timestamp":"2025-12-22T18:40:00.183Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layer 'near_services'...","timestamp":"2025-12-22T18:40:00.184Z"}
+{"component":"Orchestrator","level":"info","message":"📦 Deploying layer 'near_services'...","timestamp":"2025-12-22T18:40:00.901Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"🚀 Starting: Deploying NEAR Services Layer (Layer 2)","timestamp":"2025-12-22T18:40:00.901Z"}
+{"component":"Orchestrator","level":"info","message":"Using local repository: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services","timestamp":"2025-12-22T18:40:00.901Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Local repository ready: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services","timestamp":"2025-12-22T18:40:00.901Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"Installing CDK dependencies in faucet/cdk","timestamp":"2025-12-22T18:40:00.901Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"Generating faucet configuration","timestamp":"2025-12-22T18:40:06.542Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Starting: CDK deploy in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services/faucet/cdk","timestamp":"2025-12-22T18:40:06.543Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"✅ Faucet configuration written to: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services/faucet/cdk/config.local.json","timestamp":"2025-12-22T18:40:06.542Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"Deploying faucet infrastructure...","timestamp":"2025-12-22T18:40:06.542Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"Deploying CDK stacks in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services/faucet/cdk","timestamp":"2025-12-22T18:40:06.542Z"}
+{"component":"Orchestrator","level":"info","message":"Running: cdk deploy --profile shai-sandbox-profile --region us-east-1 near-localnet-faucet --context near:rpc:url=http://10.0.55.70:3030 --context near:network:id=localnet --context near:master:account=node0 --require-approval never --outputs-file cdk-outputs.json","timestamp":"2025-12-22T18:40:06.543Z"}
+{"component":"Orchestrator","error":{"exitCode":1,"stderr":"Command failed with exit code 1: npx cdk deploy --profile shai-sandbox-profile --region us-east-1 near-localnet-faucet --context near:rpc:url=http://10.0.55.70:3030 --context near:network:id=localnet --context near:master:account=node0 --require-approval never --outputs-file cdk-outputs.json","stdout":""},"level":"error","message":"Command failed: npx cdk deploy --profile shai-sandbox-profile --region us-east-1 near-localnet-faucet --context near:rpc:url=http://10.0.55.70:3030 --context near:network:id=localnet --context near:master:account=node0 --require-approval never --outputs-file cdk-outputs.json","timestamp":"2025-12-22T18:40:12.932Z"}
+{"component":"Orchestrator:near_services","level":"error","message":"❌ Failed: NEAR Services Layer deployment CDK deployment failed: Command failed with exit code 1: npx cdk deploy --profile shai-sandbox-profile --region us-east-1 near-localnet-faucet --context near:rpc:url=http://10.0.55.70:3030 --context near:network:id=localnet --context near:master:account=node0 --require-approval never --outputs-file cdk-outputs.json","stack":"Error: CDK deployment failed: Command failed with exit code 1: npx cdk deploy --profile shai-sandbox-profile --region us-east-1 near-localnet-faucet --context near:rpc:url=http://10.0.55.70:3030 --context near:network:id=localnet --context near:master:account=node0 --require-approval never --outputs-file cdk-outputs.json\n    at NearServicesLayer.deployCdkStacks (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/layers/BaseLayer.js:159:19)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async NearServicesLayer.deploy (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/layers/NearServicesLayer.js:129:34)\n    at async Orchestrator.processLayer (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/Orchestrator.js:227:34)\n    at async Orchestrator.run (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/Orchestrator.js:112:33)\n    at async handleDeploy (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/index.js:156:20)\n    at async runCommand (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/index.js:111:17)\n    at async Command.<anonymous> (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/index.js:33:5)","timestamp":"2025-12-22T18:40:12.933Z"}
+{"component":"Orchestrator","level":"error","message":"❌ Failed: CDK deploy in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services/faucet/cdk","timestamp":"2025-12-22T18:40:12.932Z"}
+{"component":"Orchestrator","level":"error","message":"Deployment failed for layer 'near_services': CDK deployment failed: Command failed with exit code 1: npx cdk deploy --profile shai-sandbox-profile --region us-east-1 near-localnet-faucet --context near:rpc:url=http://10.0.55.70:3030 --context near:network:id=localnet --context near:master:account=node0 --require-approval never --outputs-file cdk-outputs.json","timestamp":"2025-12-22T18:40:12.933Z"}
+{"component":"Orchestrator","level":"error","message":"❌ Layer 'near_services' failed. Stopping execution.","timestamp":"2025-12-22T18:40:12.933Z"}
+{"component":"Orchestrator","level":"warn","message":"🔄 Rolling back 1 successfully deployed layers...","timestamp":"2025-12-22T18:40:12.933Z"}
+{"component":"Orchestrator","level":"info","message":"Using local repository: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/AWSNodeRunner","timestamp":"2025-12-22T18:40:12.934Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Local repository ready: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/AWSNodeRunner","timestamp":"2025-12-22T18:40:12.934Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Starting: CDK destroy in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/AWSNodeRunner/lib/near","timestamp":"2025-12-22T18:40:13.518Z"}
+{"component":"Orchestrator","level":"info","message":"Running: cdk destroy --profile shai-sandbox-profile --region us-east-1 near-localnet-sync near-localnet-install near-localnet-infrastructure near-localnet-common --force --require-approval never","timestamp":"2025-12-22T18:40:13.518Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Completed: CDK destroy in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/AWSNodeRunner/lib/near (4351ms)","timestamp":"2025-12-22T18:40:17.869Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-22T18:41:41.538Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Checking existing NEAR RPC infrastructure at: http://10.0.55.70:3030","timestamp":"2025-12-22T18:41:41.543Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-22T18:41:41.542Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-22T18:41:41.542Z"}
+{"component":"Orchestrator","level":"info","message":"🎯 Starting orchestration process","timestamp":"2025-12-22T18:41:41.543Z"}
+{"component":"Orchestrator","level":"info","message":"📋 Execution plan: near_base → near_services","timestamp":"2025-12-22T18:41:41.543Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layer 'near_base'...","timestamp":"2025-12-22T18:41:41.543Z"}
+{"component":"Orchestrator:near_base","level":"warn","message":"External access to NEAR RPC failed: timeout of 15000ms exceeded","timestamp":"2025-12-22T18:41:56.554Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Checking if NEAR infrastructure exists via AWS APIs...","timestamp":"2025-12-22T18:41:56.554Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"✅ NEAR infrastructure exists and is properly secured","timestamp":"2025-12-22T18:41:58.525Z"}
+{"component":"Orchestrator","level":"info","message":"⏭️  Skipping layer 'near_base': Existing NEAR infrastructure exists and is properly secured (network isolation expected)","timestamp":"2025-12-22T18:41:58.526Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"- Instance: i-05be3caaffbafb8c1","timestamp":"2025-12-22T18:41:58.525Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"- VPC: vpc-0ad7ab6659e0293ae","timestamp":"2025-12-22T18:41:58.526Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"- Network isolation is working correctly","timestamp":"2025-12-22T18:41:58.526Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layer 'near_services'...","timestamp":"2025-12-22T18:41:58.526Z"}
+{"component":"Orchestrator","level":"info","message":"📦 Deploying layer 'near_services'...","timestamp":"2025-12-22T18:41:59.246Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"🚀 Starting: Deploying NEAR Services Layer (Layer 2)","timestamp":"2025-12-22T18:41:59.246Z"}
+{"component":"Orchestrator","level":"info","message":"Using local repository: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services","timestamp":"2025-12-22T18:41:59.246Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Local repository ready: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services","timestamp":"2025-12-22T18:41:59.246Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"Installing CDK dependencies in faucet/cdk","timestamp":"2025-12-22T18:41:59.246Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"Generating faucet configuration","timestamp":"2025-12-22T18:41:59.628Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Starting: CDK deploy in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services/faucet/cdk","timestamp":"2025-12-22T18:41:59.629Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"✅ Faucet configuration written to: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services/faucet/cdk/config.local.json","timestamp":"2025-12-22T18:41:59.628Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"Deploying faucet infrastructure...","timestamp":"2025-12-22T18:41:59.628Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"Deploying CDK stacks in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services/faucet/cdk","timestamp":"2025-12-22T18:41:59.628Z"}
+{"component":"Orchestrator","level":"info","message":"Running: cdk deploy --profile shai-sandbox-profile --region us-east-1 near-localnet-faucet --context near:rpc:url=http://10.0.55.70:3030 --context near:network:id=localnet --context near:master:account=node0 --require-approval never --outputs-file cdk-outputs.json","timestamp":"2025-12-22T18:41:59.629Z"}
+{"component":"Orchestrator","error":{"exitCode":1,"stderr":"Command failed with exit code 1: npx cdk deploy --profile shai-sandbox-profile --region us-east-1 near-localnet-faucet --context near:rpc:url=http://10.0.55.70:3030 --context near:network:id=localnet --context near:master:account=node0 --require-approval never --outputs-file cdk-outputs.json","stdout":""},"level":"error","message":"Command failed: npx cdk deploy --profile shai-sandbox-profile --region us-east-1 near-localnet-faucet --context near:rpc:url=http://10.0.55.70:3030 --context near:network:id=localnet --context near:master:account=node0 --require-approval never --outputs-file cdk-outputs.json","timestamp":"2025-12-22T18:42:29.948Z"}
+{"component":"Orchestrator:near_services","level":"error","message":"❌ Failed: NEAR Services Layer deployment CDK deployment failed: Command failed with exit code 1: npx cdk deploy --profile shai-sandbox-profile --region us-east-1 near-localnet-faucet --context near:rpc:url=http://10.0.55.70:3030 --context near:network:id=localnet --context near:master:account=node0 --require-approval never --outputs-file cdk-outputs.json","stack":"Error: CDK deployment failed: Command failed with exit code 1: npx cdk deploy --profile shai-sandbox-profile --region us-east-1 near-localnet-faucet --context near:rpc:url=http://10.0.55.70:3030 --context near:network:id=localnet --context near:master:account=node0 --require-approval never --outputs-file cdk-outputs.json\n    at NearServicesLayer.deployCdkStacks (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/layers/BaseLayer.js:159:19)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async NearServicesLayer.deploy (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/layers/NearServicesLayer.js:129:34)\n    at async Orchestrator.processLayer (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/Orchestrator.js:227:34)\n    at async Orchestrator.run (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/Orchestrator.js:112:33)\n    at async handleDeploy (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/index.js:156:20)\n    at async runCommand (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/index.js:111:17)\n    at async Command.<anonymous> (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/index.js:33:5)","timestamp":"2025-12-22T18:42:29.949Z"}
+{"component":"Orchestrator","level":"error","message":"❌ Failed: CDK deploy in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services/faucet/cdk","timestamp":"2025-12-22T18:42:29.949Z"}
+{"component":"Orchestrator","level":"error","message":"Deployment failed for layer 'near_services': CDK deployment failed: Command failed with exit code 1: npx cdk deploy --profile shai-sandbox-profile --region us-east-1 near-localnet-faucet --context near:rpc:url=http://10.0.55.70:3030 --context near:network:id=localnet --context near:master:account=node0 --require-approval never --outputs-file cdk-outputs.json","timestamp":"2025-12-22T18:42:29.949Z"}
+{"component":"Orchestrator","level":"error","message":"❌ Layer 'near_services' failed. Stopping execution.","timestamp":"2025-12-22T18:42:29.949Z"}
+{"component":"Orchestrator","level":"warn","message":"🔄 Rolling back 1 successfully deployed layers...","timestamp":"2025-12-22T18:42:29.949Z"}
+{"component":"Orchestrator","level":"info","message":"Using local repository: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/AWSNodeRunner","timestamp":"2025-12-22T18:42:29.950Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Local repository ready: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/AWSNodeRunner","timestamp":"2025-12-22T18:42:29.950Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Starting: CDK destroy in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/AWSNodeRunner/lib/near","timestamp":"2025-12-22T18:42:30.505Z"}
+{"component":"Orchestrator","level":"info","message":"Running: cdk destroy --profile shai-sandbox-profile --region us-east-1 near-localnet-sync near-localnet-install near-localnet-infrastructure near-localnet-common --force --require-approval never","timestamp":"2025-12-22T18:42:30.506Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Completed: CDK destroy in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/AWSNodeRunner/lib/near (4270ms)","timestamp":"2025-12-22T18:42:34.775Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-29T17:43:45.371Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Checking existing NEAR RPC infrastructure at: http://10.0.55.70:3030","timestamp":"2025-12-29T17:43:45.378Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-29T17:43:45.376Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-29T17:43:45.377Z"}
+{"component":"Orchestrator","level":"info","message":"🎯 Starting orchestration process","timestamp":"2025-12-29T17:43:45.377Z"}
+{"component":"Orchestrator","level":"info","message":"📋 Execution plan: near_base","timestamp":"2025-12-29T17:43:45.378Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layer 'near_base'...","timestamp":"2025-12-29T17:43:45.378Z"}
+{"component":"Orchestrator:near_base","level":"warn","message":"External access to NEAR RPC failed: timeout of 15000ms exceeded","timestamp":"2025-12-29T17:44:00.392Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Checking if NEAR infrastructure exists via AWS APIs...","timestamp":"2025-12-29T17:44:00.392Z"}
+{"component":"Orchestrator:near_base","level":"error","message":"NEAR infrastructure check failed: No NEAR CloudFormation stacks found","timestamp":"2025-12-29T17:44:01.623Z"}
+{"component":"Orchestrator","level":"info","message":"📦 Deploying layer 'near_base'...","timestamp":"2025-12-29T17:44:01.623Z"}
+{"component":"Orchestrator:near_base","level":"warn","message":"Will proceed with deployment since existing infrastructure is not found","timestamp":"2025-12-29T17:44:01.623Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"🚀 Starting: Deploying NEAR Base Layer (AWSNodeRunner)","timestamp":"2025-12-29T17:44:01.623Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Installing CDK dependencies in lib/near","timestamp":"2025-12-29T17:44:01.624Z"}
+{"component":"Orchestrator","level":"info","message":"Using local repository: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/AWSNodeRunner","timestamp":"2025-12-29T17:44:01.624Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Local repository ready: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/AWSNodeRunner","timestamp":"2025-12-29T17:44:01.624Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Deploying CDK stacks in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/AWSNodeRunner/lib/near","timestamp":"2025-12-29T17:44:02.446Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Starting: CDK deploy in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/AWSNodeRunner/lib/near","timestamp":"2025-12-29T17:44:02.446Z"}
+{"component":"Orchestrator","level":"info","message":"Running: cdk deploy --profile shai-sandbox-profile --region us-east-1 near-localnet-common near-localnet-infrastructure near-localnet-install near-localnet-sync --require-approval never --outputs-file cdk-outputs.json","timestamp":"2025-12-29T17:44:02.447Z"}
+{"component":"Orchestrator","error":{"exitCode":1,"stderr":"Command failed with exit code 1: npx cdk deploy --profile shai-sandbox-profile --region us-east-1 near-localnet-common near-localnet-infrastructure near-localnet-install near-localnet-sync --require-approval never --outputs-file cdk-outputs.json","stdout":""},"level":"error","message":"Command failed: npx cdk deploy --profile shai-sandbox-profile --region us-east-1 near-localnet-common near-localnet-infrastructure near-localnet-install near-localnet-sync --require-approval never --outputs-file cdk-outputs.json","timestamp":"2025-12-29T17:44:08.061Z"}
+{"component":"Orchestrator:near_base","level":"error","message":"❌ Failed: NEAR Base Layer deployment CDK deployment failed: Command failed with exit code 1: npx cdk deploy --profile shai-sandbox-profile --region us-east-1 near-localnet-common near-localnet-infrastructure near-localnet-install near-localnet-sync --require-approval never --outputs-file cdk-outputs.json","stack":"Error: CDK deployment failed: Command failed with exit code 1: npx cdk deploy --profile shai-sandbox-profile --region us-east-1 near-localnet-common near-localnet-infrastructure near-localnet-install near-localnet-sync --require-approval never --outputs-file cdk-outputs.json\n    at NearBaseLayer.deployCdkStacks (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/layers/BaseLayer.js:159:19)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async NearBaseLayer.deploy (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/layers/NearBaseLayer.js:174:34)\n    at async Orchestrator.processLayer (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/Orchestrator.js:227:34)\n    at async Orchestrator.run (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/Orchestrator.js:112:33)\n    at async handleDeploy (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/index.js:156:20)\n    at async runCommand (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/index.js:111:17)\n    at async Command.<anonymous> (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/index.js:33:5)","timestamp":"2025-12-29T17:44:08.061Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-29T19:45:42.365Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Checking existing NEAR RPC infrastructure at: http://10.0.55.70:3030","timestamp":"2025-12-29T19:45:42.372Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-29T19:45:42.370Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-29T19:45:42.371Z"}
+{"component":"Orchestrator","level":"info","message":"🎯 Starting orchestration process","timestamp":"2025-12-29T19:45:42.371Z"}
+{"component":"Orchestrator","level":"info","message":"📋 Execution plan: near_base","timestamp":"2025-12-29T19:45:42.371Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layer 'near_base'...","timestamp":"2025-12-29T19:45:42.372Z"}
+{"component":"Orchestrator:near_base","level":"warn","message":"External access to NEAR RPC failed: timeout of 15000ms exceeded","timestamp":"2025-12-29T19:45:57.386Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Checking if NEAR infrastructure exists via AWS APIs...","timestamp":"2025-12-29T19:45:57.387Z"}
+{"component":"Orchestrator:near_base","level":"error","message":"NEAR infrastructure check failed: No NEAR CloudFormation stacks found","timestamp":"2025-12-29T19:45:58.618Z"}
+{"component":"Orchestrator","level":"info","message":"📦 Deploying layer 'near_base'...","timestamp":"2025-12-29T19:45:58.619Z"}
+{"component":"Orchestrator:near_base","level":"warn","message":"Will proceed with deployment since existing infrastructure is not found","timestamp":"2025-12-29T19:45:58.618Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"🚀 Starting: Deploying NEAR Base Layer (AWSNodeRunner)","timestamp":"2025-12-29T19:45:58.619Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Installing CDK dependencies in lib/near","timestamp":"2025-12-29T19:45:58.619Z"}
+{"component":"Orchestrator","level":"info","message":"Using local repository: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/AWSNodeRunner","timestamp":"2025-12-29T19:45:58.619Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Local repository ready: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/AWSNodeRunner","timestamp":"2025-12-29T19:45:58.619Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Deploying CDK stacks in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/AWSNodeRunner/lib/near","timestamp":"2025-12-29T19:45:59.235Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Starting: CDK deploy in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/AWSNodeRunner/lib/near","timestamp":"2025-12-29T19:45:59.235Z"}
+{"component":"Orchestrator","level":"info","message":"Running: cdk deploy --profile shai-sandbox-profile --region us-east-1 near-common near-infrastructure near-install near-sync --require-approval never --outputs-file cdk-outputs.json","timestamp":"2025-12-29T19:45:59.235Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Completed: CDK deploy in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/AWSNodeRunner/lib/near (390054ms)","timestamp":"2025-12-29T19:52:29.289Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"✅ Completed: NEAR Base Layer deployment (390671ms)","timestamp":"2025-12-29T19:52:29.290Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Reading NEAR Base Layer outputs","timestamp":"2025-12-29T19:52:29.290Z"}
+{"component":"Orchestrator","level":"info","message":"📤 Getting outputs for layer 'near_base'...","timestamp":"2025-12-29T19:52:29.290Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"✅ NEAR RPC available at: ","timestamp":"2025-12-29T19:52:31.571Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Layer 'near_base' deployed successfully","timestamp":"2025-12-29T19:52:31.571Z"}
+{"component":"Orchestrator","level":"info","message":"✅ ✅ Orchestration completed successfully in 409200ms","timestamp":"2025-12-29T19:52:31.571Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-29T20:40:00.611Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Checking existing NEAR RPC infrastructure at: http://10.0.55.70:3030","timestamp":"2025-12-29T20:40:00.617Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-29T20:40:00.616Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-29T20:40:00.616Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layers","timestamp":"2025-12-29T20:40:00.617Z"}
+{"component":"Orchestrator:near_base","level":"warn","message":"External access to NEAR RPC failed: timeout of 15000ms exceeded","timestamp":"2025-12-29T20:40:15.632Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Checking if NEAR infrastructure exists via AWS APIs...","timestamp":"2025-12-29T20:40:15.633Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"✅ NEAR infrastructure exists and is properly secured","timestamp":"2025-12-29T20:40:17.529Z"}
+{"component":"Orchestrator","level":"info","message":"⏭️  Skipping layer 'near_base': Existing NEAR infrastructure exists and is properly secured (network isolation expected)","timestamp":"2025-12-29T20:40:17.529Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"- Instance: i-04e50891ed0111b73","timestamp":"2025-12-29T20:40:17.529Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"- VPC: vpc-0655b93d83acfeda0","timestamp":"2025-12-29T20:40:17.529Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"- Network isolation is working correctly","timestamp":"2025-12-29T20:40:17.529Z"}
+{"component":"Orchestrator","level":"info","message":"✅ ✅ All layers are healthy - no deployment needed","timestamp":"2025-12-29T20:40:17.529Z"}

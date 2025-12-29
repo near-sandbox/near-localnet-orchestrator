@@ -1,0 +1,175 @@
+# NEAR Localnet Orchestrator Configuration
+# 
+# This configuration defines the 5-layer simulation stack:
+#   Layer 1: near_base         - NEAR Protocol RPC node
+#   Layer 2: near_services     - Faucet and utility services
+#   Layer 3: chain_signatures  - MPC infrastructure + Chain Signatures API
+#   Layer 4: intents_protocol  - 1Click API for cross-chain swaps
+#   Layer 5: (user applications - not managed by orchestrator)
+#
+# See ARCHITECTURE.md for detailed layer descriptions.
+
+global:
+  aws_profile: "shai-sandbox-profile"
+  aws_region: "us-east-1"
+  aws_account: "311843862895"
+  workspace_root: "./workspace"
+  log_level: "info"
+  continue_on_error: false
+
+layers:
+  # ============================================================================
+  # Layer 0.5: Ethereum Localnet
+  # ============================================================================
+  # Ethereum localnet for cross-chain signature testing.
+  # Provides Geth in dev mode for instant blocks and pre-funded accounts.
+  #
+  # Repository: aws-blockchain-node-runners (adapted for localnet)
+  # Output: Ethereum RPC endpoint (e.g., http://10.0.49.182:8545)
+  # ============================================================================
+  ethereum_localnet:
+    enabled: true
+    depends_on: []
+    source:
+      repo_url: "file:///Users/Shai.Perednik/Documents/code_workspace/near_mobile/AWSNodeRunner"
+      branch: "main"
+      cdk_path: "lib/ethereum"
+    config:
+      vpc_id: "vpc-0ad7ab6659e0293ae"
+      instance_type: "t3.medium"
+      network_mode: "dev"
+    outputs:
+      - eth_rpc_url
+      - eth_instance_id
+      - eth_private_ip
+      - eth_chain_id
+
+  # ============================================================================
+  # Layer 1: NEAR Base
+  # ============================================================================
+  # Foundation layer providing NEAR Protocol blockchain infrastructure.
+  # Deploys a NEAR localnet RPC node for transaction execution and queries.
+  #
+  # Repository: https://github.com/near-sandbox/AWSNodeRunner
+  # Output: RPC endpoint (e.g., http://10.0.55.70:3030)
+  # ============================================================================
+  near_base:
+    enabled: true
+    depends_on: []
+    source:
+      repo_url: "file:///Users/Shai.Perednik/Documents/code_workspace/near_mobile/AWSNodeRunner"
+      branch: "main"
+      cdk_path: "lib/near"
+    config:
+      # Layer 1 is already deployed - use existing infrastructure
+      existing_rpc_url: "http://10.0.55.70:3030"
+      # Deployment config (used if deploying new infrastructure)
+      instance_type: "m7a.2xlarge"
+      near_version: "2.10.1"
+      network_id: "localnet"
+    outputs:
+      - rpc_url
+      - network_id
+      - vpc_id
+      - instance_id
+
+  # ============================================================================
+  # Layer 2: NEAR Services
+  # ============================================================================
+  # Essential utility services for localnet development.
+  # Provides faucet for token distribution, gas payer, and helper services.
+  #
+  # Repository: https://github.com/near-sandbox/near-localnet-services
+  # Output: Faucet Lambda endpoint
+  # ============================================================================
+  near_services:
+    enabled: true
+    depends_on: ["near_base"]
+    source:
+      repo_url: "file:///Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services"
+      branch: "main"
+      cdk_path: "faucet/cdk"
+    config:
+      deploy_faucet: true
+      master_account_id: "node0"
+      # Uses RPC URL from near_base layer
+      rpc_url: "${near_base.outputs.rpc_url}"
+    outputs:
+      - faucet_lambda_arn
+      - faucet_endpoint
+
+  # ============================================================================
+  # Layer 3: Chain Signatures
+  # ============================================================================
+  # Complete Chain Signatures stack including embedded MPC infrastructure.
+  # Deploys 3-8 MPC nodes, v1.signer contract, and Chain Signatures API.
+  #
+  # Repository: https://github.com/near-sandbox/cross-chain-simulator
+  # MPC Source: Embedded from github.com/near/mpc (infra/aws-cdk)
+  # Output: MPC endpoints, v1.signer contract ID, Chain Signatures config
+  #
+  # Note: MPC infrastructure is PART OF this layer, not a separate layer.
+  # ============================================================================
+  chain_signatures:
+    enabled: true
+    depends_on: ["near_services", "ethereum_localnet"]
+    source:
+      repo_url: "file:///Users/Shai.Perednik/Documents/code_workspace/near_mobile/cross-chain-simulator"
+      branch: "main"
+      script_path: "scripts/start-localnet.sh"
+    config:
+      # MPC configuration (embedded in this layer)
+      mpc_node_count: 3
+      mpc_contract_id: "v1.signer.node0"
+      # Use a nearcore-compatible MPC image (nearcore 2.10.1 / protocol 82)
+      mpc_docker_image: "nearone/mpc-node:3.1.0"
+      mpc_instance_type: "t3.medium"  # Cost-optimized (~$90/month for 3 nodes)
+      auto_generate_keys: true
+      
+      # Chain Signatures configuration
+      deploy_v1_signer_contract: true
+      initialize_mpc: true
+      
+      # Use existing MPC nodes instead of deploying (optional)
+      existing_mpc_nodes: null  # e.g., ["http://10.0.1.10:3030", ...]
+      
+      # Inherited from previous layers
+      rpc_url: "${near_base.outputs.rpc_url}"
+      ethereum_rpc_url: "${ethereum_localnet.outputs.eth_rpc_url}"
+    outputs:
+      - v1_signer_contract_id
+      - mpc_node_endpoints
+      - chain_signatures_config
+
+  # ============================================================================
+  # Layer 4: Intents Protocol
+  # ============================================================================
+  # NEAR Intents Protocol (1Click API) simulator for cross-chain swaps.
+  # Provides quote generation, route optimization, and execution coordination.
+  #
+  # Repository: https://github.com/near-sandbox/near-intents-simulator
+  # Dependency: Uses @near-sandbox/cross-chain-simulator for Chain Signatures
+  # Output: Intents simulator configuration
+  # ============================================================================
+  intents_protocol:
+    enabled: true
+    depends_on: ["chain_signatures"]
+    source:
+      repo_url: "file:///Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-intents-simulator"
+      branch: "main"
+      script_path: "scripts/deploy-intents.ts"
+    config:
+      # Simulator mode (vs "production" for real 1Click API)
+      mode: "simulator"
+      
+      # Inherited Chain Signatures configuration
+      chain_signatures_config: "${chain_signatures.outputs.chain_signatures_config}"
+      
+      # Supported assets and chains
+      enable_ethereum: true
+      enable_bitcoin: true
+      enable_dogecoin: false
+    outputs:
+      - intents_simulator_ready
+      - supported_chains
+      - supported_assets

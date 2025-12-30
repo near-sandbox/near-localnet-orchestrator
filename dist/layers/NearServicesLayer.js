@@ -146,6 +146,8 @@ class NearServicesLayer extends BaseLayer_1.BaseLayer {
             });
             const duration = Date.now() - startTime;
             this.context.logger.completeOperation('NEAR Services Layer deployment', duration);
+            // Deploy core contracts for testnet/mainnet parity
+            await this.deployCoreContracts(nearOutputs);
             return deployResult;
         }
         catch (error) {
@@ -206,6 +208,137 @@ class NearServicesLayer extends BaseLayer_1.BaseLayer {
             this.context.logger.debug(`Error checking stack existence: ${error}`);
             return false;
         }
+    }
+    /**
+     * Deploy NEAR core contracts for testnet/mainnet parity
+     */
+    async deployCoreContracts(nearOutputs) {
+        this.context.logger.startOperation('Deploying NEAR core contracts');
+        try {
+            // Clone near/core-contracts repository
+            const coreContractsPath = await this.ensureCoreContractsRepo();
+            // Build contracts
+            await this.buildCoreContracts(coreContractsPath);
+            // Deploy contracts to localnet
+            await this.deployContractsToLocalnet(coreContractsPath, nearOutputs);
+            this.context.logger.completeOperation('Core contracts deployment', 0);
+        }
+        catch (error) {
+            this.context.logger.error('Failed to deploy core contracts', error);
+            // Don't fail the entire layer deployment, just warn
+            this.context.logger.warn('Continuing without core contracts - basic functionality still available');
+        }
+    }
+    /**
+     * Ensure near/core-contracts repository is cloned
+     */
+    async ensureCoreContractsRepo() {
+        const repoUrl = 'https://github.com/near/core-contracts.git';
+        const repoPath = await this.context.gitManager.ensureRepo(repoUrl, 'master', 'core-contracts');
+        this.context.logger.info(`Core contracts repository ready at: ${repoPath}`);
+        return repoPath;
+    }
+    /**
+     * Build core contracts (Rust -> WASM)
+     */
+    async buildCoreContracts(repoPath) {
+        this.context.logger.info('Building core contracts...');
+        // Install wasm32 target if not present
+        this.context.logger.info('Ensuring wasm32-unknown-unknown target...');
+        await this.context.commandExecutor.execute('rustup', ['target', 'add', 'wasm32-unknown-unknown'], {
+            streamOutput: false,
+        });
+        // Build script in near/core-contracts
+        const buildResult = await this.context.commandExecutor.execute('bash', ['scripts/build_all.sh'], {
+            cwd: repoPath,
+            streamOutput: true,
+            timeout: 600000, // 10 minutes for Rust compilation
+        });
+        if (!buildResult.success) {
+            throw new Error(`Failed to build core contracts: ${buildResult.stderr}`);
+        }
+        this.context.logger.success('Core contracts built successfully');
+    }
+    /**
+     * Deploy contracts to localnet using node0 account
+     */
+    async deployContractsToLocalnet(repoPath, nearOutputs) {
+        this.context.logger.info('Deploying contracts to localnet...');
+        // Get master account key from SSM
+        const keyResult = await this.context.commandExecutor.execute('aws', [
+            'ssm', 'get-parameter',
+            '--name', '/near-localnet/master-account-key',
+            '--with-decryption',
+            '--query', 'Parameter.Value',
+            '--output', 'text',
+            '--profile', this.context.globalConfig.aws_profile,
+            '--region', this.context.globalConfig.aws_region,
+        ], { silent: true });
+        if (!keyResult.success) {
+            throw new Error('Failed to retrieve master account key from SSM');
+        }
+        const masterAccountKey = keyResult.stdout.trim();
+        // Create deployment script
+        const deployScript = `
+const nearAPI = require('near-api-js');
+const fs = require('fs');
+const path = require('path');
+
+async function deploy() {
+  const keyPair = nearAPI.utils.KeyPair.fromString('${masterAccountKey}');
+  const keyStore = new nearAPI.keyStores.InMemoryKeyStore();
+  await keyStore.setKey('localnet', 'node0', keyPair);
+
+  const near = await nearAPI.connect({
+    networkId: 'localnet',
+    nodeUrl: '${nearOutputs.outputs.rpc_url}',
+    keyStore,
+  });
+
+  const masterAccount = await near.account('node0');
+
+  // Deploy priority contracts for testnet/mainnet parity
+  const contracts = [
+    { name: 'w-near', account: 'wrap.node0', wasm: 'w-near/res/w_near.wasm' },
+    { name: 'whitelist', account: 'whitelist.node0', wasm: 'whitelist/res/whitelist.wasm' },
+    { name: 'staking-pool-factory', account: 'poolv1.node0', wasm: 'staking-pool-factory/res/staking_pool_factory.wasm' },
+  ];
+
+  for (const contract of contracts) {
+    console.log(\`\\nDeploying \${contract.name}...\`);
+    try {
+      const wasmPath = path.join('${repoPath}', contract.wasm);
+      const wasmBytes = fs.readFileSync(wasmPath);
+      
+      await masterAccount.createAndDeployContract(
+        contract.account,
+        nearAPI.utils.PublicKey.from(keyPair.getPublicKey().toString()),
+        wasmBytes,
+        nearAPI.utils.format.parseNearAmount('10')
+      );
+      
+      console.log(\`✅ \${contract.name} deployed to \${contract.account}\`);
+    } catch (error) {
+      console.error(\`❌ Failed to deploy \${contract.name}:\`, error.message);
+    }
+  }
+}
+
+deploy().catch(console.error);
+`;
+        // Write deployment script to workspace
+        const scriptPath = path.join(this.context.globalConfig.workspace_root, 'deploy-contracts.js');
+        const fs = require('fs');
+        fs.writeFileSync(scriptPath, deployScript);
+        // Execute deployment
+        const result = await this.context.commandExecutor.execute('node', [scriptPath], {
+            streamOutput: true,
+            timeout: 300000, // 5 minutes
+        });
+        if (!result.success) {
+            throw new Error(`Contract deployment failed: ${result.stderr}`);
+        }
+        this.context.logger.success('Core contracts deployed to localnet');
     }
     /**
      * Get outputs from deployed NEAR Services

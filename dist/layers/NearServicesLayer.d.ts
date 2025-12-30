@@ -28,6 +28,22 @@ export declare class NearServicesLayer extends BaseLayer {
      */
     private checkStackExists;
     /**
+     * Deploy NEAR core contracts for testnet/mainnet parity
+     */
+    private deployCoreContracts;
+    /**
+     * Ensure near/core-contracts repository is cloned
+     */
+    private ensureCoreContractsRepo;
+    /**
+     * Build core contracts (Rust -> WASM)
+     */
+    private buildCoreContracts;
+    /**
+     * Deploy contracts to localnet using node0 account
+     */
+    private deployContractsToLocalnet;
+    /**
      * Get outputs from deployed NEAR Services
      */
     getOutputs(): Promise<LayerOutput>;

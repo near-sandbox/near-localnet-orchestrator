@@ -50,6 +50,7 @@ const NearBaseLayer_1 = require("./layers/NearBaseLayer");
 const NearServicesLayer_1 = require("./layers/NearServicesLayer");
 const ChainSignaturesLayer_1 = require("./layers/ChainSignaturesLayer");
 const IntentsProtocolLayer_1 = require("./layers/IntentsProtocolLayer");
+const EthereumLocalnetLayer_1 = require("./layers/EthereumLocalnetLayer");
 class Orchestrator {
     constructor(options = {}) {
         this.layerOutputs = new Map();
@@ -286,9 +287,9 @@ class Orchestrator {
             commandExecutor: this.commandExecutor,
             getLayerOutputs: (name) => this.layerOutputs.get(name),
         };
-        // Create the appropriate layer instance
-        // Layer order: near_base (1) → near_services (2) → chain_signatures (3) → intents_protocol (4)
         switch (layerName) {
+            case 'ethereum_localnet':
+                return new EthereumLocalnetLayer_1.EthereumLocalnetLayer(layerName, context);
             case 'near_base':
                 return new NearBaseLayer_1.NearBaseLayer(layerName, context);
             case 'near_services':
@@ -298,7 +299,7 @@ class Orchestrator {
             case 'intents_protocol':
                 return new IntentsProtocolLayer_1.IntentsProtocolLayer(layerName, context);
             default:
-                throw new Error(`Unknown layer type: ${layerName}. Valid layers: near_base, near_services, chain_signatures, intents_protocol`);
+                throw new Error(`Unknown layer type: ${layerName}. Valid layers: ethereum_localnet, near_base, near_services, chain_signatures, intents_protocol`);
         }
     }
     /**

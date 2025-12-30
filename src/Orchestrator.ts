@@ -15,13 +15,14 @@ import { NearBaseLayer } from './layers/NearBaseLayer';
 import { NearServicesLayer } from './layers/NearServicesLayer';
 import { ChainSignaturesLayer } from './layers/ChainSignaturesLayer';
 import { IntentsProtocolLayer } from './layers/IntentsProtocolLayer';
+import { EthereumLocalnetLayer } from './layers/EthereumLocalnetLayer';
 import {
   SimulatorsConfig,
   LayerOutput,
   DeploymentState,
   VerifyResult,
 } from './types';
-import { LayerContext } from './layers/BaseLayer';
+import { LayerContext, BaseLayer } from './layers/BaseLayer';
 
 export interface OrchestratorOptions {
   configPath?: string;
@@ -313,7 +314,7 @@ export class Orchestrator {
   /**
    * Create a layer instance with proper context
    */
-  private createLayerInstance(layerName: string): any {
+  private createLayerInstance(layerName: string): BaseLayer {
     if (!this.config) {
       throw new Error('Configuration not loaded');
     }
@@ -336,9 +337,9 @@ export class Orchestrator {
       getLayerOutputs: (name: string) => this.layerOutputs.get(name),
     };
 
-    // Create the appropriate layer instance
-    // Layer order: near_base (1) → near_services (2) → chain_signatures (3) → intents_protocol (4)
     switch (layerName) {
+      case 'ethereum_localnet':
+        return new EthereumLocalnetLayer(layerName, context);
       case 'near_base':
         return new NearBaseLayer(layerName, context);
       case 'near_services':
@@ -348,7 +349,7 @@ export class Orchestrator {
       case 'intents_protocol':
         return new IntentsProtocolLayer(layerName, context);
       default:
-        throw new Error(`Unknown layer type: ${layerName}. Valid layers: near_base, near_services, chain_signatures, intents_protocol`);
+        throw new Error(`Unknown layer type: ${layerName}. Valid layers: ethereum_localnet, near_base, near_services, chain_signatures, intents_protocol`);
     }
   }
 

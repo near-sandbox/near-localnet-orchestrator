@@ -110,6 +110,26 @@ class ChainSignaturesLayer extends BaseLayer_1.BaseLayer {
             // Ensure cross-chain-simulator repository is cloned and ready
             const repoUrl = this.context.layerConfig.source.repo_url;
             const repoPath = await this.ensureRepository(repoUrl, this.context.layerConfig.source.branch);
+            // Deploy MPC Infrastructure via CDK if cdk_path is provided
+            if (this.context.layerConfig.source.cdk_path) {
+                this.context.logger.info('Deploying MPC Infrastructure (CDK)...');
+                const cdkPath = this.context.layerConfig.source.cdk_path;
+                // Prepare context for MPC CDK
+                // MPC stack needs to know where NEAR is? Usually via config or SSM.
+                // It mostly creates EC2 instances.
+                const mpcContext = {
+                    'accountId': this.context.globalConfig.aws_account,
+                    'region': this.context.globalConfig.aws_region,
+                    'vpcId': nearOutputs.outputs.vpc_id, // Put MPC in same VPC
+                    'nearRpcUrl': nearOutputs.outputs.rpc_url, // Pass RPC URL
+                    'mpcNodeCount': (this.context.layerConfig.config.mpc_node_count || 3).toString(),
+                };
+                await this.deployCdkStacks(repoPath, cdkPath, {
+                    stacks: ['MpcStandaloneStack'], // Assuming this is the stack name
+                    context: mpcContext,
+                });
+                this.context.logger.success('MPC Infrastructure deployed');
+            }
             // Get script path for deployment
             const scriptPath = this.context.layerConfig.source.script_path;
             if (!scriptPath) {
@@ -169,6 +189,28 @@ class ChainSignaturesLayer extends BaseLayer_1.BaseLayer {
             // Node.js environment
             NODE_ENV: 'production',
         };
+        // Get master account key from SSM if not provided in config
+        if (!env.MASTER_ACCOUNT_PRIVATE_KEY && !env.DEPLOYER_KMS_KEY_ID) {
+            try {
+                // We use aws cli via command executor to avoid adding sdk dependency just for this
+                const result = await this.context.commandExecutor.execute('aws', [
+                    'ssm', 'get-parameter',
+                    '--name', '/near-localnet/master-account-key',
+                    '--with-decryption',
+                    '--query', 'Parameter.Value',
+                    '--output', 'text',
+                    '--profile', this.context.globalConfig.aws_profile,
+                    '--region', this.context.globalConfig.aws_region,
+                ], { silent: true });
+                if (result.success && result.stdout) {
+                    env.MASTER_ACCOUNT_PRIVATE_KEY = result.stdout.trim();
+                    this.context.logger.debug('Loaded master account key from SSM');
+                }
+            }
+            catch (error) {
+                this.context.logger.warn('Failed to load master account key from SSM');
+            }
+        }
         // Add faucet endpoint if available from services layer
         if (servicesOutputs?.outputs.faucet_endpoint) {
             env.FAUCET_ENDPOINT = servicesOutputs.outputs.faucet_endpoint;

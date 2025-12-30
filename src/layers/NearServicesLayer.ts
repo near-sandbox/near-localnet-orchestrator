@@ -208,11 +208,11 @@ export class NearServicesLayer extends BaseLayer {
     this.context.logger.startOperation('Deploying NEAR core contracts');
 
     try {
-      // Clone near/core-contracts repository
+      // Clone near/core-contracts repository (includes pre-built WASMs)
       const coreContractsPath = await this.ensureCoreContractsRepo();
 
-      // Build contracts
-      await this.buildCoreContracts(coreContractsPath);
+      // Skip build - use pre-compiled WASMs from repository
+      this.context.logger.info('Using pre-built WASMs from repository (production binaries)');
 
       // Deploy contracts to localnet
       await this.deployContractsToLocalnet(coreContractsPath, nearOutputs);
@@ -241,40 +241,6 @@ export class NearServicesLayer extends BaseLayer {
   }
 
   /**
-   * Build core contracts (Rust -> WASM)
-   */
-  private async buildCoreContracts(repoPath: string): Promise<void> {
-    this.context.logger.info('Building core contracts...');
-
-    // Install wasm32 target if not present
-    this.context.logger.info('Ensuring wasm32-unknown-unknown target...');
-    await this.context.commandExecutor.execute(
-      'rustup',
-      ['target', 'add', 'wasm32-unknown-unknown'],
-      {
-        streamOutput: false,
-      }
-    );
-
-    // Build script in near/core-contracts
-    const buildResult = await this.context.commandExecutor.execute(
-      'bash',
-      ['scripts/build_all.sh'],
-      {
-        cwd: repoPath,
-        streamOutput: true,
-        timeout: 600000, // 10 minutes for Rust compilation
-      }
-    );
-
-    if (!buildResult.success) {
-      throw new Error(`Failed to build core contracts: ${buildResult.stderr}`);
-    }
-
-    this.context.logger.success('Core contracts built successfully');
-  }
-
-  /**
    * Deploy contracts to localnet using node0 account
    */
   private async deployContractsToLocalnet(repoPath: string, nearOutputs: LayerOutput): Promise<void> {
@@ -297,7 +263,13 @@ export class NearServicesLayer extends BaseLayer {
 
     const masterAccountKey = keyResult.stdout.trim();
 
-    // Create deployment script
+    // Get the services repo path (has near-api-js installed)
+    const servicesRepoPath = await this.ensureRepository(
+      this.context.layerConfig.source.repo_url,
+      this.context.layerConfig.source.branch
+    );
+
+    // Create deployment script in the services repo (has dependencies)
     const deployScript = `
 const nearAPI = require('near-api-js');
 const fs = require('fs');
@@ -316,46 +288,69 @@ async function deploy() {
 
   const masterAccount = await near.account('node0');
 
-  // Deploy priority contracts for testnet/mainnet parity
+  // Deploy priority contracts for testnet/mainnet parity (pre-built WASMs)
   const contracts = [
-    { name: 'w-near', account: 'wrap.node0', wasm: 'w-near/res/w_near.wasm' },
-    { name: 'whitelist', account: 'whitelist.node0', wasm: 'whitelist/res/whitelist.wasm' },
-    { name: 'staking-pool-factory', account: 'poolv1.node0', wasm: 'staking-pool-factory/res/staking_pool_factory.wasm' },
+    { name: 'w-near', account: 'wrap.node0', wasm: 'w-near/res/w_near.wasm', initArgs: { owner_id: 'node0' } },
+    { name: 'whitelist', account: 'whitelist.node0', wasm: 'whitelist/res/whitelist.wasm', initArgs: { foundation_account_id: 'node0' } },
+    { name: 'staking-pool-factory', account: 'poolv1.node0', wasm: 'staking-pool-factory/res/staking_pool_factory.wasm', initArgs: { staking_pool_whitelist_account_id: 'whitelist.node0' } },
   ];
 
   for (const contract of contracts) {
-    console.log(\`\\nDeploying \${contract.name}...\`);
+    console.log(\`\\nDeploying \${contract.name} to \${contract.account}...\`);
     try {
       const wasmPath = path.join('${repoPath}', contract.wasm);
       const wasmBytes = fs.readFileSync(wasmPath);
       
-      await masterAccount.createAndDeployContract(
-        contract.account,
-        nearAPI.utils.PublicKey.from(keyPair.getPublicKey().toString()),
-        wasmBytes,
-        nearAPI.utils.format.parseNearAmount('10')
-      );
+      // Create account, deploy contract, and initialize in one transaction
+      const publicKey = keyPair.getPublicKey();
+      const actions = [
+        nearAPI.transactions.createAccount(),
+        nearAPI.transactions.transfer(nearAPI.utils.format.parseNearAmount('10')),
+        nearAPI.transactions.deployContract(wasmBytes),
+        nearAPI.transactions.functionCall(
+          'new',
+          Buffer.from(JSON.stringify(contract.initArgs)),
+          '30000000000000',
+          '0'
+        ),
+      ];
       
-      console.log(\`✅ \${contract.name} deployed to \${contract.account}\`);
+      const result = await masterAccount.signAndSendTransaction({
+        receiverId: contract.account,
+        actions,
+      });
+      
+      console.log(\`✅ \${contract.name} deployed successfully (tx: \${result.transaction.hash})\`);
     } catch (error) {
-      console.error(\`❌ Failed to deploy \${contract.name}:\`, error.message);
+      if (error.message && error.message.includes('already exists')) {
+        console.log(\`⏭️  \${contract.account} already exists, skipping\`);
+      } else {
+        console.error(\`❌ Failed to deploy \${contract.name}:\`, error.message);
+      }
     }
   }
+  
+  console.log('\\n✅ Core contracts deployment complete');
 }
 
-deploy().catch(console.error);
+deploy().catch((e) => {
+  console.error('Deployment failed:', e.message);
+  process.exit(1);
+});
 `;
 
-    // Write deployment script to workspace
-    const scriptPath = path.join(this.context.globalConfig.workspace_root, 'deploy-contracts.js');
+    // Write script to faucet directory (has near-api-js installed)
+    const scriptPath = path.join(servicesRepoPath, 'faucet', 'deploy-contracts.js');
     const fs = require('fs');
     fs.writeFileSync(scriptPath, deployScript);
+    this.context.logger.info(`Deployment script written to: ${scriptPath}`);
 
-    // Execute deployment
+    // Execute deployment from faucet directory
     const result = await this.context.commandExecutor.execute(
       'node',
       [scriptPath],
       {
+        cwd: path.join(servicesRepoPath, 'faucet'),
         streamOutput: true,
         timeout: 300000, // 5 minutes
       }

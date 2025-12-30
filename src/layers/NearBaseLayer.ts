@@ -213,14 +213,14 @@ export class NearBaseLayer extends BaseLayer {
       const commonOutputs = await this.readStackOutputs('near-localnet-common');
 
       const outputs = {
-        // Primary RPC endpoint from sync stack
-        rpc_url: syncOutputs.NearLocalnetRpcUrl || '',
-        network_id: syncOutputs.NearLocalnetNetworkId || 'localnet',
+        // Primary RPC endpoint from sync stack (note: CDK outputs are lowercase in some versions)
+        rpc_url: syncOutputs.NearLocalnetRpcUrl || syncOutputs.nearrpcurl || '',
+        network_id: syncOutputs.NearLocalnetNetworkId || syncOutputs.nearnetworkid || 'localnet',
 
         // Infrastructure details
-        instance_id: infraOutputs.NearLocalnetInstanceId || '',
-        private_ip: infraOutputs.NearLocalnetInstancePrivateIp || '',
-        rpc_ip: infraOutputs.NearLocalnetInstancePrivateIp || '', // Same as private IP
+        instance_id: infraOutputs.NearLocalnetInstanceId || infraOutputs.nearinstanceid || '',
+        private_ip: infraOutputs.NearLocalnetInstancePrivateIp || infraOutputs.nearinstanceprivateip || '',
+        rpc_ip: infraOutputs.NearLocalnetInstancePrivateIp || infraOutputs.nearinstanceprivateip || '', // Same as private IP
 
         // Network details from common stack
         vpc_id: commonOutputs.VpcId || '',

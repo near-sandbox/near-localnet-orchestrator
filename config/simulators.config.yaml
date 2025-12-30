@@ -61,8 +61,7 @@ layers:
       branch: "main"
       cdk_path: "lib/near"
     config:
-      # Layer 1 is already deployed - use existing infrastructure
-      existing_rpc_url: "http://10.0.55.70:3030"
+      # existing_rpc_url: REMOVED - always read fresh from CloudFormation
       # Deployment config (used if deploying new infrastructure)
       instance_type: "m7a.2xlarge"
       near_version: "2.10.1"

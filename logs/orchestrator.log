@@ -1937,3 +1937,317 @@
 {"component":"Orchestrator:near_services","level":"warn","message":"Could not read faucet stack outputs","timestamp":"2025-12-30T03:33:23.464Z"}
 {"component":"Orchestrator","level":"info","message":"✅ Layer 'near_services' deployed successfully","timestamp":"2025-12-30T03:33:23.464Z"}
 {"component":"Orchestrator","level":"info","message":"✅ ✅ Orchestration completed successfully in 106913ms","timestamp":"2025-12-30T03:33:23.465Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-30T03:43:26.607Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Checking existing NEAR RPC infrastructure at: http://10.0.55.70:3030","timestamp":"2025-12-30T03:43:26.614Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-30T03:43:26.612Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-30T03:43:26.613Z"}
+{"component":"Orchestrator","level":"info","message":"🎯 Starting orchestration process","timestamp":"2025-12-30T03:43:26.613Z"}
+{"component":"Orchestrator","level":"info","message":"📋 Execution plan: near_base → near_services","timestamp":"2025-12-30T03:43:26.614Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layer 'near_base'...","timestamp":"2025-12-30T03:43:26.614Z"}
+{"component":"Orchestrator:near_base","level":"warn","message":"External access to NEAR RPC failed: timeout of 15000ms exceeded","timestamp":"2025-12-30T03:43:41.625Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Checking if NEAR infrastructure exists via AWS APIs...","timestamp":"2025-12-30T03:43:41.626Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"✅ NEAR infrastructure exists and is properly secured","timestamp":"2025-12-30T03:43:43.745Z"}
+{"component":"Orchestrator","level":"info","message":"⏭️  Skipping layer 'near_base': Existing NEAR infrastructure exists and is properly secured (network isolation expected)","timestamp":"2025-12-30T03:43:43.745Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"- Instance: i-04e50891ed0111b73","timestamp":"2025-12-30T03:43:43.745Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"- VPC: vpc-0655b93d83acfeda0","timestamp":"2025-12-30T03:43:43.745Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"- Network isolation is working correctly","timestamp":"2025-12-30T03:43:43.745Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layer 'near_services'...","timestamp":"2025-12-30T03:43:43.745Z"}
+{"component":"Orchestrator","level":"info","message":"📦 Deploying layer 'near_services'...","timestamp":"2025-12-30T03:43:44.537Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"🚀 Starting: Deploying NEAR Services Layer (Layer 2)","timestamp":"2025-12-30T03:43:44.538Z"}
+{"component":"Orchestrator","level":"info","message":"Using local repository: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services","timestamp":"2025-12-30T03:43:44.538Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Local repository ready: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services","timestamp":"2025-12-30T03:43:44.538Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"Installing CDK dependencies in faucet/cdk","timestamp":"2025-12-30T03:43:44.538Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"Generating faucet configuration","timestamp":"2025-12-30T03:43:45.315Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Starting: CDK deploy in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services/faucet/cdk","timestamp":"2025-12-30T03:43:45.316Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"✅ Faucet configuration written to: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services/faucet/cdk/config.local.json","timestamp":"2025-12-30T03:43:45.316Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"Deploying faucet infrastructure...","timestamp":"2025-12-30T03:43:45.316Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"Deploying CDK stacks in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services/faucet/cdk","timestamp":"2025-12-30T03:43:45.316Z"}
+{"component":"Orchestrator","level":"info","message":"Running: cdk deploy --profile shai-sandbox-profile --region us-east-1 NearFaucetStack --context nearNodeUrl=http://10.0.55.70:3030 --context nearNetworkId=localnet --context ssmMasterAccountIdParam=/near-localnet/master-account-id --context vpcId=vpc-0655b93d83acfeda0 --context accountId=311843862895 --context region=us-east-1 --require-approval never --outputs-file cdk-outputs.json","timestamp":"2025-12-30T03:43:45.316Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Completed: CDK deploy in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services/faucet/cdk (71354ms)","timestamp":"2025-12-30T03:44:56.670Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"✅ Completed: NEAR Services Layer deployment (72133ms)","timestamp":"2025-12-30T03:44:56.670Z"}
+{"component":"Orchestrator","level":"info","message":"Ensuring repository: core-contracts (https://github.com/near/core-contracts.git)","timestamp":"2025-12-30T03:44:56.670Z"}
+{"component":"Orchestrator","level":"info","message":"Updating repository at /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/workspace/core-contracts","timestamp":"2025-12-30T03:44:56.671Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"🚀 Starting: Deploying NEAR core contracts","timestamp":"2025-12-30T03:44:56.670Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Updated repository to latest master","timestamp":"2025-12-30T03:44:56.958Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"Core contracts repository ready at: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/workspace/core-contracts","timestamp":"2025-12-30T03:44:56.959Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Repository ready: core-contracts","timestamp":"2025-12-30T03:44:56.959Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"Using pre-built WASMs from repository (production binaries)","timestamp":"2025-12-30T03:44:56.959Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"Deploying contracts to localnet...","timestamp":"2025-12-30T03:44:56.959Z"}
+{"component":"Orchestrator:near_services","error":"ENOENT: no such file or directory, open 'workspace/deploy-contracts.js'","level":"error","message":"Failed to deploy core contracts","stack":"Error: ENOENT: no such file or directory, open 'workspace/deploy-contracts.js'\n    at Object.writeFileSync (node:fs:2408:20)\n    at NearServicesLayer.deployContractsToLocalnet (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/layers/NearServicesLayer.js:311:12)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async NearServicesLayer.deployCoreContracts (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/layers/NearServicesLayer.js:223:13)\n    at async NearServicesLayer.deploy (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/layers/NearServicesLayer.js:150:13)\n    at async Orchestrator.processLayer (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/Orchestrator.js:228:34)\n    at async Orchestrator.run (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/Orchestrator.js:113:33)\n    at async handleDeploy (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/index.js:156:20)\n    at async runCommand (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/index.js:111:17)\n    at async Command.<anonymous> (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/index.js:33:5)","timestamp":"2025-12-30T03:44:58.009Z"}
+{"component":"Orchestrator","level":"info","message":"📤 Getting outputs for layer 'near_services'...","timestamp":"2025-12-30T03:44:58.009Z"}
+{"component":"Orchestrator:near_services","level":"warn","message":"Continuing without core contracts - basic functionality still available","timestamp":"2025-12-30T03:44:58.009Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"Reading NEAR Services Layer outputs","timestamp":"2025-12-30T03:44:58.010Z"}
+{"component":"Orchestrator","level":"warn","message":"Attempt 1 failed with error: AWS CLI command failed: \nAn error occurred (ValidationError) when calling the DescribeStacks operation: Stack with id near-localnet-faucet does not exist\n","timestamp":"2025-12-30T03:44:58.687Z"}
+{"component":"Orchestrator","level":"warn","message":"Attempt 2 failed with error: AWS CLI command failed: \nAn error occurred (ValidationError) when calling the DescribeStacks operation: Stack with id near-localnet-faucet does not exist\n","timestamp":"2025-12-30T03:45:01.401Z"}
+{"component":"Orchestrator","level":"warn","message":"Attempt 3 failed with error: AWS CLI command failed: \nAn error occurred (ValidationError) when calling the DescribeStacks operation: Stack with id near-localnet-faucet does not exist\n","timestamp":"2025-12-30T03:45:04.082Z"}
+{"component":"Orchestrator:near_services","level":"warn","message":"Could not read faucet stack outputs","timestamp":"2025-12-30T03:45:04.082Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Layer 'near_services' deployed successfully","timestamp":"2025-12-30T03:45:04.082Z"}
+{"component":"Orchestrator","level":"info","message":"✅ ✅ Orchestration completed successfully in 97469ms","timestamp":"2025-12-30T03:45:04.083Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-30T03:52:36.030Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Checking existing NEAR RPC infrastructure at: http://10.0.55.70:3030","timestamp":"2025-12-30T03:52:36.038Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-30T03:52:36.035Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-30T03:52:36.036Z"}
+{"component":"Orchestrator","level":"info","message":"🎯 Starting orchestration process","timestamp":"2025-12-30T03:52:36.037Z"}
+{"component":"Orchestrator","level":"info","message":"📋 Execution plan: near_base → near_services","timestamp":"2025-12-30T03:52:36.037Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layer 'near_base'...","timestamp":"2025-12-30T03:52:36.038Z"}
+{"component":"Orchestrator:near_base","level":"warn","message":"External access to NEAR RPC failed: timeout of 15000ms exceeded","timestamp":"2025-12-30T03:52:51.054Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Checking if NEAR infrastructure exists via AWS APIs...","timestamp":"2025-12-30T03:52:51.054Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"✅ NEAR infrastructure exists and is properly secured","timestamp":"2025-12-30T03:52:53.170Z"}
+{"component":"Orchestrator","level":"info","message":"⏭️  Skipping layer 'near_base': Existing NEAR infrastructure exists and is properly secured (network isolation expected)","timestamp":"2025-12-30T03:52:53.171Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"- Instance: i-04e50891ed0111b73","timestamp":"2025-12-30T03:52:53.170Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"- VPC: vpc-0655b93d83acfeda0","timestamp":"2025-12-30T03:52:53.170Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"- Network isolation is working correctly","timestamp":"2025-12-30T03:52:53.170Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layer 'near_services'...","timestamp":"2025-12-30T03:52:53.171Z"}
+{"component":"Orchestrator","level":"info","message":"📦 Deploying layer 'near_services'...","timestamp":"2025-12-30T03:52:53.900Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"🚀 Starting: Deploying NEAR Services Layer (Layer 2)","timestamp":"2025-12-30T03:52:53.900Z"}
+{"component":"Orchestrator","level":"info","message":"Using local repository: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services","timestamp":"2025-12-30T03:52:53.900Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Local repository ready: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services","timestamp":"2025-12-30T03:52:53.901Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"Installing CDK dependencies in faucet/cdk","timestamp":"2025-12-30T03:52:53.901Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"Generating faucet configuration","timestamp":"2025-12-30T03:52:54.504Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Starting: CDK deploy in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services/faucet/cdk","timestamp":"2025-12-30T03:52:54.505Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"✅ Faucet configuration written to: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services/faucet/cdk/config.local.json","timestamp":"2025-12-30T03:52:54.505Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"Deploying faucet infrastructure...","timestamp":"2025-12-30T03:52:54.505Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"Deploying CDK stacks in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services/faucet/cdk","timestamp":"2025-12-30T03:52:54.505Z"}
+{"component":"Orchestrator","level":"info","message":"Running: cdk deploy --profile shai-sandbox-profile --region us-east-1 NearFaucetStack --context nearNodeUrl=http://10.0.55.70:3030 --context nearNetworkId=localnet --context ssmMasterAccountIdParam=/near-localnet/master-account-id --context vpcId=vpc-0655b93d83acfeda0 --context accountId=311843862895 --context region=us-east-1 --require-approval never --outputs-file cdk-outputs.json","timestamp":"2025-12-30T03:52:54.505Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Completed: CDK deploy in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services/faucet/cdk (75242ms)","timestamp":"2025-12-30T03:54:09.747Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"✅ Completed: NEAR Services Layer deployment (75848ms)","timestamp":"2025-12-30T03:54:09.748Z"}
+{"component":"Orchestrator","level":"info","message":"Ensuring repository: core-contracts (https://github.com/near/core-contracts.git)","timestamp":"2025-12-30T03:54:09.748Z"}
+{"component":"Orchestrator","level":"info","message":"Updating repository at /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/workspace/core-contracts","timestamp":"2025-12-30T03:54:09.748Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"🚀 Starting: Deploying NEAR core contracts","timestamp":"2025-12-30T03:54:09.748Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Updated repository to latest master","timestamp":"2025-12-30T03:54:10.005Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"Core contracts repository ready at: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/workspace/core-contracts","timestamp":"2025-12-30T03:54:10.005Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Repository ready: core-contracts","timestamp":"2025-12-30T03:54:10.005Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"Using pre-built WASMs from repository (production binaries)","timestamp":"2025-12-30T03:54:10.005Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"Deploying contracts to localnet...","timestamp":"2025-12-30T03:54:10.005Z"}
+{"component":"Orchestrator","level":"info","message":"Using local repository: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services","timestamp":"2025-12-30T03:54:11.050Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"Installing CDK dependencies in faucet/cdk","timestamp":"2025-12-30T03:54:11.051Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Local repository ready: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services","timestamp":"2025-12-30T03:54:11.051Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"Deployment script written to: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services/deploy-contracts.js","timestamp":"2025-12-30T03:54:11.484Z"}
+{"component":"Orchestrator","error":{"exitCode":1,"stderr":"Command failed with exit code 1: node /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services/deploy-contracts.js","stdout":""},"level":"error","message":"Command failed: node /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services/deploy-contracts.js","timestamp":"2025-12-30T03:54:11.522Z"}
+{"component":"Orchestrator:near_services","error":"Contract deployment failed: Command failed with exit code 1: node /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services/deploy-contracts.js","level":"error","message":"Failed to deploy core contracts","stack":"Error: Contract deployment failed: Command failed with exit code 1: node /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services/deploy-contracts.js\n    at NearServicesLayer.deployContractsToLocalnet (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/layers/NearServicesLayer.js:342:19)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async NearServicesLayer.deployCoreContracts (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/layers/NearServicesLayer.js:223:13)\n    at async NearServicesLayer.deploy (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/layers/NearServicesLayer.js:150:13)\n    at async Orchestrator.processLayer (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/Orchestrator.js:228:34)\n    at async Orchestrator.run (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/Orchestrator.js:113:33)\n    at async handleDeploy (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/index.js:156:20)\n    at async runCommand (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/index.js:111:17)\n    at async Command.<anonymous> (/Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/dist/index.js:33:5)","timestamp":"2025-12-30T03:54:11.522Z"}
+{"component":"Orchestrator","level":"info","message":"📤 Getting outputs for layer 'near_services'...","timestamp":"2025-12-30T03:54:11.522Z"}
+{"component":"Orchestrator:near_services","level":"warn","message":"Continuing without core contracts - basic functionality still available","timestamp":"2025-12-30T03:54:11.522Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"Reading NEAR Services Layer outputs","timestamp":"2025-12-30T03:54:11.522Z"}
+{"component":"Orchestrator","level":"warn","message":"Attempt 1 failed with error: AWS CLI command failed: \nAn error occurred (ValidationError) when calling the DescribeStacks operation: Stack with id near-localnet-faucet does not exist\n","timestamp":"2025-12-30T03:54:12.208Z"}
+{"component":"Orchestrator","level":"warn","message":"Attempt 2 failed with error: AWS CLI command failed: \nAn error occurred (ValidationError) when calling the DescribeStacks operation: Stack with id near-localnet-faucet does not exist\n","timestamp":"2025-12-30T03:54:14.945Z"}
+{"component":"Orchestrator","level":"warn","message":"Attempt 3 failed with error: AWS CLI command failed: \nAn error occurred (ValidationError) when calling the DescribeStacks operation: Stack with id near-localnet-faucet does not exist\n","timestamp":"2025-12-30T03:54:17.665Z"}
+{"component":"Orchestrator:near_services","level":"warn","message":"Could not read faucet stack outputs","timestamp":"2025-12-30T03:54:17.666Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Layer 'near_services' deployed successfully","timestamp":"2025-12-30T03:54:17.666Z"}
+{"component":"Orchestrator","level":"info","message":"✅ ✅ Orchestration completed successfully in 101629ms","timestamp":"2025-12-30T03:54:17.666Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-30T03:54:36.227Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Checking existing NEAR RPC infrastructure at: http://10.0.55.70:3030","timestamp":"2025-12-30T03:54:36.234Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-30T03:54:36.232Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-30T03:54:36.232Z"}
+{"component":"Orchestrator","level":"info","message":"🎯 Starting orchestration process","timestamp":"2025-12-30T03:54:36.233Z"}
+{"component":"Orchestrator","level":"info","message":"📋 Execution plan: near_base → near_services","timestamp":"2025-12-30T03:54:36.233Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layer 'near_base'...","timestamp":"2025-12-30T03:54:36.233Z"}
+{"component":"Orchestrator:near_base","level":"warn","message":"External access to NEAR RPC failed: timeout of 15000ms exceeded","timestamp":"2025-12-30T03:54:51.246Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Checking if NEAR infrastructure exists via AWS APIs...","timestamp":"2025-12-30T03:54:51.247Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"✅ NEAR infrastructure exists and is properly secured","timestamp":"2025-12-30T03:54:52.991Z"}
+{"component":"Orchestrator","level":"info","message":"⏭️  Skipping layer 'near_base': Existing NEAR infrastructure exists and is properly secured (network isolation expected)","timestamp":"2025-12-30T03:54:52.992Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"- Instance: i-04e50891ed0111b73","timestamp":"2025-12-30T03:54:52.992Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"- VPC: vpc-0655b93d83acfeda0","timestamp":"2025-12-30T03:54:52.992Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"- Network isolation is working correctly","timestamp":"2025-12-30T03:54:52.992Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layer 'near_services'...","timestamp":"2025-12-30T03:54:52.992Z"}
+{"component":"Orchestrator","level":"info","message":"📦 Deploying layer 'near_services'...","timestamp":"2025-12-30T03:54:53.796Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"🚀 Starting: Deploying NEAR Services Layer (Layer 2)","timestamp":"2025-12-30T03:54:53.796Z"}
+{"component":"Orchestrator","level":"info","message":"Using local repository: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services","timestamp":"2025-12-30T03:54:53.796Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Local repository ready: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services","timestamp":"2025-12-30T03:54:53.796Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"Installing CDK dependencies in faucet/cdk","timestamp":"2025-12-30T03:54:53.796Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"Generating faucet configuration","timestamp":"2025-12-30T03:54:54.598Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Starting: CDK deploy in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services/faucet/cdk","timestamp":"2025-12-30T03:54:54.598Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"✅ Faucet configuration written to: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services/faucet/cdk/config.local.json","timestamp":"2025-12-30T03:54:54.598Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"Deploying faucet infrastructure...","timestamp":"2025-12-30T03:54:54.598Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"Deploying CDK stacks in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services/faucet/cdk","timestamp":"2025-12-30T03:54:54.598Z"}
+{"component":"Orchestrator","level":"info","message":"Running: cdk deploy --profile shai-sandbox-profile --region us-east-1 NearFaucetStack --context nearNodeUrl=http://10.0.55.70:3030 --context nearNetworkId=localnet --context ssmMasterAccountIdParam=/near-localnet/master-account-id --context vpcId=vpc-0655b93d83acfeda0 --context accountId=311843862895 --context region=us-east-1 --require-approval never --outputs-file cdk-outputs.json","timestamp":"2025-12-30T03:54:54.598Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Completed: CDK deploy in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services/faucet/cdk (71654ms)","timestamp":"2025-12-30T03:56:06.252Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"✅ Completed: NEAR Services Layer deployment (72456ms)","timestamp":"2025-12-30T03:56:06.252Z"}
+{"component":"Orchestrator","level":"info","message":"Ensuring repository: core-contracts (https://github.com/near/core-contracts.git)","timestamp":"2025-12-30T03:56:06.252Z"}
+{"component":"Orchestrator","level":"info","message":"Updating repository at /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/workspace/core-contracts","timestamp":"2025-12-30T03:56:06.252Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"🚀 Starting: Deploying NEAR core contracts","timestamp":"2025-12-30T03:56:06.252Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Updated repository to latest master","timestamp":"2025-12-30T03:56:06.521Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"Core contracts repository ready at: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/workspace/core-contracts","timestamp":"2025-12-30T03:56:06.521Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Repository ready: core-contracts","timestamp":"2025-12-30T03:56:06.521Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"Using pre-built WASMs from repository (production binaries)","timestamp":"2025-12-30T03:56:06.521Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"Deploying contracts to localnet...","timestamp":"2025-12-30T03:56:06.521Z"}
+{"component":"Orchestrator","level":"info","message":"Using local repository: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services","timestamp":"2025-12-30T03:56:07.510Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"Installing CDK dependencies in faucet/cdk","timestamp":"2025-12-30T03:56:07.511Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Local repository ready: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services","timestamp":"2025-12-30T03:56:07.511Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"Deployment script written to: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services/faucet/deploy-contracts.js","timestamp":"2025-12-30T03:56:07.920Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"✅ Core contracts deployed to localnet","timestamp":"2025-12-30T03:56:39.938Z"}
+{"component":"Orchestrator","level":"info","message":"📤 Getting outputs for layer 'near_services'...","timestamp":"2025-12-30T03:56:39.938Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"✅ Completed: Core contracts deployment","timestamp":"2025-12-30T03:56:39.938Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"Reading NEAR Services Layer outputs","timestamp":"2025-12-30T03:56:39.939Z"}
+{"component":"Orchestrator","level":"warn","message":"Attempt 1 failed with error: AWS CLI command failed: \nAn error occurred (ValidationError) when calling the DescribeStacks operation: Stack with id near-localnet-faucet does not exist\n","timestamp":"2025-12-30T03:56:41.033Z"}
+{"component":"Orchestrator","level":"warn","message":"Attempt 2 failed with error: AWS CLI command failed: \nAn error occurred (ValidationError) when calling the DescribeStacks operation: Stack with id near-localnet-faucet does not exist\n","timestamp":"2025-12-30T03:56:44.169Z"}
+{"component":"Orchestrator","level":"warn","message":"Attempt 3 failed with error: AWS CLI command failed: \nAn error occurred (ValidationError) when calling the DescribeStacks operation: Stack with id near-localnet-faucet does not exist\n","timestamp":"2025-12-30T03:56:47.130Z"}
+{"component":"Orchestrator:near_services","level":"warn","message":"Could not read faucet stack outputs","timestamp":"2025-12-30T03:56:47.130Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Layer 'near_services' deployed successfully","timestamp":"2025-12-30T03:56:47.131Z"}
+{"component":"Orchestrator","level":"info","message":"✅ ✅ Orchestration completed successfully in 130899ms","timestamp":"2025-12-30T03:56:47.132Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-30T03:57:23.718Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Checking existing NEAR RPC infrastructure at: http://10.0.55.70:3030","timestamp":"2025-12-30T03:57:23.724Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-30T03:57:23.722Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-30T03:57:23.723Z"}
+{"component":"Orchestrator","level":"info","message":"🎯 Starting orchestration process","timestamp":"2025-12-30T03:57:23.723Z"}
+{"component":"Orchestrator","level":"info","message":"📋 Execution plan: near_base → near_services","timestamp":"2025-12-30T03:57:23.723Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layer 'near_base'...","timestamp":"2025-12-30T03:57:23.723Z"}
+{"component":"Orchestrator:near_base","level":"warn","message":"External access to NEAR RPC failed: timeout of 15000ms exceeded","timestamp":"2025-12-30T03:57:38.735Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Checking if NEAR infrastructure exists via AWS APIs...","timestamp":"2025-12-30T03:57:38.735Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"✅ NEAR infrastructure exists and is properly secured","timestamp":"2025-12-30T03:57:40.552Z"}
+{"component":"Orchestrator","level":"info","message":"⏭️  Skipping layer 'near_base': Existing NEAR infrastructure exists and is properly secured (network isolation expected)","timestamp":"2025-12-30T03:57:40.552Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"- Instance: i-04e50891ed0111b73","timestamp":"2025-12-30T03:57:40.552Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"- VPC: vpc-0655b93d83acfeda0","timestamp":"2025-12-30T03:57:40.552Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"- Network isolation is working correctly","timestamp":"2025-12-30T03:57:40.552Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layer 'near_services'...","timestamp":"2025-12-30T03:57:40.553Z"}
+{"component":"Orchestrator","level":"info","message":"📦 Deploying layer 'near_services'...","timestamp":"2025-12-30T03:57:41.372Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"🚀 Starting: Deploying NEAR Services Layer (Layer 2)","timestamp":"2025-12-30T03:57:41.372Z"}
+{"component":"Orchestrator","level":"info","message":"Using local repository: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services","timestamp":"2025-12-30T03:57:41.372Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Local repository ready: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services","timestamp":"2025-12-30T03:57:41.372Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"Installing CDK dependencies in faucet/cdk","timestamp":"2025-12-30T03:57:41.373Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"Generating faucet configuration","timestamp":"2025-12-30T03:57:41.760Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Starting: CDK deploy in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services/faucet/cdk","timestamp":"2025-12-30T03:57:41.761Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"✅ Faucet configuration written to: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services/faucet/cdk/config.local.json","timestamp":"2025-12-30T03:57:41.760Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"Deploying faucet infrastructure...","timestamp":"2025-12-30T03:57:41.761Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"Deploying CDK stacks in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services/faucet/cdk","timestamp":"2025-12-30T03:57:41.761Z"}
+{"component":"Orchestrator","level":"info","message":"Running: cdk deploy --profile shai-sandbox-profile --region us-east-1 NearFaucetStack --context nearNodeUrl=http://10.0.55.70:3030 --context nearNetworkId=localnet --context ssmMasterAccountIdParam=/near-localnet/master-account-id --context vpcId=vpc-0655b93d83acfeda0 --context accountId=311843862895 --context region=us-east-1 --require-approval never --outputs-file cdk-outputs.json","timestamp":"2025-12-30T03:57:41.761Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Completed: CDK deploy in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services/faucet/cdk (73730ms)","timestamp":"2025-12-30T03:58:55.491Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"✅ Completed: NEAR Services Layer deployment (74120ms)","timestamp":"2025-12-30T03:58:55.492Z"}
+{"component":"Orchestrator","level":"info","message":"Ensuring repository: core-contracts (https://github.com/near/core-contracts.git)","timestamp":"2025-12-30T03:58:55.493Z"}
+{"component":"Orchestrator","level":"info","message":"Updating repository at /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/workspace/core-contracts","timestamp":"2025-12-30T03:58:55.493Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"🚀 Starting: Deploying NEAR core contracts","timestamp":"2025-12-30T03:58:55.493Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Updated repository to latest master","timestamp":"2025-12-30T03:58:55.765Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"Core contracts repository ready at: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/workspace/core-contracts","timestamp":"2025-12-30T03:58:55.765Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Repository ready: core-contracts","timestamp":"2025-12-30T03:58:55.765Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"Using pre-built WASMs from repository (production binaries)","timestamp":"2025-12-30T03:58:55.765Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"Deploying contracts to localnet...","timestamp":"2025-12-30T03:58:55.766Z"}
+{"component":"Orchestrator","level":"info","message":"Using local repository: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services","timestamp":"2025-12-30T03:58:56.789Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"Installing CDK dependencies in faucet/cdk","timestamp":"2025-12-30T03:58:56.789Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Local repository ready: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services","timestamp":"2025-12-30T03:58:56.789Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"Deployment script written to: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services/faucet/deploy-contracts.js","timestamp":"2025-12-30T03:58:57.308Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"✅ Core contracts deployed to localnet","timestamp":"2025-12-30T03:59:28.963Z"}
+{"component":"Orchestrator","level":"info","message":"📤 Getting outputs for layer 'near_services'...","timestamp":"2025-12-30T03:59:28.963Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"✅ Completed: Core contracts deployment","timestamp":"2025-12-30T03:59:28.963Z"}
+{"component":"Orchestrator:near_services","level":"info","message":"Reading NEAR Services Layer outputs","timestamp":"2025-12-30T03:59:28.964Z"}
+{"component":"Orchestrator","level":"warn","message":"Attempt 1 failed with error: AWS CLI command failed: \nAn error occurred (ValidationError) when calling the DescribeStacks operation: Stack with id near-localnet-faucet does not exist\n","timestamp":"2025-12-30T03:59:29.737Z"}
+{"component":"Orchestrator","level":"warn","message":"Attempt 2 failed with error: AWS CLI command failed: \nAn error occurred (ValidationError) when calling the DescribeStacks operation: Stack with id near-localnet-faucet does not exist\n","timestamp":"2025-12-30T03:59:32.448Z"}
+{"component":"Orchestrator","level":"warn","message":"Attempt 3 failed with error: AWS CLI command failed: \nAn error occurred (ValidationError) when calling the DescribeStacks operation: Stack with id near-localnet-faucet does not exist\n","timestamp":"2025-12-30T03:59:35.191Z"}
+{"component":"Orchestrator:near_services","level":"warn","message":"Could not read faucet stack outputs","timestamp":"2025-12-30T03:59:35.191Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Layer 'near_services' deployed successfully","timestamp":"2025-12-30T03:59:35.191Z"}
+{"component":"Orchestrator","level":"info","message":"✅ ✅ Orchestration completed successfully in 131468ms","timestamp":"2025-12-30T03:59:35.191Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-30T04:00:48.547Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"🚀 Starting: Deploying NEAR Base Layer (AWSNodeRunner)","timestamp":"2025-12-30T04:00:48.553Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-30T04:00:48.551Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-30T04:00:48.552Z"}
+{"component":"Orchestrator","level":"info","message":"🎯 Starting orchestration process","timestamp":"2025-12-30T04:00:48.552Z"}
+{"component":"Orchestrator","level":"info","message":"📋 Execution plan: near_base → near_services","timestamp":"2025-12-30T04:00:48.552Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layer 'near_base'...","timestamp":"2025-12-30T04:00:48.553Z"}
+{"component":"Orchestrator","level":"info","message":"📦 Deploying layer 'near_base'...","timestamp":"2025-12-30T04:00:48.553Z"}
+{"component":"Orchestrator","level":"info","message":"Using local repository: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/AWSNodeRunner","timestamp":"2025-12-30T04:00:48.553Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Local repository ready: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/AWSNodeRunner","timestamp":"2025-12-30T04:00:48.553Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Installing CDK dependencies in lib/near","timestamp":"2025-12-30T04:00:48.553Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Deploying CDK stacks in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/AWSNodeRunner/lib/near","timestamp":"2025-12-30T04:00:49.148Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Starting: CDK deploy in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/AWSNodeRunner/lib/near","timestamp":"2025-12-30T04:00:49.149Z"}
+{"component":"Orchestrator","level":"info","message":"Running: cdk deploy --profile shai-sandbox-profile --region us-east-1 near-common near-infrastructure near-install near-sync --require-approval never --outputs-file cdk-outputs.json","timestamp":"2025-12-30T04:00:49.149Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Completed: CDK deploy in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/AWSNodeRunner/lib/near (7110ms)","timestamp":"2025-12-30T04:00:56.260Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"✅ Completed: NEAR Base Layer deployment (7707ms)","timestamp":"2025-12-30T04:00:56.260Z"}
+{"component":"Orchestrator","level":"info","message":"📤 Getting outputs for layer 'near_base'...","timestamp":"2025-12-30T04:00:56.260Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Reading NEAR Base Layer outputs","timestamp":"2025-12-30T04:00:56.260Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"✅ NEAR RPC available at: ","timestamp":"2025-12-30T04:00:58.274Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Layer 'near_base' deployed successfully","timestamp":"2025-12-30T04:00:58.274Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layer 'near_services'...","timestamp":"2025-12-30T04:00:58.274Z"}
+{"component":"Orchestrator","level":"info","message":"📦 Deploying layer 'near_services'...","timestamp":"2025-12-30T04:00:59.000Z"}
+{"component":"Orchestrator","level":"info","message":"Using local repository: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services","timestamp":"2025-12-30T04:00:59.000Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Local repository ready: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services","timestamp":"2025-12-30T04:00:59.000Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Starting: CDK deploy in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services/faucet/cdk","timestamp":"2025-12-30T04:00:59.397Z"}
+{"component":"Orchestrator","level":"info","message":"Running: cdk deploy --profile shai-sandbox-profile --region us-east-1 NearFaucetStack --context nearNodeUrl= --context nearNetworkId=localnet --context ssmMasterAccountIdParam=/near-localnet/master-account-id --context vpcId=vpc-0655b93d83acfeda0 --context accountId=311843862895 --context region=us-east-1 --context securityGroupId=sg-0ebe68c6934643700 --require-approval never --outputs-file cdk-outputs.json","timestamp":"2025-12-30T04:00:59.397Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Completed: CDK deploy in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services/faucet/cdk (367005ms)","timestamp":"2025-12-30T04:07:06.402Z"}
+{"component":"Orchestrator","level":"info","message":"Ensuring repository: core-contracts (https://github.com/near/core-contracts.git)","timestamp":"2025-12-30T04:07:06.404Z"}
+{"component":"Orchestrator","level":"info","message":"Updating repository at /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/workspace/core-contracts","timestamp":"2025-12-30T04:07:06.404Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Updated repository to latest master","timestamp":"2025-12-30T04:07:06.661Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Repository ready: core-contracts","timestamp":"2025-12-30T04:07:06.661Z"}
+{"component":"Orchestrator","level":"info","message":"Using local repository: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services","timestamp":"2025-12-30T04:07:08.808Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Local repository ready: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services","timestamp":"2025-12-30T04:07:08.808Z"}
+{"component":"Orchestrator","level":"info","message":"📤 Getting outputs for layer 'near_services'...","timestamp":"2025-12-30T04:07:09.612Z"}
+{"component":"Orchestrator","level":"warn","message":"Attempt 1 failed with error: AWS CLI command failed: \nAn error occurred (ValidationError) when calling the DescribeStacks operation: Stack with id near-localnet-faucet does not exist\n","timestamp":"2025-12-30T04:07:10.337Z"}
+{"component":"Orchestrator","level":"warn","message":"Attempt 2 failed with error: AWS CLI command failed: \nAn error occurred (ValidationError) when calling the DescribeStacks operation: Stack with id near-localnet-faucet does not exist\n","timestamp":"2025-12-30T04:07:13.158Z"}
+{"component":"Orchestrator","level":"warn","message":"Attempt 3 failed with error: AWS CLI command failed: \nAn error occurred (ValidationError) when calling the DescribeStacks operation: Stack with id near-localnet-faucet does not exist\n","timestamp":"2025-12-30T04:07:15.897Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Layer 'near_services' deployed successfully","timestamp":"2025-12-30T04:07:15.898Z"}
+{"component":"Orchestrator","level":"info","message":"✅ ✅ Orchestration completed successfully in 387346ms","timestamp":"2025-12-30T04:07:15.898Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-30T04:08:03.636Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"🚀 Starting: Deploying NEAR Base Layer (AWSNodeRunner)","timestamp":"2025-12-30T04:08:03.644Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-30T04:08:03.641Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-30T04:08:03.641Z"}
+{"component":"Orchestrator","level":"info","message":"🎯 Starting orchestration process","timestamp":"2025-12-30T04:08:03.642Z"}
+{"component":"Orchestrator","level":"info","message":"📋 Execution plan: near_base → near_services","timestamp":"2025-12-30T04:08:03.643Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layer 'near_base'...","timestamp":"2025-12-30T04:08:03.644Z"}
+{"component":"Orchestrator","level":"info","message":"📦 Deploying layer 'near_base'...","timestamp":"2025-12-30T04:08:03.644Z"}
+{"component":"Orchestrator","level":"info","message":"Using local repository: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/AWSNodeRunner","timestamp":"2025-12-30T04:08:03.644Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Local repository ready: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/AWSNodeRunner","timestamp":"2025-12-30T04:08:03.645Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Installing CDK dependencies in lib/near","timestamp":"2025-12-30T04:08:03.645Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Deploying CDK stacks in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/AWSNodeRunner/lib/near","timestamp":"2025-12-30T04:08:04.302Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Starting: CDK deploy in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/AWSNodeRunner/lib/near","timestamp":"2025-12-30T04:08:04.302Z"}
+{"component":"Orchestrator","level":"info","message":"Running: cdk deploy --profile shai-sandbox-profile --region us-east-1 near-common near-infrastructure near-install near-sync --require-approval never --outputs-file cdk-outputs.json","timestamp":"2025-12-30T04:08:04.302Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Completed: CDK deploy in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/AWSNodeRunner/lib/near (7388ms)","timestamp":"2025-12-30T04:08:11.690Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"✅ Completed: NEAR Base Layer deployment (8048ms)","timestamp":"2025-12-30T04:08:11.692Z"}
+{"component":"Orchestrator","level":"info","message":"📤 Getting outputs for layer 'near_base'...","timestamp":"2025-12-30T04:08:11.692Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Reading NEAR Base Layer outputs","timestamp":"2025-12-30T04:08:11.692Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"✅ NEAR RPC available at: http://10.0.13.20:3030","timestamp":"2025-12-30T04:08:13.946Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Layer 'near_base' deployed successfully","timestamp":"2025-12-30T04:08:13.947Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layer 'near_services'...","timestamp":"2025-12-30T04:08:13.947Z"}
+{"component":"Orchestrator","level":"info","message":"📦 Deploying layer 'near_services'...","timestamp":"2025-12-30T04:08:14.773Z"}
+{"component":"Orchestrator","level":"info","message":"Using local repository: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services","timestamp":"2025-12-30T04:08:14.773Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Local repository ready: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services","timestamp":"2025-12-30T04:08:14.773Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Starting: CDK deploy in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services/faucet/cdk","timestamp":"2025-12-30T04:08:15.192Z"}
+{"component":"Orchestrator","level":"info","message":"Running: cdk deploy --profile shai-sandbox-profile --region us-east-1 NearFaucetStack --context nearNodeUrl=http://10.0.13.20:3030 --context nearNetworkId=localnet --context ssmMasterAccountIdParam=/near-localnet/master-account-id --context vpcId=vpc-0655b93d83acfeda0 --context accountId=311843862895 --context region=us-east-1 --context securityGroupId=sg-0ebe68c6934643700 --require-approval never --outputs-file cdk-outputs.json","timestamp":"2025-12-30T04:08:15.192Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Completed: CDK deploy in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services/faucet/cdk (85700ms)","timestamp":"2025-12-30T04:09:40.892Z"}
+{"component":"Orchestrator","level":"info","message":"Ensuring repository: core-contracts (https://github.com/near/core-contracts.git)","timestamp":"2025-12-30T04:09:40.893Z"}
+{"component":"Orchestrator","level":"info","message":"Updating repository at /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/workspace/core-contracts","timestamp":"2025-12-30T04:09:40.893Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Updated repository to latest master","timestamp":"2025-12-30T04:09:41.203Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Repository ready: core-contracts","timestamp":"2025-12-30T04:09:41.203Z"}
+{"component":"Orchestrator","level":"info","message":"Using local repository: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services","timestamp":"2025-12-30T04:09:42.285Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Local repository ready: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services","timestamp":"2025-12-30T04:09:42.285Z"}
+{"component":"Orchestrator","level":"info","message":"📤 Getting outputs for layer 'near_services'...","timestamp":"2025-12-30T04:10:14.531Z"}
+{"component":"Orchestrator","level":"warn","message":"Attempt 1 failed with error: AWS CLI command failed: \nAn error occurred (ValidationError) when calling the DescribeStacks operation: Stack with id near-localnet-faucet does not exist\n","timestamp":"2025-12-30T04:10:15.270Z"}
+{"component":"Orchestrator","level":"warn","message":"Attempt 2 failed with error: AWS CLI command failed: \nAn error occurred (ValidationError) when calling the DescribeStacks operation: Stack with id near-localnet-faucet does not exist\n","timestamp":"2025-12-30T04:10:17.991Z"}
+{"component":"Orchestrator","level":"warn","message":"Attempt 3 failed with error: AWS CLI command failed: \nAn error occurred (ValidationError) when calling the DescribeStacks operation: Stack with id near-localnet-faucet does not exist\n","timestamp":"2025-12-30T04:10:20.711Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Layer 'near_services' deployed successfully","timestamp":"2025-12-30T04:10:20.711Z"}
+{"component":"Orchestrator","level":"info","message":"✅ ✅ Orchestration completed successfully in 137069ms","timestamp":"2025-12-30T04:10:20.711Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Initializing NEAR Simulators Orchestrator","timestamp":"2025-12-30T04:16:44.448Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"🚀 Starting: Deploying NEAR Base Layer (AWSNodeRunner)","timestamp":"2025-12-30T04:16:44.454Z"}
+{"component":"Orchestrator","level":"info","message":"Configuration loaded and validated successfully","timestamp":"2025-12-30T04:16:44.452Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Orchestrator initialized successfully","timestamp":"2025-12-30T04:16:44.453Z"}
+{"component":"Orchestrator","level":"info","message":"🎯 Starting orchestration process","timestamp":"2025-12-30T04:16:44.453Z"}
+{"component":"Orchestrator","level":"info","message":"📋 Execution plan: near_base → near_services","timestamp":"2025-12-30T04:16:44.453Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layer 'near_base'...","timestamp":"2025-12-30T04:16:44.454Z"}
+{"component":"Orchestrator","level":"info","message":"📦 Deploying layer 'near_base'...","timestamp":"2025-12-30T04:16:44.454Z"}
+{"component":"Orchestrator","level":"info","message":"Using local repository: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/AWSNodeRunner","timestamp":"2025-12-30T04:16:44.454Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Local repository ready: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/AWSNodeRunner","timestamp":"2025-12-30T04:16:44.454Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Installing CDK dependencies in lib/near","timestamp":"2025-12-30T04:16:44.455Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Deploying CDK stacks in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/AWSNodeRunner/lib/near","timestamp":"2025-12-30T04:16:45.151Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Starting: CDK deploy in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/AWSNodeRunner/lib/near","timestamp":"2025-12-30T04:16:45.152Z"}
+{"component":"Orchestrator","level":"info","message":"Running: cdk deploy --profile shai-sandbox-profile --region us-east-1 near-common near-infrastructure near-install near-sync --require-approval never --outputs-file cdk-outputs.json","timestamp":"2025-12-30T04:16:45.152Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Completed: CDK deploy in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/AWSNodeRunner/lib/near (7149ms)","timestamp":"2025-12-30T04:16:52.301Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"✅ Completed: NEAR Base Layer deployment (7847ms)","timestamp":"2025-12-30T04:16:52.301Z"}
+{"component":"Orchestrator","level":"info","message":"📤 Getting outputs for layer 'near_base'...","timestamp":"2025-12-30T04:16:52.301Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"Reading NEAR Base Layer outputs","timestamp":"2025-12-30T04:16:52.301Z"}
+{"component":"Orchestrator:near_base","level":"info","message":"✅ NEAR RPC available at: http://10.0.13.20:3030","timestamp":"2025-12-30T04:16:54.424Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Layer 'near_base' deployed successfully","timestamp":"2025-12-30T04:16:54.424Z"}
+{"component":"Orchestrator","level":"info","message":"🔍 Verifying layer 'near_services'...","timestamp":"2025-12-30T04:16:54.425Z"}
+{"component":"Orchestrator","level":"info","message":"📦 Deploying layer 'near_services'...","timestamp":"2025-12-30T04:16:55.214Z"}
+{"component":"Orchestrator","level":"info","message":"Using local repository: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services","timestamp":"2025-12-30T04:16:55.214Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Local repository ready: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services","timestamp":"2025-12-30T04:16:55.215Z"}
+{"component":"Orchestrator","level":"info","message":"🚀 Starting: CDK deploy in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services/faucet/cdk","timestamp":"2025-12-30T04:16:55.625Z"}
+{"component":"Orchestrator","level":"info","message":"Running: cdk deploy --profile shai-sandbox-profile --region us-east-1 NearFaucetStack --context nearNodeUrl=http://10.0.13.20:3030 --context nearNetworkId=localnet --context ssmMasterAccountIdParam=/near-localnet/master-account-id --context vpcId=vpc-0655b93d83acfeda0 --context accountId=311843862895 --context region=us-east-1 --context securityGroupId=sg-0ebe68c6934643700 --require-approval never --outputs-file cdk-outputs.json","timestamp":"2025-12-30T04:16:55.625Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Completed: CDK deploy in /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services/faucet/cdk (79698ms)","timestamp":"2025-12-30T04:18:15.323Z"}
+{"component":"Orchestrator","level":"info","message":"Ensuring repository: core-contracts (https://github.com/near/core-contracts.git)","timestamp":"2025-12-30T04:18:15.324Z"}
+{"component":"Orchestrator","level":"info","message":"Updating repository at /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-orchestrator/workspace/core-contracts","timestamp":"2025-12-30T04:18:15.324Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Updated repository to latest master","timestamp":"2025-12-30T04:18:15.626Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Repository ready: core-contracts","timestamp":"2025-12-30T04:18:15.626Z"}
+{"component":"Orchestrator","level":"info","message":"Using local repository: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services","timestamp":"2025-12-30T04:18:16.691Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Local repository ready: /Users/Shai.Perednik/Documents/code_workspace/near_mobile/near-localnet-services","timestamp":"2025-12-30T04:18:16.691Z"}
+{"component":"Orchestrator","level":"info","message":"📤 Getting outputs for layer 'near_services'...","timestamp":"2025-12-30T04:18:48.799Z"}
+{"component":"Orchestrator","level":"warn","message":"Attempt 1 failed with error: AWS CLI command failed: \nAn error occurred (ValidationError) when calling the DescribeStacks operation: Stack with id near-localnet-faucet does not exist\n","timestamp":"2025-12-30T04:18:49.489Z"}
+{"component":"Orchestrator","level":"warn","message":"Attempt 2 failed with error: AWS CLI command failed: \nAn error occurred (ValidationError) when calling the DescribeStacks operation: Stack with id near-localnet-faucet does not exist\n","timestamp":"2025-12-30T04:18:52.179Z"}
+{"component":"Orchestrator","level":"warn","message":"Attempt 3 failed with error: AWS CLI command failed: \nAn error occurred (ValidationError) when calling the DescribeStacks operation: Stack with id near-localnet-faucet does not exist\n","timestamp":"2025-12-30T04:18:54.886Z"}
+{"component":"Orchestrator","level":"info","message":"✅ Layer 'near_services' deployed successfully","timestamp":"2025-12-30T04:18:54.886Z"}
+{"component":"Orchestrator","level":"info","message":"✅ ✅ Orchestration completed successfully in 130434ms","timestamp":"2025-12-30T04:18:54.887Z"}

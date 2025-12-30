@@ -36,10 +36,6 @@ export declare class NearServicesLayer extends BaseLayer {
      */
     private ensureCoreContractsRepo;
     /**
-     * Build core contracts (Rust -> WASM)
-     */
-    private buildCoreContracts;
-    /**
      * Deploy contracts to localnet using node0 account
      */
     private deployContractsToLocalnet;

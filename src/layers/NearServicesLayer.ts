@@ -110,7 +110,8 @@ export class NearServicesLayer extends BaseLayer {
       const faucetContext: Record<string, string> = {
         'nearNodeUrl': nearOutputs.outputs.rpc_url, // Was 'near:rpc:url'
         'nearNetworkId': nearOutputs.outputs.network_id,
-        'ssmMasterAccountIdParam': this.context.layerConfig.config.master_account_id_param || '/near-localnet/master-account-id',
+        'ssmLocalnetAccountIdParam': '/near-localnet/localnet-account-id',
+        'ssmLocalnetAccountKeyParam': '/near-localnet/localnet-account-key',
         'vpcId': nearOutputs.outputs.vpc_id,
         'accountId': this.context.globalConfig.aws_account,
         'region': this.context.globalConfig.aws_region,
@@ -165,12 +166,12 @@ export class NearServicesLayer extends BaseLayer {
         region: this.context.globalConfig.aws_region,
         account: this.context.globalConfig.aws_account,
       },
-      near: {
-        rpcUrl: nearOutputs.outputs.rpc_url,
-        networkId: nearOutputs.outputs.network_id,
-        vpcId: nearOutputs.outputs.vpc_id,
-        masterAccountId: this.context.layerConfig.config.master_account_id || 'node0',
-      },
+        near: {
+          rpcUrl: nearOutputs.outputs.rpc_url,
+          networkId: nearOutputs.outputs.network_id,
+          vpcId: nearOutputs.outputs.vpc_id,
+          masterAccountId: 'localnet',
+        },
       faucet: {
         defaultAmount: this.context.layerConfig.config.default_amount || '10',
         maxAmount: this.context.layerConfig.config.max_amount || '100',
@@ -241,15 +242,15 @@ export class NearServicesLayer extends BaseLayer {
   }
 
   /**
-   * Deploy contracts to localnet using node0 account
+   * Deploy contracts to localnet using localnet account
    */
   private async deployContractsToLocalnet(repoPath: string, nearOutputs: LayerOutput): Promise<void> {
     this.context.logger.info('Deploying contracts to localnet...');
 
-    // Get master account key from SSM
+    // Get localnet account key from SSM
     const keyResult = await this.context.commandExecutor.execute('aws', [
       'ssm', 'get-parameter',
-      '--name', '/near-localnet/master-account-key',
+      '--name', '/near-localnet/localnet-account-key',
       '--with-decryption',
       '--query', 'Parameter.Value',
       '--output', 'text',
@@ -258,10 +259,10 @@ export class NearServicesLayer extends BaseLayer {
     ], { silent: true });
 
     if (!keyResult.success) {
-      throw new Error('Failed to retrieve master account key from SSM');
+      throw new Error('Failed to retrieve localnet account key from SSM');
     }
 
-    const masterAccountKey = keyResult.stdout.trim();
+    const localnetAccountKey = keyResult.stdout.trim();
 
     // Get the services repo path (has near-api-js installed)
     const servicesRepoPath = await this.ensureRepository(
@@ -276,9 +277,9 @@ const fs = require('fs');
 const path = require('path');
 
 async function deploy() {
-  const keyPair = nearAPI.utils.KeyPair.fromString('${masterAccountKey}');
+  const keyPair = nearAPI.utils.KeyPair.fromString('${localnetAccountKey}');
   const keyStore = new nearAPI.keyStores.InMemoryKeyStore();
-  await keyStore.setKey('localnet', 'node0', keyPair);
+  await keyStore.setKey('localnet', 'localnet', keyPair);
 
   const near = await nearAPI.connect({
     networkId: 'localnet',
@@ -286,13 +287,13 @@ async function deploy() {
     keyStore,
   });
 
-  const masterAccount = await near.account('node0');
+  const masterAccount = await near.account('localnet');
 
   // Deploy priority contracts for testnet/mainnet parity (pre-built WASMs)
   const contracts = [
-    { name: 'w-near', account: 'wrap.node0', wasm: 'w-near/res/w_near.wasm', initArgs: { owner_id: 'node0' } },
-    { name: 'whitelist', account: 'whitelist.node0', wasm: 'whitelist/res/whitelist.wasm', initArgs: { foundation_account_id: 'node0' } },
-    { name: 'staking-pool-factory', account: 'poolv1.node0', wasm: 'staking-pool-factory/res/staking_pool_factory.wasm', initArgs: { staking_pool_whitelist_account_id: 'whitelist.node0' } },
+    { name: 'w-near', account: 'wrap.localnet', wasm: 'w-near/res/w_near.wasm', initArgs: { owner_id: 'localnet' } },
+    { name: 'whitelist', account: 'whitelist.localnet', wasm: 'whitelist/res/whitelist.wasm', initArgs: { foundation_account_id: 'localnet' } },
+    { name: 'staking-pool-factory', account: 'poolv1.localnet', wasm: 'staking-pool-factory/res/staking_pool_factory.wasm', initArgs: { staking_pool_whitelist_account_id: 'whitelist.localnet' } },
   ];
 
   for (const contract of contracts) {

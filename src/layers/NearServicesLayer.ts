@@ -46,12 +46,12 @@ export class NearServicesLayer extends BaseLayer {
     }
 
     // Check if faucet stack already exists in AWS
-    const stackExists = await this.checkStackExists('near-localnet-faucet');
+    const stackExists = await this.checkStackExists('near-localnet-faucet-v2');
     if (stackExists) {
       this.context.logger.info('Faucet stack exists, reading outputs...');
       
       try {
-        const outputs = await this.readStackOutputs('near-localnet-faucet');
+        const outputs = await this.readStackOutputs('near-localnet-faucet-v2');
         
         if (outputs.FaucetEndpoint) {
           return {
@@ -209,159 +209,280 @@ export class NearServicesLayer extends BaseLayer {
     this.context.logger.startOperation('Deploying NEAR core contracts');
 
     try {
-      // Clone near/core-contracts repository (includes pre-built WASMs)
-      const coreContractsPath = await this.ensureCoreContractsRepo();
-
-      // Skip build - use pre-compiled WASMs from repository
-      this.context.logger.info('Using pre-built WASMs from repository (production binaries)');
-
-      // Deploy contracts to localnet
-      await this.deployContractsToLocalnet(coreContractsPath, nearOutputs);
+      // Deploy contracts via SSM on the NEAR EC2 instance (inside VPC)
+      await this.deployContractsViaSSM(nearOutputs);
 
       this.context.logger.completeOperation('Core contracts deployment', 0);
     } catch (error: any) {
       this.context.logger.error('Failed to deploy core contracts', error);
-      // Don't fail the entire layer deployment, just warn
-      this.context.logger.warn('Continuing without core contracts - basic functionality still available');
+      // Fail Layer 2 deployment if core contracts fail (per plan requirement)
+      throw new Error(`Core contracts deployment failed: ${error.message}`);
     }
   }
 
   /**
-   * Ensure near/core-contracts repository is cloned
+   * Deploy contracts via SSM Run Command on NEAR EC2 instance (inside VPC)
    */
-  private async ensureCoreContractsRepo(): Promise<string> {
-    const repoUrl = 'https://github.com/near/core-contracts.git';
-    const repoPath = await this.context.gitManager.ensureRepo(
-      repoUrl,
-      'master',
-      'core-contracts'
-    );
+  private async deployContractsViaSSM(nearOutputs: LayerOutput): Promise<void> {
+    this.context.logger.info('Deploying core contracts via SSM on NEAR EC2 instance...');
 
-    this.context.logger.info(`Core contracts repository ready at: ${repoPath}`);
-    return repoPath;
-  }
-
-  /**
-   * Deploy contracts to localnet using localnet account
-   */
-  private async deployContractsToLocalnet(repoPath: string, nearOutputs: LayerOutput): Promise<void> {
-    this.context.logger.info('Deploying contracts to localnet...');
-
-    // Get localnet account key from SSM
-    const keyResult = await this.context.commandExecutor.execute('aws', [
-      'ssm', 'get-parameter',
-      '--name', '/near-localnet/localnet-account-key',
-      '--with-decryption',
-      '--query', 'Parameter.Value',
-      '--output', 'text',
-      '--profile', this.context.globalConfig.aws_profile,
-      '--region', this.context.globalConfig.aws_region,
-    ], { silent: true });
-
-    if (!keyResult.success) {
-      throw new Error('Failed to retrieve localnet account key from SSM');
+    const instanceId = nearOutputs.outputs.instance_id;
+    if (!instanceId) {
+      throw new Error('NEAR instance ID not available from Layer 1 outputs');
     }
 
-    const localnetAccountKey = keyResult.stdout.trim();
+    // Create idempotent deployment script for SSM
+    const deployScript = `#!/bin/bash
+set -e
+exec > >(tee /var/log/core-contracts-deploy.log) 2>&1
 
-    // Get the services repo path (has near-api-js installed)
-    const servicesRepoPath = await this.ensureRepository(
-      this.context.layerConfig.source.repo_url,
-      this.context.layerConfig.source.branch
-    );
+echo "=== Core Contracts Deployment Script ==="
+echo "Timestamp: $(date)"
 
-    // Create deployment script in the services repo (has dependencies)
-    const deployScript = `
-const nearAPI = require('near-api-js');
-const fs = require('fs');
-const path = require('path');
+# Install near-cli-rs if missing (idempotent)
+NEAR_CLI_VERSION="v0.23.2"
+NEAR_CLI_BINARY="/usr/local/bin/near"
 
-async function deploy() {
-  const keyPair = nearAPI.utils.KeyPair.fromString('${localnetAccountKey}');
-  const keyStore = new nearAPI.keyStores.InMemoryKeyStore();
-  await keyStore.setKey('localnet', 'localnet', keyPair);
+if [ ! -f "$NEAR_CLI_BINARY" ]; then
+  echo "Installing near-cli-rs $NEAR_CLI_VERSION..."
+  cd /tmp
+  curl -L -o near-cli-rs.tar.gz "https://github.com/near/near-cli-rs/releases/download/$NEAR_CLI_VERSION/near-cli-rs-x86_64-unknown-linux-gnu.tar.gz"
+  tar -xzf near-cli-rs.tar.gz
+  sudo mv near /usr/local/bin/near
+  sudo chmod +x /usr/local/bin/near
+  rm -f near-cli-rs.tar.gz
+  echo "✅ near-cli-rs installed"
+else
+  echo "✅ near-cli-rs already installed"
+fi
 
-  const near = await nearAPI.connect({
-    networkId: 'localnet',
-    nodeUrl: '${nearOutputs.outputs.rpc_url}',
-    keyStore,
-  });
+# Verify near-cli-rs works
+near --version || { echo "ERROR: near-cli-rs not working"; exit 1; }
 
-  const masterAccount = await near.account('localnet');
+# Get localnet account key from SSM (on instance)
+echo "Fetching localnet account key from SSM..."
+TOKEN=$(curl -sS -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600" || true)
+if [ -n "$TOKEN" ]; then
+  AWS_REGION=$(curl -sS -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/placement/region)
+else
+  AWS_REGION=$(curl -sS http://169.254.169.254/latest/meta-data/placement/region)
+fi
 
-  // Deploy priority contracts for testnet/mainnet parity (pre-built WASMs)
-  const contracts = [
-    { name: 'w-near', account: 'wrap.localnet', wasm: 'w-near/res/w_near.wasm', initArgs: { owner_id: 'localnet' } },
-    { name: 'whitelist', account: 'whitelist.localnet', wasm: 'whitelist/res/whitelist.wasm', initArgs: { foundation_account_id: 'localnet' } },
-    { name: 'staking-pool-factory', account: 'poolv1.localnet', wasm: 'staking-pool-factory/res/staking_pool_factory.wasm', initArgs: { staking_pool_whitelist_account_id: 'whitelist.localnet' } },
-  ];
+LOCALNET_KEY=$(aws ssm get-parameter --name "/near-localnet/localnet-account-key" --with-decryption --query "Parameter.Value" --output text --region "$AWS_REGION" 2>/dev/null || echo "")
+if [ -z "$LOCALNET_KEY" ]; then
+  echo "ERROR: Failed to retrieve localnet account key from SSM"
+  exit 1
+fi
 
-  for (const contract of contracts) {
-    console.log(\`\\nDeploying \${contract.name} to \${contract.account}...\`);
-    try {
-      const wasmPath = path.join('${repoPath}', contract.wasm);
-      const wasmBytes = fs.readFileSync(wasmPath);
-      
-      // Create account, deploy contract, and initialize in one transaction
-      const publicKey = keyPair.getPublicKey();
-      const actions = [
-        nearAPI.transactions.createAccount(),
-        nearAPI.transactions.transfer(nearAPI.utils.format.parseNearAmount('10')),
-        nearAPI.transactions.deployContract(wasmBytes),
-        nearAPI.transactions.functionCall(
-          'new',
-          Buffer.from(JSON.stringify(contract.initArgs)),
-          '30000000000000',
-          '0'
-        ),
-      ];
-      
-      const result = await masterAccount.signAndSendTransaction({
-        receiverId: contract.account,
-        actions,
-      });
-      
-      console.log(\`✅ \${contract.name} deployed successfully (tx: \${result.transaction.hash})\`);
-    } catch (error) {
-      if (error.message && error.message.includes('already exists')) {
-        console.log(\`⏭️  \${contract.account} already exists, skipping\`);
-      } else {
-        console.error(\`❌ Failed to deploy \${contract.name}:\`, error.message);
-      }
-    }
-  }
-  
-  console.log('\\n✅ Core contracts deployment complete');
+# Clone core-contracts repository (idempotent)
+CONTRACTS_DIR="/tmp/core-contracts"
+if [ ! -d "$CONTRACTS_DIR" ]; then
+  echo "Cloning core-contracts repository..."
+  git clone --depth 1 https://github.com/near/core-contracts.git "$CONTRACTS_DIR"
+else
+  echo "✅ core-contracts repository already exists, updating..."
+  cd "$CONTRACTS_DIR"
+  git pull || true
+fi
+
+# Configure near-cli-rs for localnet
+echo "Configuring near-cli-rs for localnet..."
+near config add-connection --network-name localnet --connection-name localnet-deploy \\
+  --rpc-url http://127.0.0.1:3030/ \\
+  --wallet-url http://127.0.0.1:3030/ \\
+  --explorer-transaction-url http://127.0.0.1:3030/ || true
+
+# Import localnet account key
+echo "Importing localnet account key..."
+echo "$LOCALNET_KEY" | near account import-account using-private-key network-config localnet-deploy sign-as localnet || {
+  echo "Account key may already be imported, continuing..."
 }
 
-deploy().catch((e) => {
-  console.error('Deployment failed:', e.message);
-  process.exit(1);
-});
+# Deploy contracts using near-cli-rs
+# Note: We'll use near-cli-rs account creation and near contract deploy commands
+CONTRACTS=(
+  "wrap.localnet:w-near/res/w_near.wasm:{\\\"owner_id\\\":\\\"localnet\\\"}"
+  "whitelist.localnet:whitelist/res/whitelist.wasm:{\\\"foundation_account_id\\\":\\\"localnet\\\"}"
+  "poolv1.localnet:staking-pool-factory/res/staking_pool_factory.wasm:{\\\"staking_pool_whitelist_account_id\\\":\\\"whitelist.localnet\\\"}"
+)
+
+for contract_spec in "\${CONTRACTS[@]}"; do
+  IFS=':' read -r account_id wasm_path init_args <<< "$contract_spec"
+  echo ""
+  echo "=== Deploying $account_id ==="
+  
+  # Check if account already exists via RPC
+  ACCOUNT_CHECK=$(curl -sS http://127.0.0.1:3030 -H "Content-Type: application/json" -d "{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":\\\"1\\\",\\\"method\\\":\\\"query\\\",\\\"params\\\":{\\\"request_type\\\":\\\"view_account\\\",\\\"finality\\\":\\\"final\\\",\\\"account_id\\\":\\\"$account_id\\\"}}")
+  
+  if echo "$ACCOUNT_CHECK" | grep -q "UNKNOWN_ACCOUNT"; then
+    echo "Account $account_id does not exist, creating..."
+    
+    # Create account with near-cli-rs
+    near account create-account fund-myself "$account_id" "10 NEAR" autogenerate-new-keypair save-to-legacy-keychain sign-as localnet network-config localnet-deploy sign-with-legacy-keychain send || {
+      echo "ERROR: Failed to create account $account_id"
+      exit 1
+    }
+    
+    echo "Account $account_id created, deploying contract..."
+    
+    # Deploy contract WASM
+    near contract deploy build-non-reproducible-wasm "$account_id" use-file "$CONTRACTS_DIR/$wasm_path" without-init-call network-config localnet-deploy sign-with-legacy-keychain send || {
+      echo "ERROR: Failed to deploy contract to $account_id"
+      exit 1
+    }
+    
+    echo "Contract deployed, initializing..."
+    
+    # Initialize contract
+    near contract call-function as-transaction "$account_id" new json-args "$init_args" prepaid-gas '300 Tgas' attached-deposit '0 NEAR' sign-as localnet network-config localnet-deploy sign-with-legacy-keychain send || {
+      echo "ERROR: Failed to initialize contract $account_id"
+      exit 1
+    }
+    
+    echo "✅ $account_id deployed and initialized"
+  else
+    echo "⏭️  $account_id already exists, skipping"
+  fi
+done
+
+# Verify all contracts exist
+echo ""
+echo "=== Verifying deployed contracts ==="
+for contract_spec in "\${CONTRACTS[@]}"; do
+  IFS=':' read -r account_id wasm_path init_args <<< "$contract_spec"
+  if curl -sS http://127.0.0.1:3030 -H "Content-Type: application/json" -d "{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":\\\"1\\\",\\\"method\\\":\\\"query\\\",\\\"params\\\":{\\\"request_type\\\":\\\"view_account\\\",\\\"finality\\\":\\\"final\\\",\\\"account_id\\\":\\\"$account_id\\\"}}" | grep -q "UNKNOWN_ACCOUNT"; then
+    echo "❌ ERROR: $account_id does not exist after deployment"
+    exit 1
+  else
+    echo "✅ $account_id verified"
+  fi
+done
+
+echo ""
+echo "=== Core Contracts Deployment Complete ==="
 `;
 
-    // Write script to faucet directory (has near-api-js installed)
-    const scriptPath = path.join(servicesRepoPath, 'faucet', 'deploy-contracts.js');
-    const fs = require('fs');
-    fs.writeFileSync(scriptPath, deployScript);
-    this.context.logger.info(`Deployment script written to: ${scriptPath}`);
+    // Write script to a file first, then execute it (SSM parameters need proper JSON escaping)
+    // We'll use a two-step approach: write script, then execute
+    const scriptPath = '/tmp/deploy-core-contracts.sh';
+    
+    // Step 1: Write the script to file
+    const writeScriptCmd = `cat > ${scriptPath} << 'SCRIPTEOF'\n${deployScript}\nSCRIPTEOF\nchmod +x ${scriptPath}`;
+    
+    this.context.logger.info(`Writing deployment script to instance ${instanceId}...`);
+    const writeResult = await this.context.commandExecutor.execute('aws', [
+      'ssm', 'send-command',
+      '--instance-ids', instanceId,
+      '--document-name', 'AWS-RunShellScript',
+      '--parameters', `commands=["${writeScriptCmd.replace(/"/g, '\\"').replace(/\n/g, '\\n')}"]`,
+      '--timeout-seconds', '60',
+      '--profile', this.context.globalConfig.aws_profile,
+      '--region', this.context.globalConfig.aws_region,
+      '--output', 'json',
+    ], { silent: true });
 
-    // Execute deployment from faucet directory
-    const result = await this.context.commandExecutor.execute(
-      'node',
-      [scriptPath],
-      {
-        cwd: path.join(servicesRepoPath, 'faucet'),
-        streamOutput: true,
-        timeout: 300000, // 5 minutes
-      }
-    );
-
-    if (!result.success) {
-      throw new Error(`Contract deployment failed: ${result.stderr}`);
+    if (!writeResult.success) {
+      throw new Error(`Failed to write deployment script: ${writeResult.stderr}`);
     }
 
-    this.context.logger.success('Core contracts deployed to localnet');
+    // Parse write command ID
+    let writeCommandId: string;
+    try {
+      const writeOutput = JSON.parse(writeResult.stdout);
+      writeCommandId = writeOutput.Command.CommandId;
+    } catch {
+      throw new Error('Failed to parse SSM command ID from write script output');
+    }
+
+    // Wait for write to complete
+    await new Promise(resolve => setTimeout(resolve, 5000));
+
+    // Step 2: Execute the script
+    this.context.logger.info(`Executing deployment script on instance ${instanceId}...`);
+    const commandResult = await this.context.commandExecutor.execute('aws', [
+      'ssm', 'send-command',
+      '--instance-ids', instanceId,
+      '--document-name', 'AWS-RunShellScript',
+      '--parameters', `commands=["bash ${scriptPath}"]`,
+      '--timeout-seconds', '600', // 10 minutes
+      '--profile', this.context.globalConfig.aws_profile,
+      '--region', this.context.globalConfig.aws_region,
+      '--output', 'json',
+    ], { silent: false });
+
+    if (!commandResult.success) {
+      throw new Error(`SSM command failed: ${commandResult.stderr}`);
+    }
+
+    // Parse command ID from JSON output
+    let commandId: string;
+    try {
+      const commandOutput = JSON.parse(commandResult.stdout);
+      commandId = commandOutput.Command.CommandId;
+    } catch {
+      throw new Error('Failed to parse SSM command ID from JSON output');
+    }
+
+    this.context.logger.info(`SSM command sent, waiting for completion (command ID: ${commandId})...`);
+
+    // Wait for command completion and check status
+    let attempts = 0;
+    const maxAttempts = 60; // 10 minutes max (10 second intervals)
+    while (attempts < maxAttempts) {
+      await new Promise(resolve => setTimeout(resolve, 10000)); // Wait 10 seconds
+
+      const statusResult = await this.context.commandExecutor.execute('aws', [
+        'ssm', 'get-command-invocation',
+        '--command-id', commandId,
+        '--instance-id', instanceId,
+        '--query', 'Status',
+        '--output', 'text',
+        '--profile', this.context.globalConfig.aws_profile,
+        '--region', this.context.globalConfig.aws_region,
+      ], { silent: true });
+
+      if (statusResult.success) {
+        const status = statusResult.stdout.trim();
+        if (status === 'Success') {
+          this.context.logger.success('Core contracts deployed successfully via SSM');
+          
+          // Get output to verify
+          const outputResult = await this.context.commandExecutor.execute('aws', [
+            'ssm', 'get-command-invocation',
+            '--command-id', commandId,
+            '--instance-id', instanceId,
+            '--query', 'StandardOutputContent',
+            '--output', 'text',
+            '--profile', this.context.globalConfig.aws_profile,
+            '--region', this.context.globalConfig.aws_region,
+          ], { silent: false });
+
+          if (outputResult.success) {
+            this.context.logger.info('Deployment output:');
+            this.context.logger.info(outputResult.stdout);
+          }
+          return;
+        } else if (status === 'Failed' || status === 'Cancelled' || status === 'TimedOut') {
+          // Get error output
+          const errorResult = await this.context.commandExecutor.execute('aws', [
+            'ssm', 'get-command-invocation',
+            '--command-id', commandId,
+            '--instance-id', instanceId,
+            '--query', 'StandardErrorContent',
+            '--output', 'text',
+            '--profile', this.context.globalConfig.aws_profile,
+            '--region', this.context.globalConfig.aws_region,
+          ], { silent: false });
+
+          throw new Error(`SSM command ${status}: ${errorResult.stdout || 'No error details'}`);
+        }
+        // Status is InProgress or Pending, continue waiting
+      }
+
+      attempts++;
+    }
+
+    throw new Error('SSM command timed out waiting for completion');
   }
 
   /**
@@ -374,7 +495,7 @@ deploy().catch((e) => {
       // Try to read faucet stack outputs
       let faucetOutputs: Record<string, string> = {};
       try {
-        faucetOutputs = await this.readStackOutputs('near-localnet-faucet');
+        faucetOutputs = await this.readStackOutputs('near-localnet-faucet-v2');
       } catch (error) {
         this.context.logger.warn('Could not read faucet stack outputs');
       }
@@ -425,7 +546,7 @@ deploy().catch((e) => {
         {
           profile: this.context.globalConfig.aws_profile,
           region: this.context.globalConfig.aws_region,
-          stacks: ['near-localnet-faucet'],
+          stacks: ['near-localnet-faucet-v2'],
           force: true,
         }
       );

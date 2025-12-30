@@ -2,7 +2,7 @@
 
 A TypeScript-based master orchestrator for managing layered NEAR Protocol simulation infrastructure deployments. This tool enables a "lego-block" approach to deploying complex multi-service NEAR ecosystems with intelligent health checking and dependency management.
 
-> **Quick pointer**: Start with `MORNING_RUNBOOK.md` for the current Layer 1+2 `.localnet` verification flow.
+> **Current work**: See `.cursor/plans/localnet_parity_fixes_aa993bd7.plan.md` for the Layer 1+2 `.localnet` parity fixes plan. Archived docs are in `docs/archive/2025-12-30-node0-to-localnet/`.
 
 ## 🎯 Overview
 

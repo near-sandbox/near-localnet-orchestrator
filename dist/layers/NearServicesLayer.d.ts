@@ -32,13 +32,9 @@ export declare class NearServicesLayer extends BaseLayer {
      */
     private deployCoreContracts;
     /**
-     * Ensure near/core-contracts repository is cloned
+     * Deploy contracts via SSM Run Command on NEAR EC2 instance (inside VPC)
      */
-    private ensureCoreContractsRepo;
-    /**
-     * Deploy contracts to localnet using node0 account
-     */
-    private deployContractsToLocalnet;
+    private deployContractsViaSSM;
     /**
      * Get outputs from deployed NEAR Services
      */

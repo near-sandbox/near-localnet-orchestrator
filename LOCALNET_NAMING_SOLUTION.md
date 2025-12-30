@@ -1,5 +1,8 @@
 # Achieving `.localnet` Naming Parity - Implementation Guide
 
+> IMPORTANT: This document is now historical context.
+> The current, canonical next-steps doc is `MORNING_RUNBOOK.md`.
+
 ## Understanding NEAR Account Naming
 
 ### Official Documentation
@@ -20,18 +23,17 @@ From [near-contract-helper source code](https://github.com/near/near-contract-he
 
 **There is NO registrar smart contract** - it's just key management.
 
-## Current State
+## Current State (updated)
 
 ### What We Have
 - ✅ Faucet Lambda (equivalent to Helper Service)
-- ✅ Holds `node0` key in SSM
-- ✅ Can create `alice.node0` accounts
-- ✅ Core contracts deployed
+- ✅ Uses **`localnet`** key in SSM (`/near-localnet/localnet-account-key`)
+- ✅ Can create `alice.localnet` accounts (once Layer 1 is deployed with updated genesis)
+- ✅ Core contracts target `.localnet` namespace
 
-### The Gap
-- ❌ No `localnet` root account in genesis
-- ❌ Can only create `*.node0` accounts
-- ⚠️ Workaround: `testnet.node0` created, can do `alice.testnet.node0`
+### The Gap (closed on this branch)
+- The `localnet` root account is added via Layer 1 bootstrap (genesis modification).
+- No `.node0` backward-compat is maintained in Layer 2 anymore (by design).
 
 ## Solution: Modify Genesis Configuration
 
@@ -116,10 +118,9 @@ curl http://localhost:3030/status
 ```
 
 #### 4. Update Faucet Configuration
-Modify `NearServicesLayer.ts` or Faucet Lambda to:
-- Check if account ends with `.localnet`
-- If yes, use `/near-localnet/localnet-account-key` from SSM
-- If no, use `/near-localnet/master-account-key` (node0)
+On this branch, Faucet is **localnet-only**:
+- Uses `/near-localnet/localnet-account-key`
+- Creates `*.localnet`
 
 #### 5. Test
 ```bash

@@ -1,5 +1,8 @@
 # Layer 1 & 2 Status: Operational with Known Limitations
 
+> IMPORTANT: This doc contains outdated “point-in-time” status (old instance IDs, old URLs, `.node0` examples).
+> Use `MORNING_RUNBOOK.md` for the current verification flow and next steps.
+
 ## Deployment Status
 
 ### Layer 1: NEAR Base ✅ COMPLETE
@@ -19,14 +22,14 @@
 - **Capabilities**:
   - ✅ Fund existing accounts
   - ✅ Create implicit accounts (hex addresses)
-  - ✅ Create named sub-accounts (`alice.node0`)
+- ✅ Create named sub-accounts (`alice.localnet`) once Layer 1 genesis includes `localnet`
 - **Integration**: ✅ Lambda → NEAR Node working (VPC connectivity confirmed)
 
-### Core Contracts ⚠️ IN PROGRESS
+### Core Contracts (updated)
 - **Implementation**: ✅ Deployment logic added to `NearServicesLayer.ts`
 - **Automation**: ✅ Clones `near/core-contracts` at deployment time
 - **Build**: ❌ Fails due to Rust 1.86 incompatibility with `num-bigint v0.3.2`
-- **Workaround**: Manual deployment or pre-built WASMs (documented in `LAYER_2_CORE_CONTRACTS.md`)
+- **Approach**: Use pre-built WASMs from `near/core-contracts` and deploy into `.localnet` namespace
 
 ## Parity Assessment
 

@@ -1,5 +1,8 @@
 # Layer 2: COMPLETE with Testnet/Mainnet Parity ✅
 
+> IMPORTANT: This doc contains old `.node0` examples and old URLs.
+> Use `MORNING_RUNBOOK.md` for the current `.localnet` verification flow.
+
 ## Deployment Status
 
 ### Faucet Service ✅

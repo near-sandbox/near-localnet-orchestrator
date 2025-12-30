@@ -1,5 +1,9 @@
 # Layer 2 Core Contracts Integration - Status
 
+> IMPORTANT: This doc reflects an older approach that attempted to compile `near/core-contracts`.
+> The current implementation uses pre-built WASMs and deploys contracts into the `.localnet` namespace.
+> Use `MORNING_RUNBOOK.md` for the current workflow.
+
 ## Implementation Complete
 Layer 2 now includes automated deployment of [near/core-contracts](https://github.com/near/core-contracts) for testnet/mainnet parity.
 

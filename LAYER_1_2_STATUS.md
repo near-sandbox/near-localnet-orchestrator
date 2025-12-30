@@ -1,5 +1,8 @@
 # Layer 1 & 2 Status: Operational (Feature Parity In Progress)
 
+> IMPORTANT: This is a point-in-time status doc (old instance IDs / old URLs).
+> Use `MORNING_RUNBOOK.md` for the current deploy + verify steps.
+
 ## Current State
 
 ### Layer 1: NEAR Base ✅

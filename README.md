@@ -2,6 +2,8 @@
 
 A TypeScript-based master orchestrator for managing layered NEAR Protocol simulation infrastructure deployments. This tool enables a "lego-block" approach to deploying complex multi-service NEAR ecosystems with intelligent health checking and dependency management.
 
+> **Quick pointer**: Start with `MORNING_RUNBOOK.md` for the current Layer 1+2 `.localnet` verification flow.
+
 ## 🎯 Overview
 
 The orchestrator manages a **5-layer simulation stack** that can be deployed independently or together:

@@ -124,15 +124,25 @@ class NearServicesLayer extends BaseLayer_1.BaseLayer {
             }
             // Generate configuration for faucet deployment
             await this.generateFaucetConfig(repoPath, nearOutputs);
+            // Prepare context for Faucet deployment
+            // We map orchestrator config to the context keys expected by bin/faucet-stack.ts
+            const faucetContext = {
+                'nearNodeUrl': nearOutputs.outputs.rpc_url, // Was 'near:rpc:url'
+                'nearNetworkId': nearOutputs.outputs.network_id,
+                'ssmMasterAccountIdParam': this.context.layerConfig.config.master_account_id_param || '/near-localnet/master-account-id',
+                'vpcId': nearOutputs.outputs.vpc_id,
+                'accountId': this.context.globalConfig.aws_account,
+                'region': this.context.globalConfig.aws_region,
+            };
+            // Only pass security group if it exists
+            if (nearOutputs.outputs.security_group_id) {
+                faucetContext['securityGroupId'] = nearOutputs.outputs.security_group_id;
+            }
             // Deploy faucet CDK stack (use construct ID NearFaucetStack, not stack name)
             this.context.logger.info('Deploying faucet infrastructure...');
             const deployResult = await this.deployCdkStacks(repoPath, cdkPath, {
                 stacks: ['NearFaucetStack'],
-                context: {
-                    'near:rpc:url': nearOutputs.outputs.rpc_url,
-                    'near:network:id': nearOutputs.outputs.network_id,
-                    'near:master:account': this.context.layerConfig.config.master_account_id || 'node0',
-                },
+                context: faucetContext,
             });
             const duration = Date.now() - startTime;
             this.context.logger.completeOperation('NEAR Services Layer deployment', duration);

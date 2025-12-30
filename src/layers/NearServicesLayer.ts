@@ -546,7 +546,9 @@ echo "=== Core Contracts Deployment Complete ==="
         {
           profile: this.context.globalConfig.aws_profile,
           region: this.context.globalConfig.aws_region,
-          stacks: ['near-localnet-faucet-v2'],
+          // IMPORTANT: CDK CLI expects stack IDs (construct IDs), not CloudFormation stackName values.
+          // Stack ID is defined in near-localnet-services/faucet/cdk/bin/faucet-stack.ts.
+          stacks: ['NearFaucetStack'],
           force: true,
         }
       );

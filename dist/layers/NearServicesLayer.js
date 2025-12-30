@@ -524,7 +524,9 @@ echo "=== Core Contracts Deployment Complete ==="
             const destroyResult = await this.context.cdkManager.destroy(path.join(repoPath, cdkPath), {
                 profile: this.context.globalConfig.aws_profile,
                 region: this.context.globalConfig.aws_region,
-                stacks: ['near-localnet-faucet-v2'],
+                // IMPORTANT: CDK CLI expects stack IDs (construct IDs), not CloudFormation stackName values.
+                // Stack ID is defined in near-localnet-services/faucet/cdk/bin/faucet-stack.ts.
+                stacks: ['NearFaucetStack'],
                 force: true,
             });
             if (destroyResult.success) {

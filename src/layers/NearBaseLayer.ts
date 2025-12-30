@@ -264,10 +264,12 @@ export class NearBaseLayer extends BaseLayer {
           profile: this.context.globalConfig.aws_profile,
           region: this.context.globalConfig.aws_region,
           stacks: [
-            'near-localnet-sync',
-            'near-localnet-install',
-            'near-localnet-infrastructure',
-            'near-localnet-common',
+            // IMPORTANT: CDK CLI expects stack IDs (construct IDs), not CloudFormation stackName values.
+            // Stack IDs are defined in AWSNodeRunner/lib/near/app.ts.
+            'near-sync',
+            'near-install',
+            'near-infrastructure',
+            'near-common',
           ],
           force: true,
         }

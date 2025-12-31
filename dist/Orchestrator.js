@@ -108,13 +108,19 @@ class Orchestrator {
             // Resolve dependencies and get execution order
             const executionOrder = this.resolveDependencies(layersToProcess);
             this.logger.info(`📋 Execution plan: ${executionOrder.join(' → ')}`);
+            // Track which layers were actually deployed (not skipped) during THIS run.
+            // Rollback should only destroy these layers, not pre-existing dependencies.
+            const deployedThisRun = [];
             // Process each layer
             for (const layerName of executionOrder) {
-                const success = await this.processLayer(layerName);
-                if (!success) {
+                const result = await this.processLayer(layerName);
+                if (result.deployed) {
+                    deployedThisRun.push(layerName);
+                }
+                if (!result.success) {
                     if (!this.config.global.continue_on_error) {
                         this.logger.error(`❌ Layer '${layerName}' failed. Stopping execution.`);
-                        await this.rollbackFailedLayers(executionOrder, layerName);
+                        await this.rollbackFailedLayers(deployedThisRun);
                         return { success: false, error: `Layer '${layerName}' deployment failed` };
                     }
                     else {
@@ -221,25 +227,25 @@ class Orchestrator {
                 if (verifyResult.existingOutput) {
                     this.layerOutputs.set(layerName, verifyResult.existingOutput);
                 }
-                return true;
+                return { success: true, deployed: false };
             }
             // Step 2: Deploy
             this.logger.layerDeploy(layerName);
             const deployResult = await layer.deploy();
             if (!deployResult.success) {
                 this.logger.error(`Deployment failed for layer '${layerName}': ${deployResult.error}`);
-                return false;
+                return { success: false, deployed: false };
             }
             // Step 3: Get outputs
             this.logger.info(`📤 Getting outputs for layer '${layerName}'...`);
             const outputs = await layer.getOutputs();
             this.layerOutputs.set(layerName, outputs);
             this.logger.layerDeployed(layerName);
-            return true;
+            return { success: true, deployed: true };
         }
         catch (error) {
             this.logger.error(`Layer '${layerName}' processing failed`, error);
-            return false;
+            return { success: false, deployed: false };
         }
     }
     /**
@@ -343,16 +349,15 @@ class Orchestrator {
         return this.configManager.getEnabledLayers();
     }
     /**
-     * Rollback layers that were successfully deployed before the failure
+     * Rollback layers that were successfully DEPLOYED (not skipped) during this run.
+     *
+     * This avoids destroying pre-existing dependency layers that were merely verified.
      */
-    async rollbackFailedLayers(executionOrder, failedLayer) {
-        const failedIndex = executionOrder.indexOf(failedLayer);
-        if (failedIndex === -1)
-            return;
-        const layersToRollback = executionOrder.slice(0, failedIndex).reverse();
+    async rollbackFailedLayers(deployedThisRun) {
+        const layersToRollback = [...deployedThisRun].reverse();
         if (layersToRollback.length === 0)
             return;
-        this.logger.warn(`🔄 Rolling back ${layersToRollback.length} successfully deployed layers...`);
+        this.logger.warn(`🔄 Rolling back ${layersToRollback.length} newly deployed layers...`);
         for (const layerName of layersToRollback) {
             const success = await this.destroyLayer(layerName);
             if (success) {

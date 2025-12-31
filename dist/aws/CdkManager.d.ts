@@ -33,6 +33,7 @@ export declare class CdkManager {
         region?: string;
         stacks?: string[];
         force?: boolean;
+        timeout?: number;
     }): Promise<{
         success: boolean;
         destroyedStacks: string[];

@@ -151,6 +151,7 @@ export class CdkManager {
       region?: string;
       stacks?: string[];
       force?: boolean;
+      timeout?: number;
     } = {}
   ): Promise<{ success: boolean; destroyedStacks: string[]; error?: string; duration: number }> {
     const startTime = Date.now();
@@ -160,6 +161,7 @@ export class CdkManager {
       region,
       stacks = [],
       force = false,
+      timeout = 1800000, // 30 minutes default (destroy can take a while due to ENI/VPC dependencies)
     } = options;
 
     this.logger.startOperation(`CDK destroy in ${cdkPath}`);
@@ -201,6 +203,7 @@ export class CdkManager {
       const result = await this.executor.execute('npx', ['cdk', ...args], {
         cwd: cdkPath,
         streamOutput: true,
+        timeout,
       });
 
       const duration = Date.now() - startTime;

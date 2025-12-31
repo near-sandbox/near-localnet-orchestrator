@@ -58,6 +58,22 @@ export class NearBaseLayer extends BaseLayer {
       }
     }
 
+    // If no explicit existing RPC URL is configured, we can still detect an existing deployment
+    // by checking CloudFormation stack outputs. Note: RPC is expected to be VPC-only.
+    try {
+      const outputs = await this.getOutputs();
+      if (outputs.outputs.rpc_url) {
+        this.context.logger.success(`Existing NEAR deployment found via CloudFormation: ${outputs.outputs.rpc_url}`);
+        return {
+          skip: true,
+          reason: 'Existing NEAR infrastructure found via CloudFormation outputs',
+          existingOutput: outputs,
+        };
+      }
+    } catch {
+      // Ignore and proceed with deployment
+    }
+
     return { skip: false };
   }
 

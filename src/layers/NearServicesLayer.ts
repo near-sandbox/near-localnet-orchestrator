@@ -379,19 +379,25 @@ echo "=== Core Contracts Deployment Complete ==="
       '--profile', this.context.globalConfig.aws_profile,
       '--region', this.context.globalConfig.aws_region,
       '--output', 'json',
-    ], { silent: true });
+    ], { silent: true, streamOutput: false });
 
     if (!writeResult.success) {
       throw new Error(`Failed to write deployment script: ${writeResult.stderr}`);
     }
 
-    // Parse write command ID
+    // Parse write command ID (stdout can be empty when output is streamed)
     let writeCommandId: string;
     try {
-      const writeOutput = JSON.parse(writeResult.stdout);
+      const writeOutputText = (writeResult.stdout || '').trim() || (writeResult.stderr || '').trim();
+      if (!writeOutputText) {
+        throw new Error('Empty output');
+      }
+      const writeOutput = JSON.parse(writeOutputText);
       writeCommandId = writeOutput.Command.CommandId;
-    } catch {
-      throw new Error('Failed to parse SSM command ID from write script output');
+    } catch (error: any) {
+      throw new Error(
+        `Failed to parse SSM command ID from write script output: ${error?.message || String(error)}`
+      );
     }
 
     // Wait for write to complete
@@ -408,19 +414,25 @@ echo "=== Core Contracts Deployment Complete ==="
       '--profile', this.context.globalConfig.aws_profile,
       '--region', this.context.globalConfig.aws_region,
       '--output', 'json',
-    ], { silent: false });
+    ], { silent: true, streamOutput: false });
 
     if (!commandResult.success) {
       throw new Error(`SSM command failed: ${commandResult.stderr}`);
     }
 
-    // Parse command ID from JSON output
+    // Parse command ID from JSON output (stdout can be empty when output is streamed)
     let commandId: string;
     try {
-      const commandOutput = JSON.parse(commandResult.stdout);
+      const commandOutputText = (commandResult.stdout || '').trim() || (commandResult.stderr || '').trim();
+      if (!commandOutputText) {
+        throw new Error('Empty output');
+      }
+      const commandOutput = JSON.parse(commandOutputText);
       commandId = commandOutput.Command.CommandId;
-    } catch {
-      throw new Error('Failed to parse SSM command ID from JSON output');
+    } catch (error: any) {
+      throw new Error(
+        `Failed to parse SSM command ID from JSON output: ${error?.message || String(error)}`
+      );
     }
 
     this.context.logger.info(`SSM command sent, waiting for completion (command ID: ${commandId})...`);

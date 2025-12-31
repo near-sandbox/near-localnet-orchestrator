@@ -135,7 +135,8 @@ class CdkManager {
      */
     async destroy(cdkPath, options = {}) {
         const startTime = Date.now();
-        const { profile, region, stacks = [], force = false, } = options;
+        const { profile, region, stacks = [], force = false, timeout = 1800000, // 30 minutes default (destroy can take a while due to ENI/VPC dependencies)
+         } = options;
         this.logger.startOperation(`CDK destroy in ${cdkPath}`);
         try {
             // Change to CDK directory
@@ -166,6 +167,7 @@ class CdkManager {
             const result = await this.executor.execute('npx', ['cdk', ...args], {
                 cwd: cdkPath,
                 streamOutput: true,
+                timeout,
             });
             const duration = Date.now() - startTime;
             if (result.success) {

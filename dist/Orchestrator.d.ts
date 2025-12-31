@@ -75,7 +75,9 @@ export declare class Orchestrator {
      */
     private getEnabledLayers;
     /**
-     * Rollback layers that were successfully deployed before the failure
+     * Rollback layers that were successfully DEPLOYED (not skipped) during this run.
+     *
+     * This avoids destroying pre-existing dependency layers that were merely verified.
      */
     private rollbackFailedLayers;
     /**

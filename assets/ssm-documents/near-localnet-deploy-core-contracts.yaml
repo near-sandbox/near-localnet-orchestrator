@@ -74,12 +74,39 @@ mainSteps:
           fi
         - "near --version"
         - |
-          echo "Configuring near-cli-rs connection {{ NetworkConnectionName }}..."
-          near config delete-connection "{{ NetworkConnectionName }}" || true
-          near config add-connection --network-name localnet --connection-name "{{ NetworkConnectionName }}" \
-            --rpc-url "{{ RpcUrl }}" \
-            --wallet-url "{{ RpcUrl }}" \
-            --explorer-transaction-url "{{ RpcUrl }}"
+          # near-cli-rs `config add-connection` currently requires a TTY (fails under SSM).
+          # Instead, we write the config.toml connection block directly.
+          echo "Configuring near-cli-rs connection {{ NetworkConnectionName }} (no-TTY)..."
+          CONFIG_DIR="/root/.config/near-cli"
+          CONFIG_FILE="$CONFIG_DIR/config.toml"
+          mkdir -p "$CONFIG_DIR"
+
+          if [ ! -f "$CONFIG_FILE" ]; then
+            cat > "$CONFIG_FILE" <<'EOF'
+version = "4"
+credentials_home_dir = "/root/.near-credentials"
+EOF
+          fi
+
+          # Remove an existing connection block if present
+          awk 'BEGIN{skip=0}
+               /^\[network_connection\.{{ NetworkConnectionName }}\]$/{skip=1; next}
+               skip==1 && /^\[network_connection\./{skip=0}
+               skip==0{print}' "$CONFIG_FILE" > /tmp/near-cli-config.toml
+          mv /tmp/near-cli-config.toml "$CONFIG_FILE"
+
+          cat >> "$CONFIG_FILE" <<EOF
+
+[network_connection.{{ NetworkConnectionName }}]
+network_name = "localnet"
+rpc_url = "{{ RpcUrl }}/"
+wallet_url = "{{ RpcUrl }}/"
+explorer_transaction_url = "{{ RpcUrl }}/"
+linkdrop_account_id = "{{ LocalnetAccountId }}"
+staking_pools_factory_account_id = "poolv1.localnet"
+EOF
+
+          echo "near-cli config updated at $CONFIG_FILE"
         - |
           echo "Fetching localnet private key from SSM ({{ LocalnetKeySsmParam }})..."
           aws ssm get-parameter --name "{{ LocalnetKeySsmParam }}" --with-decryption --region "{{ AwsRegion }}" --query Parameter.Value --output text > /tmp/localnet.key

@@ -2,7 +2,7 @@
 
 A TypeScript-based master orchestrator for managing layered NEAR Protocol simulation infrastructure deployments. This tool enables a "lego-block" approach to deploying complex multi-service NEAR ecosystems with intelligent health checking and dependency management.
 
-> **Current work**: Resume from `docs/CHECKPOINT_2025-12-31T01-10Z.md`. Archived docs are in `docs/archive/2025-12-30-node0-to-localnet/`.
+> **Current work**: Resume from `docs/CHECKPOINT_2025-12-31T03-45Z.md`. Archived docs are in `docs/archive/2025-12-30-node0-to-localnet/`.
 
 ## 🎯 Overview
 

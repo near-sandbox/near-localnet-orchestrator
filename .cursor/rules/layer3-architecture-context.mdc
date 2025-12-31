@@ -1,0 +1,42 @@
+## Layer 3 in the 5-layer NEAR localnet simulator stack (context only)
+
+### The 5-layer stack (only what Layer 3 needs)
+- **Layer 1: NEAR Base** (`AWSNodeRunner`)
+  - Provides: NEAR RPC endpoint + VPC network where everything lives.
+  - Required by Layer 3: `rpc_url`, `vpc_id`, `instance_id/private_ip` (for VPC-only access/SSM).
+
+- **Layer 2: NEAR Services** (`near-localnet-services`)
+  - Provides: core contracts + faucet (utility layer).
+  - Required by Layer 3: not strictly required for MPC boot, but often used for funding/setup and overall parity.
+
+- **Layer 3: Chain Signatures (THIS)** (`cross-chain-simulator` + embedded `mpc-repo`)
+  - Owns: MPC node infra (EC2) + `v1.signer` contract deployment/initialization + node accounts.
+  - Produces: `v1_signer_contract_id`, MPC node endpoints, and a “chain_signatures_config” blob for higher layers.
+
+### What Layer 3 must do (contract + infra responsibilities)
+Layer 3 is complete only when:
+- MPC infra exists (EC2 nodes created) and nodes are **running** (not restarting).
+- Required secrets are present (non-placeholder) for node runtime.
+- On-chain hierarchy exists and is consistent:
+  - `localnet` (root; created in genesis by Layer 1)
+  - `signer.localnet`
+  - `v1.signer.localnet` (contract account with code)
+  - `mpc-node-*.localnet` (participants)
+- Contract is initialized and ready for signing workflow.
+
+### What is already built (we are building on this)
+- Orchestrator deploy order: `near_base → ethereum_localnet → near_services → chain_signatures`.
+- Layer 3 naming default: `.localnet` (master `localnet`, contract `v1.signer.localnet`, nodes `mpc-node-*.localnet`).
+- Layer 2 core-contract deployment is executed inside the VPC (SSM on NEAR base EC2).
+
+### What is explicitly NOT part of Layer 3 scope
+- No wallet/explorer/indexer (developer tooling belongs later).
+- No Layer 4/5 feature work here.
+- No architecture changes: Layer 3 must remain “MPC infra + v1.signer contract + config outputs”.
+
+### Outputs (contract + infra)
+Minimum outputs for higher layers:
+- `near_rpc_url`
+- `v1_signer_contract_id` (expected default: `v1.signer.localnet`)
+- `mpc_node_{i}_url` or equivalent list of MPC endpoints
+

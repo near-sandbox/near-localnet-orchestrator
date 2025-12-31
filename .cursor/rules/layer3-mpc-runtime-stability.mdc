@@ -1,0 +1,62 @@
+## Layer 3 Guardrails: MPC Runtime Stability Only (NO architecture changes)
+
+### Objective (single goal)
+Fix Layer 3 so **MPC node EC2 instances are healthy**:
+- `mpc-node` container stays running (no restart loop)
+- Port **8080** is listening
+- `/health` returns HTTP 200 from:
+  - localhost on each MPC node (SSM into node)
+  - NEAR base EC2 inside VPC (SSM into NEAR base)
+
+### Scope (allowed work)
+Only work that directly makes MPC nodes healthy:
+- MPC node **UserData/bootstrap** in `cross-chain-simulator/mpc-repo/infra/aws-cdk`
+- MPC node **IAM permissions** required for runtime (e.g., Cloud Map registration)
+- MPC node **runtime config inputs** (secrets retrieval, boot nodes, genesis download)
+- Health verification scripts/docs/checkpoints
+
+### Explicit non-goals (forbidden unless user explicitly approves)
+Do NOT:
+- Change the 5-layer architecture or add new AWS services
+- Rename accounts/contracts (keep `.localnet` naming as-is)
+- Rewrite orchestrator design or refactor unrelated code
+- “Work around” with stack-name bumps (no v7/v8 churn) unless user requests it
+- Destroy Layer 1/2 stacks unless user explicitly asks for teardown
+- Permanently disable checks; temporary bypasses only for diagnosis
+
+### Required evidence before proposing code changes
+Before any code change, capture and present (per MPC node instance):
+1) `docker ps -a`
+2) `docker logs --tail 200 mpc-node`
+3) `ss -ltnp | grep -E ':8080|:3030'`
+4) `tail -200 /var/log/cloud-init-output.log`
+And confirm:
+- Secrets Manager values are **not placeholders** for:
+  - `mpc-node-{0,1,2}-mpc_account_sk`
+  - `mpc-node-{0,1,2}-mpc_p2p_private_key`
+  - `mpc-node-{0,1,2}-mpc_secret_store_key`
+- NEAR RPC reachable from inside VPC (SSM into NEAR base → `curl` RPC)
+
+### Debugging method (anti-loop)
+Repeat this loop; do not skip steps:
+- **Hypothesis** (1 sentence)
+- **Evidence** that supports it (2–4 bullets)
+- **Minimal change** (single diff; smallest surface area)
+- **Expected outcome**
+- **Re-check** (same evidence commands)
+
+If the same symptom repeats twice with no new evidence → STOP and ask the user to choose next direction.
+
+### Definition of Done (must pass)
+Layer 3 is “DONE” only when:
+- All MPC nodes: container `Up` for 5+ minutes
+- All MPC nodes: `curl -sf http://127.0.0.1:8080/health` returns 200
+- From NEAR base EC2: `curl -sf http://<mpc-private-ip>:8080/health` returns 200 for each node
+- On-chain: `v1.signer.localnet` has non-empty `code_hash`
+- End-to-end: minimal derive+sign smoke test succeeds
+
+### Output discipline
+Maintain a timestamped checkpoint doc:
+- `near-localnet-orchestrator/docs/CHECKPOINT_LAYER3_*.md`
+Include DONE/NOT DONE with evidence snippets and exact instance IDs.
+

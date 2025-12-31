@@ -44,6 +44,7 @@ var __importStar = (this && this.__importStar) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.NearServicesLayer = void 0;
+const fs = __importStar(require("fs"));
 const path = __importStar(require("path"));
 const BaseLayer_1 = require("./BaseLayer");
 class NearServicesLayer extends BaseLayer_1.BaseLayer {
@@ -235,146 +236,29 @@ class NearServicesLayer extends BaseLayer_1.BaseLayer {
         if (!instanceId) {
             throw new Error('NEAR instance ID not available from Layer 1 outputs');
         }
-        // Create idempotent deployment script for SSM
-        const deployScript = `#!/bin/bash
-set -e
-exec > >(tee /var/log/core-contracts-deploy.log) 2>&1
-
-echo "=== Core Contracts Deployment Script ==="
-echo "Timestamp: $(date)"
-
-# Install near-cli-rs if missing (idempotent)
-NEAR_CLI_VERSION="v0.23.2"
-NEAR_CLI_BINARY="/usr/local/bin/near"
-
-if [ ! -f "$NEAR_CLI_BINARY" ]; then
-  echo "Installing near-cli-rs $NEAR_CLI_VERSION..."
-  cd /tmp
-  curl -L -o near-cli-rs.tar.gz "https://github.com/near/near-cli-rs/releases/download/$NEAR_CLI_VERSION/near-cli-rs-x86_64-unknown-linux-gnu.tar.gz"
-  tar -xzf near-cli-rs.tar.gz
-  sudo mv near /usr/local/bin/near
-  sudo chmod +x /usr/local/bin/near
-  rm -f near-cli-rs.tar.gz
-  echo "✅ near-cli-rs installed"
-else
-  echo "✅ near-cli-rs already installed"
-fi
-
-# Verify near-cli-rs works
-near --version || { echo "ERROR: near-cli-rs not working"; exit 1; }
-
-# Get localnet account key from SSM (on instance)
-echo "Fetching localnet account key from SSM..."
-TOKEN=$(curl -sS -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600" || true)
-if [ -n "$TOKEN" ]; then
-  AWS_REGION=$(curl -sS -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/placement/region)
-else
-  AWS_REGION=$(curl -sS http://169.254.169.254/latest/meta-data/placement/region)
-fi
-
-LOCALNET_KEY=$(aws ssm get-parameter --name "/near-localnet/localnet-account-key" --with-decryption --query "Parameter.Value" --output text --region "$AWS_REGION" 2>/dev/null || echo "")
-if [ -z "$LOCALNET_KEY" ]; then
-  echo "ERROR: Failed to retrieve localnet account key from SSM"
-  exit 1
-fi
-
-# Clone core-contracts repository (idempotent)
-CONTRACTS_DIR="/tmp/core-contracts"
-if [ ! -d "$CONTRACTS_DIR" ]; then
-  echo "Cloning core-contracts repository..."
-  git clone --depth 1 https://github.com/near/core-contracts.git "$CONTRACTS_DIR"
-else
-  echo "✅ core-contracts repository already exists, updating..."
-  cd "$CONTRACTS_DIR"
-  git pull || true
-fi
-
-# Configure near-cli-rs for localnet
-echo "Configuring near-cli-rs for localnet..."
-near config add-connection --network-name localnet --connection-name localnet-deploy \\
-  --rpc-url http://127.0.0.1:3030/ \\
-  --wallet-url http://127.0.0.1:3030/ \\
-  --explorer-transaction-url http://127.0.0.1:3030/ || true
-
-# Import localnet account key
-echo "Importing localnet account key..."
-echo "$LOCALNET_KEY" | near account import-account using-private-key network-config localnet-deploy sign-as localnet || {
-  echo "Account key may already be imported, continuing..."
-}
-
-# Deploy contracts using near-cli-rs
-# Note: We'll use near-cli-rs account creation and near contract deploy commands
-CONTRACTS=(
-  "wrap.localnet:w-near/res/w_near.wasm:{\\\"owner_id\\\":\\\"localnet\\\"}"
-  "whitelist.localnet:whitelist/res/whitelist.wasm:{\\\"foundation_account_id\\\":\\\"localnet\\\"}"
-  "poolv1.localnet:staking-pool-factory/res/staking_pool_factory.wasm:{\\\"staking_pool_whitelist_account_id\\\":\\\"whitelist.localnet\\\"}"
-)
-
-for contract_spec in "\${CONTRACTS[@]}"; do
-  IFS=':' read -r account_id wasm_path init_args <<< "$contract_spec"
-  echo ""
-  echo "=== Deploying $account_id ==="
-  
-  # Check if account already exists via RPC
-  ACCOUNT_CHECK=$(curl -sS http://127.0.0.1:3030 -H "Content-Type: application/json" -d "{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":\\\"1\\\",\\\"method\\\":\\\"query\\\",\\\"params\\\":{\\\"request_type\\\":\\\"view_account\\\",\\\"finality\\\":\\\"final\\\",\\\"account_id\\\":\\\"$account_id\\\"}}")
-  
-  if echo "$ACCOUNT_CHECK" | grep -q "UNKNOWN_ACCOUNT"; then
-    echo "Account $account_id does not exist, creating..."
-    
-    # Create account with near-cli-rs
-    near account create-account fund-myself "$account_id" "10 NEAR" autogenerate-new-keypair save-to-legacy-keychain sign-as localnet network-config localnet-deploy sign-with-legacy-keychain send || {
-      echo "ERROR: Failed to create account $account_id"
-      exit 1
-    }
-    
-    echo "Account $account_id created, deploying contract..."
-    
-    # Deploy contract WASM
-    near contract deploy build-non-reproducible-wasm "$account_id" use-file "$CONTRACTS_DIR/$wasm_path" without-init-call network-config localnet-deploy sign-with-legacy-keychain send || {
-      echo "ERROR: Failed to deploy contract to $account_id"
-      exit 1
-    }
-    
-    echo "Contract deployed, initializing..."
-    
-    # Initialize contract
-    near contract call-function as-transaction "$account_id" new json-args "$init_args" prepaid-gas '300 Tgas' attached-deposit '0 NEAR' sign-as localnet network-config localnet-deploy sign-with-legacy-keychain send || {
-      echo "ERROR: Failed to initialize contract $account_id"
-      exit 1
-    }
-    
-    echo "✅ $account_id deployed and initialized"
-  else
-    echo "⏭️  $account_id already exists, skipping"
-  fi
-done
-
-# Verify all contracts exist
-echo ""
-echo "=== Verifying deployed contracts ==="
-for contract_spec in "\${CONTRACTS[@]}"; do
-  IFS=':' read -r account_id wasm_path init_args <<< "$contract_spec"
-  if curl -sS http://127.0.0.1:3030 -H "Content-Type: application/json" -d "{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":\\\"1\\\",\\\"method\\\":\\\"query\\\",\\\"params\\\":{\\\"request_type\\\":\\\"view_account\\\",\\\"finality\\\":\\\"final\\\",\\\"account_id\\\":\\\"$account_id\\\"}}" | grep -q "UNKNOWN_ACCOUNT"; then
-    echo "❌ ERROR: $account_id does not exist after deployment"
-    exit 1
-  else
-    echo "✅ $account_id verified"
-  fi
-done
-
-echo ""
-echo "=== Core Contracts Deployment Complete ==="
-`;
-        // Write the script and execute it in a SINGLE SSM command to avoid races
-        // (e.g. "bash /tmp/deploy-core-contracts.sh: No such file or directory").
-        const scriptPath = '/tmp/deploy-core-contracts.sh';
-        const writeAndRunCmd = `cat > ${scriptPath} << 'SCRIPTEOF'\n${deployScript}\nSCRIPTEOF\nchmod +x ${scriptPath}\nbash ${scriptPath}`;
-        this.context.logger.info(`Executing core contracts deployment via SSM on instance ${instanceId}...`);
+        // Use a dedicated SSM Command document (much more reliable than embedding a multi-line script
+        // inside send-command parameters, which is sensitive to newline escaping and /bin/sh vs bash).
+        const documentName = await this.ensureCoreContractsSsmDocument();
+        const parameters = {
+            AwsRegion: [this.context.globalConfig.aws_region],
+            RpcUrl: ['http://127.0.0.1:3030'],
+            NetworkConnectionName: ['localnet-deploy'],
+            LocalnetAccountId: ['localnet'],
+            LocalnetKeySsmParam: ['/near-localnet/localnet-account-key'],
+            CoreContractsRepoUrl: ['https://github.com/near/core-contracts.git'],
+            CoreContractsGitRef: ['master'],
+            NearCliTarballUrl: [
+                'https://github.com/near/near-cli-rs/releases/latest/download/near-cli-rs-x86_64-unknown-linux-gnu.tar.gz',
+            ],
+            ContractFundingAmount: ['10NEAR'],
+            InitGas: ['300TeraGas'],
+        };
+        this.context.logger.info(`Executing SSM document '${documentName}' on instance ${instanceId}...`);
         const commandResult = await this.context.commandExecutor.execute('aws', [
             'ssm', 'send-command',
             '--instance-ids', instanceId,
-            '--document-name', 'AWS-RunShellScript',
-            '--parameters', `commands=["${writeAndRunCmd.replace(/"/g, '\\"').replace(/\n/g, '\\n')}"]`,
+            '--document-name', documentName,
+            '--parameters', JSON.stringify(parameters),
             '--timeout-seconds', '1800', // 30 minutes
             '--profile', this.context.globalConfig.aws_profile,
             '--region', this.context.globalConfig.aws_region,
@@ -449,6 +333,120 @@ echo "=== Core Contracts Deployment Complete ==="
             attempts++;
         }
         throw new Error('SSM command timed out waiting for completion');
+    }
+    /**
+     * Ensure the core-contract deployment SSM document exists and is set to the latest default version.
+     */
+    async ensureCoreContractsSsmDocument() {
+        const documentName = 'near-localnet-deploy-core-contracts';
+        const documentPath = path.join(process.cwd(), 'assets', 'ssm-documents', 'near-localnet-deploy-core-contracts.yaml');
+        if (!fs.existsSync(documentPath)) {
+            throw new Error(`SSM document file not found at: ${documentPath}`);
+        }
+        // Check whether the document exists
+        const describeResult = await this.context.commandExecutor.execute('aws', [
+            'ssm',
+            'describe-document',
+            '--name',
+            documentName,
+            '--profile',
+            this.context.globalConfig.aws_profile,
+            '--region',
+            this.context.globalConfig.aws_region,
+            '--query',
+            'Document.Name',
+            '--output',
+            'text',
+        ], { silent: true });
+        const exists = describeResult.success && describeResult.stdout.trim() === documentName;
+        if (!exists) {
+            this.context.logger.info(`Creating SSM document '${documentName}'...`);
+            const createResult = await this.context.commandExecutor.execute('aws', [
+                'ssm',
+                'create-document',
+                '--name',
+                documentName,
+                '--document-type',
+                'Command',
+                '--document-format',
+                'YAML',
+                '--content',
+                `file://${documentPath}`,
+                '--profile',
+                this.context.globalConfig.aws_profile,
+                '--region',
+                this.context.globalConfig.aws_region,
+                '--output',
+                'json',
+            ], { silent: true });
+            if (!createResult.success) {
+                throw new Error(`Failed to create SSM document: ${createResult.stderr || createResult.stdout}`);
+            }
+        }
+        else {
+            this.context.logger.info(`Updating SSM document '${documentName}'...`);
+            const updateResult = await this.context.commandExecutor.execute('aws', [
+                'ssm',
+                'update-document',
+                '--name',
+                documentName,
+                '--document-version',
+                '$LATEST',
+                '--document-format',
+                'YAML',
+                '--content',
+                `file://${documentPath}`,
+                '--profile',
+                this.context.globalConfig.aws_profile,
+                '--region',
+                this.context.globalConfig.aws_region,
+                '--output',
+                'json',
+            ], { silent: true });
+            if (!updateResult.success) {
+                throw new Error(`Failed to update SSM document: ${updateResult.stderr || updateResult.stdout}`);
+            }
+        }
+        // Point default version to the latest version
+        const latestVersionResult = await this.context.commandExecutor.execute('aws', [
+            'ssm',
+            'describe-document',
+            '--name',
+            documentName,
+            '--profile',
+            this.context.globalConfig.aws_profile,
+            '--region',
+            this.context.globalConfig.aws_region,
+            '--query',
+            'Document.LatestVersion',
+            '--output',
+            'text',
+        ], { silent: true });
+        if (!latestVersionResult.success) {
+            throw new Error(`Failed to read SSM document latest version: ${latestVersionResult.stderr}`);
+        }
+        const latestVersion = latestVersionResult.stdout.trim();
+        if (!latestVersion) {
+            throw new Error('SSM document latest version is empty');
+        }
+        const setDefaultResult = await this.context.commandExecutor.execute('aws', [
+            'ssm',
+            'update-document-default-version',
+            '--name',
+            documentName,
+            '--document-version',
+            latestVersion,
+            '--profile',
+            this.context.globalConfig.aws_profile,
+            '--region',
+            this.context.globalConfig.aws_region,
+            '--output',
+            'json',
+        ], { silent: true });
+        if (!setDefaultResult.success) {
+            throw new Error(`Failed to set default SSM document version: ${setDefaultResult.stderr}`);
+        }
+        return documentName;
     }
     /**
      * Get outputs from deployed NEAR Services

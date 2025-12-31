@@ -1,0 +1,215 @@
+schemaVersion: "2.2"
+description: "NEAR localnet: deploy core contracts (w-near, whitelist, staking-pool-factory) using near-cli-rs"
+
+parameters:
+  AwsRegion:
+    type: String
+    description: "AWS region (used for SSM GetParameter)."
+
+  RpcUrl:
+    type: String
+    description: "NEAR RPC URL reachable from the instance (usually http://127.0.0.1:3030)."
+    default: "http://127.0.0.1:3030"
+
+  NetworkConnectionName:
+    type: String
+    description: "near-cli-rs connection name to use."
+    default: "localnet-deploy"
+
+  LocalnetAccountId:
+    type: String
+    description: "Root account to fund and create subaccounts."
+    default: "localnet"
+
+  LocalnetKeySsmParam:
+    type: String
+    description: "SSM SecureString parameter containing the root account private key."
+    default: "/near-localnet/localnet-account-key"
+
+  CoreContractsRepoUrl:
+    type: String
+    description: "Git repo for NEAR core contracts."
+    default: "https://github.com/near/core-contracts.git"
+
+  CoreContractsGitRef:
+    type: String
+    description: "Git ref (branch/tag/commit) to deploy from."
+    default: "master"
+
+  NearCliTarballUrl:
+    type: String
+    description: "near-cli-rs portable tarball URL."
+    default: "https://github.com/near/near-cli-rs/releases/latest/download/near-cli-rs-x86_64-unknown-linux-gnu.tar.gz"
+
+  ContractFundingAmount:
+    type: String
+    description: "Funding amount for newly created contract accounts."
+    default: "10NEAR"
+
+  InitGas:
+    type: String
+    description: "Gas for init calls."
+    default: "300TeraGas"
+
+mainSteps:
+  - action: "aws:runShellScript"
+    name: "DeployCoreContracts"
+    inputs:
+      runCommand:
+        - "set -e"
+        - "export AWS_REGION='{{ AwsRegion }}'"
+        - "export AWS_DEFAULT_REGION='{{ AwsRegion }}'"
+        - "export DEBIAN_FRONTEND=noninteractive"
+        - "echo '=== [core-contracts] start ==='; date"
+        - "echo 'rpc={{ RpcUrl }} connection={{ NetworkConnectionName }} region={{ AwsRegion }}'"
+        - "if ! command -v jq >/dev/null 2>&1 || ! command -v git >/dev/null 2>&1 || ! command -v curl >/dev/null 2>&1; then apt-get update -y; apt-get install -y jq git curl ca-certificates; fi"
+        - |
+          if ! command -v near >/dev/null 2>&1; then
+            echo "Installing near-cli-rs..."
+            cd /tmp
+            rm -rf near-cli-rs-x86_64-unknown-linux-gnu near-cli-rs.tgz
+            curl -L -o near-cli-rs.tgz "{{ NearCliTarballUrl }}"
+            tar -xzf near-cli-rs.tgz
+            install -m 0755 near-cli-rs-x86_64-unknown-linux-gnu/near /usr/local/bin/near
+          fi
+        - "near --version"
+        - |
+          echo "Configuring near-cli-rs connection {{ NetworkConnectionName }}..."
+          near config delete-connection "{{ NetworkConnectionName }}" || true
+          near config add-connection --network-name localnet --connection-name "{{ NetworkConnectionName }}" \
+            --rpc-url "{{ RpcUrl }}" \
+            --wallet-url "{{ RpcUrl }}" \
+            --explorer-transaction-url "{{ RpcUrl }}"
+        - |
+          echo "Fetching localnet private key from SSM ({{ LocalnetKeySsmParam }})..."
+          aws ssm get-parameter --name "{{ LocalnetKeySsmParam }}" --with-decryption --region "{{ AwsRegion }}" --query Parameter.Value --output text > /tmp/localnet.key
+          chmod 600 /tmp/localnet.key
+          LOCALNET_KEY="$(cat /tmp/localnet.key)"
+          if [ -z "$LOCALNET_KEY" ]; then
+            echo "ERROR: empty localnet key"
+            exit 1
+          fi
+          echo "Deriving localnet public key..."
+          near account get-public-key from-plaintext-private-key "$LOCALNET_KEY" | grep -Eo 'ed25519:[A-Za-z0-9]+' | head -1 > /tmp/localnet.pub
+          chmod 644 /tmp/localnet.pub
+          if [ ! -s /tmp/localnet.pub ]; then
+            echo "ERROR: could not derive public key"
+            exit 1
+          fi
+          echo "localnet_pub=$(cat /tmp/localnet.pub)"
+        - |
+          echo "Preparing core-contracts repo..."
+          CONTRACTS_DIR="/opt/core-contracts"
+          if [ ! -d "$CONTRACTS_DIR/.git" ]; then
+            rm -rf "$CONTRACTS_DIR"
+            git clone --depth 1 --branch "{{ CoreContractsGitRef }}" "{{ CoreContractsRepoUrl }}" "$CONTRACTS_DIR"
+          else
+            git -C "$CONTRACTS_DIR" fetch --depth 1 origin "{{ CoreContractsGitRef }}" || true
+            git -C "$CONTRACTS_DIR" checkout "{{ CoreContractsGitRef }}" || true
+            git -C "$CONTRACTS_DIR" pull || true
+          fi
+          echo "core-contracts HEAD: $(git -C \"$CONTRACTS_DIR\" rev-parse --short HEAD || true)"
+        - |
+          bash -euxo pipefail <<'BASH'
+          LOG=/var/log/core-contracts-deploy.log
+          mkdir -p "$(dirname "$LOG")"
+          exec > >(tee -a "$LOG") 2>&1
+
+          RPC="{{ RpcUrl }}"
+          CONN="{{ NetworkConnectionName }}"
+          ROOT="{{ LocalnetAccountId }}"
+          FUND="{{ ContractFundingAmount }}"
+          INIT_GAS="{{ InitGas }}"
+
+          LOCALNET_KEY="$(cat /tmp/localnet.key)"
+          LOCALNET_PUB="$(cat /tmp/localnet.pub)"
+          CONTRACTS_DIR="/opt/core-contracts"
+
+          echo "=== [core-contracts] deploy loop ==="
+          echo "ROOT=$ROOT FUND=$FUND CONN=$CONN RPC=$RPC"
+
+          # Format: account|wasm_path|init_json
+          CONTRACTS=(
+            "wrap.localnet|w-near/res/w_near.wasm|{\"owner_id\":\"localnet\"}"
+            "whitelist.localnet|whitelist/res/whitelist.wasm|{\"foundation_account_id\":\"localnet\"}"
+            "poolv1.localnet|staking-pool-factory/res/staking_pool_factory.wasm|{\"staking_pool_whitelist_account_id\":\"whitelist.localnet\"}"
+          )
+
+          view_account() {
+            local acct="$1"
+            curl -sS "$RPC" -H "Content-Type: application/json" -d "{\"jsonrpc\":\"2.0\",\"id\":\"1\",\"method\":\"query\",\"params\":{\"request_type\":\"view_account\",\"finality\":\"final\",\"account_id\":\"${acct}\"}}"
+          }
+
+          ensure_account_exists() {
+            local acct="$1"
+            local res
+            res="$(view_account "$acct")" || true
+            if echo "$res" | grep -q "UNKNOWN_ACCOUNT"; then
+              echo "Creating account $acct (fund=$FUND, pubkey=$LOCALNET_PUB) ..."
+              near account create-account fund-myself "$acct" "$FUND" use-manually-provided-public-key "$LOCALNET_PUB" \
+                sign-as "$ROOT" network-config "$CONN" sign-with-plaintext-private-key "$LOCALNET_KEY" send
+            else
+              echo "Account $acct exists"
+            fi
+          }
+
+          ensure_contract_deployed() {
+            local acct="$1"
+            local wasm_rel="$2"
+            local init_json="$3"
+
+            ensure_account_exists "$acct"
+
+            local res
+            res="$(view_account "$acct")"
+            local code_hash
+            code_hash="$(echo "$res" | jq -r '.result.code_hash // empty' || true)"
+            if [ -z "$code_hash" ]; then
+              echo "ERROR: unable to read code_hash for $acct"
+              echo "$res" | head -c 400
+              exit 1
+            fi
+
+            if [ "$code_hash" != "11111111111111111111111111111111" ]; then
+              echo "⏭️  $acct already has contract code (code_hash=$code_hash), skipping deploy/init"
+              return 0
+            fi
+
+            local wasm_path="$CONTRACTS_DIR/$wasm_rel"
+            if [ ! -f "$wasm_path" ]; then
+              echo "ERROR: wasm missing at $wasm_path"
+              exit 1
+            fi
+
+            echo "Deploying contract to $acct from $wasm_rel ..."
+            near contract deploy "$acct" use-file "$wasm_path" without-init-call \
+              network-config "$CONN" sign-with-plaintext-private-key "$LOCALNET_KEY" send
+
+            echo "$init_json" > /tmp/init_args.json
+            echo "Initializing $acct ..."
+            near contract call-function as-transaction "$acct" new file-args /tmp/init_args.json \
+              prepaid-gas "$INIT_GAS" attached-deposit 0NEAR \
+              sign-as "$acct" network-config "$CONN" sign-with-plaintext-private-key "$LOCALNET_KEY" send
+
+            res="$(view_account "$acct")"
+            code_hash="$(echo "$res" | jq -r '.result.code_hash // empty' || true)"
+            if [ "$code_hash" = "11111111111111111111111111111111" ] || [ -z "$code_hash" ]; then
+              echo "ERROR: $acct still has default code_hash after deploy"
+              exit 1
+            fi
+            echo "✅ $acct deployed (code_hash=$code_hash)"
+          }
+
+          for spec in "${CONTRACTS[@]}"; do
+            IFS='|' read -r acct wasm_rel init_json <<< "$spec"
+            echo ""
+            echo "=== $acct ==="
+            ensure_contract_deployed "$acct" "$wasm_rel" "$init_json"
+          done
+
+          echo ""
+          echo "=== [core-contracts] done ==="
+          date
+          BASH
+
+

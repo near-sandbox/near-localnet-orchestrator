@@ -36,6 +36,10 @@ export declare class NearServicesLayer extends BaseLayer {
      */
     private deployContractsViaSSM;
     /**
+     * Ensure the core-contract deployment SSM document exists and is set to the latest default version.
+     */
+    private ensureCoreContractsSsmDocument;
+    /**
      * Get outputs from deployed NEAR Services
      */
     getOutputs(): Promise<LayerOutput>;

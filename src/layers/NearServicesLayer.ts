@@ -431,7 +431,14 @@ export class NearServicesLayer extends BaseLayer {
       ], { silent: true });
 
       if (!updateResult.success) {
-        throw new Error(`Failed to update SSM document: ${updateResult.stderr || updateResult.stdout}`);
+        const combined = `${updateResult.stderr || ''}\n${updateResult.stdout || ''}`;
+        // AWS returns DuplicateDocumentContent when the content is identical to the current version.
+        // This should be treated as an idempotent no-op.
+        if (combined.includes('DuplicateDocumentContent')) {
+          this.context.logger.info(`SSM document '${documentName}' unchanged (DuplicateDocumentContent). Skipping update.`);
+        } else {
+          throw new Error(`Failed to update SSM document: ${updateResult.stderr || updateResult.stdout}`);
+        }
       }
     }
 

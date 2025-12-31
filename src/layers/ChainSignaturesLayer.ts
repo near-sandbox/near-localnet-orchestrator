@@ -87,6 +87,7 @@ export class ChainSignaturesLayer extends BaseLayer {
       // Get dependency outputs
       const nearOutputs = this.getDependencyOutputs('near_base');
       const servicesOutputs = this.getDependencyOutputs('near_services');
+      const mpcConfig = this.context.layerConfig.config;
 
       if (!nearOutputs) {
         throw new Error('NEAR base layer outputs not available. Ensure near_base layer is deployed first.');
@@ -123,6 +124,12 @@ export class ChainSignaturesLayer extends BaseLayer {
         });
         
         this.context.logger.success('MPC Infrastructure deployed');
+
+        // Ensure MPC node Secrets Manager values are populated (not placeholders) before we run MPC setup.
+        // The MPC nodes also wait for these to be populated on first boot.
+        if (mpcConfig.auto_generate_keys !== false) {
+          await this.ensureMpcNodeSecretsPopulated(repoPath, cdkPath);
+        }
       }
 
       // Get script path for deployment
@@ -161,6 +168,77 @@ export class ChainSignaturesLayer extends BaseLayer {
         error: error.message,
         duration,
       };
+    }
+  }
+
+  /**
+   * The MPC CDK stack creates Secrets Manager secrets with placeholder values. If we don't replace them,
+   * MPC setup will fail when trying to parse keys (and nodes will wait up to ~10 minutes on boot).
+   */
+  private async ensureMpcNodeSecretsPopulated(repoPath: string, cdkPath: string): Promise<void> {
+    const PLACEHOLDER = 'PLACEHOLDER_REPLACE_WITH_REAL_KEY';
+    const node0SecretId = 'mpc-node-0-mpc_account_sk';
+
+    this.context.logger.info('Checking MPC node secrets (placeholders vs real keys)...');
+
+    const secretResult = await this.context.commandExecutor.execute(
+      'aws',
+      [
+        'secretsmanager',
+        'get-secret-value',
+        '--secret-id',
+        node0SecretId,
+        '--profile',
+        this.context.globalConfig.aws_profile,
+        '--region',
+        this.context.globalConfig.aws_region,
+        '--query',
+        'SecretString',
+        '--output',
+        'text',
+      ],
+      { silent: true }
+    );
+
+    if (!secretResult.success) {
+      this.context.logger.warn(
+        `Could not read Secrets Manager value for '${node0SecretId}'. Assuming secrets are already configured.`
+      );
+      return;
+    }
+
+    const value = (secretResult.stdout || '').trim();
+    if (!value || value === PLACEHOLDER) {
+      this.context.logger.warn(
+        `MPC node secrets are placeholders. Populating from mpc-repo test keys (localnet only).`
+      );
+
+      const workDir = path.join(repoPath, cdkPath);
+      const updateScript = path.join(workDir, 'scripts', 'update-secrets.sh');
+
+      const updateResult = await this.context.commandExecutor.execute(
+        'bash',
+        [updateScript, './mpc-node-keys.json', this.context.globalConfig.aws_profile],
+        {
+          cwd: workDir,
+          env: {
+            ...(process.env as Record<string, string>),
+            AWS_PROFILE: this.context.globalConfig.aws_profile,
+            AWS_REGION: this.context.globalConfig.aws_region,
+          },
+          streamOutput: true,
+        }
+      );
+
+      if (!updateResult.success) {
+        throw new Error(
+          `Failed to populate MPC node secrets. Output:\n${updateResult.stderr || updateResult.stdout}`
+        );
+      }
+
+      this.context.logger.success('✅ MPC node secrets populated');
+    } else {
+      this.context.logger.success('✅ MPC node secrets already populated');
     }
   }
 

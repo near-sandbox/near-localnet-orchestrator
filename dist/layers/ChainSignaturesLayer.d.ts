@@ -19,6 +19,11 @@ export declare class ChainSignaturesLayer extends BaseLayer {
      */
     deploy(): Promise<DeployResult>;
     /**
+     * The MPC CDK stack creates Secrets Manager secrets with placeholder values. If we don't replace them,
+     * MPC setup will fail when trying to parse keys (and nodes will wait up to ~10 minutes on boot).
+     */
+    private ensureMpcNodeSecretsPopulated;
+    /**
      * Prepare environment variables for the deployment script
      */
     private prepareEnvironment;

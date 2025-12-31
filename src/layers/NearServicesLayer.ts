@@ -47,13 +47,19 @@ export class NearServicesLayer extends BaseLayer {
     }
 
     // Check if faucet stack already exists in AWS
-    const stackExists = await this.checkStackExists('near-localnet-faucet-v2');
-    if (stackExists) {
-      this.context.logger.info('Faucet stack exists, reading outputs...');
-      
+    // Prefer v3 (v2 can be stuck in DELETE_IN_PROGRESS due to Lambda VPC ENI cleanup)
+    const stackNamesToCheck = ['near-localnet-faucet-v3', 'near-localnet-faucet-v2'];
+    for (const stackName of stackNamesToCheck) {
+      const stackExists = await this.checkStackExists(stackName);
+      if (!stackExists) {
+        continue;
+      }
+
+      this.context.logger.info(`Faucet stack exists (${stackName}), reading outputs...`);
+
       try {
-        const outputs = await this.readStackOutputs('near-localnet-faucet-v2');
-        
+        const outputs = await this.readStackOutputs(stackName);
+
         if (outputs.FaucetEndpoint) {
           return {
             skip: true,
@@ -71,7 +77,7 @@ export class NearServicesLayer extends BaseLayer {
           };
         }
       } catch (error) {
-        this.context.logger.warn('Could not read faucet stack outputs, will deploy');
+        this.context.logger.warn(`Could not read faucet stack outputs for ${stackName}, will deploy`);
       }
     }
 
@@ -499,9 +505,14 @@ export class NearServicesLayer extends BaseLayer {
       // Try to read faucet stack outputs
       let faucetOutputs: Record<string, string> = {};
       try {
-        faucetOutputs = await this.readStackOutputs('near-localnet-faucet-v2');
+        faucetOutputs = await this.readStackOutputs('near-localnet-faucet-v3');
       } catch (error) {
-        this.context.logger.warn('Could not read faucet stack outputs');
+        // Back-compat: older deployments may still be on v2
+        try {
+          faucetOutputs = await this.readStackOutputs('near-localnet-faucet-v2');
+        } catch {
+          this.context.logger.warn('Could not read faucet stack outputs');
+        }
       }
 
       const outputs: Record<string, string> = {

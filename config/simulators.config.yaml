@@ -29,13 +29,14 @@ layers:
   # ============================================================================
   ethereum_localnet:
     enabled: true
-    depends_on: []
+    depends_on: ["near_base"]
     source:
       repo_url: "file:///Users/Shai.Perednik/Documents/code_workspace/near_mobile/AWSNodeRunner"
       branch: "main"
       cdk_path: "lib/ethereum"
     config:
-      vpc_id: "vpc-0ad7ab6659e0293ae"
+      # Deploy Ethereum localnet into the SAME VPC as NEAR Base (Layer 1)
+      vpc_id: "${near_base.outputs.vpc_id}"
       instance_type: "t3.medium"
       network_mode: "dev"
     outputs:

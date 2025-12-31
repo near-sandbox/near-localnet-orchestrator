@@ -161,6 +161,23 @@ mainSteps:
             curl -sS "$RPC" -H "Content-Type: application/json" -d "{\"jsonrpc\":\"2.0\",\"id\":\"1\",\"method\":\"query\",\"params\":{\"request_type\":\"view_account\",\"finality\":\"final\",\"account_id\":\"${acct}\"}}"
           }
 
+          wait_for_account() {
+            local acct="$1"
+            local attempt=0
+            local res=""
+            while [ "$attempt" -lt 20 ]; do
+              res="$(view_account "$acct")" || true
+              if ! echo "$res" | grep -q "UNKNOWN_ACCOUNT"; then
+                echo "$res"
+                return 0
+              fi
+              attempt=$((attempt + 1))
+              sleep 2
+            done
+            echo "$res"
+            return 1
+          }
+
           ensure_account_exists() {
             local acct="$1"
             local res
@@ -169,6 +186,8 @@ mainSteps:
               echo "Creating account $acct (fund=$FUND, pubkey=$LOCALNET_PUB) ..."
               near account create-account fund-myself "$acct" "$FUND" use-manually-provided-public-key "$LOCALNET_PUB" \
                 sign-as "$ROOT" network-config "$CONN" sign-with-plaintext-private-key "$LOCALNET_KEY" send
+              echo "Waiting for $acct to appear in view_account(final)..."
+              wait_for_account "$acct" >/dev/null
             else
               echo "Account $acct exists"
             fi
@@ -182,7 +201,7 @@ mainSteps:
             ensure_account_exists "$acct"
 
             local res
-            res="$(view_account "$acct")"
+            res="$(wait_for_account "$acct")"
             local code_hash
             code_hash="$(echo "$res" | jq -r '.result.code_hash // empty' || true)"
             if [ -z "$code_hash" ]; then
@@ -212,8 +231,15 @@ mainSteps:
               prepaid-gas "$INIT_GAS" attached-deposit 0NEAR \
               sign-as "$acct" network-config "$CONN" sign-with-plaintext-private-key "$LOCALNET_KEY" send
 
-            res="$(view_account "$acct")"
-            code_hash="$(echo "$res" | jq -r '.result.code_hash // empty' || true)"
+            # Wait for code_hash to reflect deployed code (finality may lag a few blocks)
+            for _ in $(seq 1 20); do
+              res="$(view_account "$acct")" || true
+              code_hash="$(echo "$res" | jq -r '.result.code_hash // empty' || true)"
+              if [ -n "$code_hash" ] && [ "$code_hash" != "11111111111111111111111111111111" ]; then
+                break
+              fi
+              sleep 2
+            done
             if [ "$code_hash" = "11111111111111111111111111111111" ] || [ -z "$code_hash" ]; then
               echo "ERROR: $acct still has default code_hash after deploy"
               exit 1

@@ -167,12 +167,12 @@ export class NearServicesLayer extends BaseLayer {
         region: this.context.globalConfig.aws_region,
         account: this.context.globalConfig.aws_account,
       },
-        near: {
-          rpcUrl: nearOutputs.outputs.rpc_url,
-          networkId: nearOutputs.outputs.network_id,
-          vpcId: nearOutputs.outputs.vpc_id,
+      near: {
+        rpcUrl: nearOutputs.outputs.rpc_url,
+        networkId: nearOutputs.outputs.network_id,
+        vpcId: nearOutputs.outputs.vpc_id,
           masterAccountId: 'localnet',
-        },
+      },
       faucet: {
         defaultAmount: this.context.layerConfig.config.default_amount || '10',
         maxAmount: this.context.layerConfig.config.max_amount || '100',

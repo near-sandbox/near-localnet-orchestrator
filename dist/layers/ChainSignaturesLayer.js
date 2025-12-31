@@ -75,7 +75,7 @@ class ChainSignaturesLayer extends BaseLayer_1.BaseLayer {
                     outputs[`mpc_node_${index}_url`] = nodeUrl;
                 });
                 outputs.mpc_node_count = existingMpcNodes.length.toString();
-                outputs.v1_signer_contract_id = expectedContractId || 'v1.signer.node0';
+                outputs.v1_signer_contract_id = expectedContractId || 'v1.signer.localnet';
                 return {
                     skip: true,
                     reason: `All ${existingMpcNodes.length} MPC nodes are operational`,
@@ -171,17 +171,21 @@ class ChainSignaturesLayer extends BaseLayer_1.BaseLayer {
         const mpcConfig = this.context.layerConfig.config;
         const env = {
             // NEAR configuration
-            NEAR_RPC_URL: nearOutputs.outputs.rpc_url,
+            // Allow local override (e.g., SSM port-forwarding to localhost) while keeping the
+            // dependency output as the default source of truth.
+            NEAR_RPC_URL: process.env.NEAR_RPC_URL || nearOutputs.outputs.rpc_url,
             NEAR_NETWORK_ID: nearOutputs.outputs.network_id,
             NEAR_VPC_ID: nearOutputs.outputs.vpc_id || '',
             // MPC configuration (embedded in this layer)
             MPC_NODE_COUNT: (mpcConfig.mpc_node_count || 3).toString(),
-            MPC_CONTRACT_ID: mpcConfig.mpc_contract_id || 'v1.signer.node0',
+            MPC_CONTRACT_ID: mpcConfig.mpc_contract_id || 'v1.signer.localnet',
             MPC_DOCKER_IMAGE: mpcConfig.mpc_docker_image || 'nearone/mpc-node:3.1.0',
             AUTO_GENERATE_KEYS: mpcConfig.auto_generate_keys !== false ? 'true' : 'false',
             // Chain Signatures configuration
             DEPLOY_V1_SIGNER_CONTRACT: mpcConfig.deploy_v1_signer_contract !== false ? 'true' : 'false',
             INITIALIZE_MPC: mpcConfig.initialize_mpc !== false ? 'true' : 'false',
+            // Master account configuration
+            MASTER_ACCOUNT_ID: 'localnet',
             // AWS configuration
             AWS_PROFILE: this.context.globalConfig.aws_profile,
             AWS_REGION: this.context.globalConfig.aws_region,
@@ -192,10 +196,25 @@ class ChainSignaturesLayer extends BaseLayer_1.BaseLayer {
         // Get master account key from SSM if not provided in config
         if (!env.MASTER_ACCOUNT_PRIVATE_KEY && !env.DEPLOYER_KMS_KEY_ID) {
             try {
+                // Sanity check: verify localnet account ID matches expected value
+                const accountIdResult = await this.context.commandExecutor.execute('aws', [
+                    'ssm', 'get-parameter',
+                    '--name', '/near-localnet/localnet-account-id',
+                    '--query', 'Parameter.Value',
+                    '--output', 'text',
+                    '--profile', this.context.globalConfig.aws_profile,
+                    '--region', this.context.globalConfig.aws_region,
+                ], { silent: true });
+                if (accountIdResult.success && accountIdResult.stdout) {
+                    const accountId = accountIdResult.stdout.trim();
+                    if (accountId !== 'localnet') {
+                        this.context.logger.warn(`SSM account ID mismatch: expected 'localnet', got '${accountId}'`);
+                    }
+                }
                 // We use aws cli via command executor to avoid adding sdk dependency just for this
                 const result = await this.context.commandExecutor.execute('aws', [
                     'ssm', 'get-parameter',
-                    '--name', '/near-localnet/master-account-key',
+                    '--name', '/near-localnet/localnet-account-key',
                     '--with-decryption',
                     '--query', 'Parameter.Value',
                     '--output', 'text',
@@ -204,11 +223,11 @@ class ChainSignaturesLayer extends BaseLayer_1.BaseLayer {
                 ], { silent: true });
                 if (result.success && result.stdout) {
                     env.MASTER_ACCOUNT_PRIVATE_KEY = result.stdout.trim();
-                    this.context.logger.debug('Loaded master account key from SSM');
+                    this.context.logger.debug('Loaded localnet account key from SSM');
                 }
             }
             catch (error) {
-                this.context.logger.warn('Failed to load master account key from SSM');
+                this.context.logger.warn('Failed to load localnet account key from SSM');
             }
         }
         // Add faucet endpoint if available from services layer
@@ -230,7 +249,7 @@ class ChainSignaturesLayer extends BaseLayer_1.BaseLayer {
             const outputs = {
                 deployed: 'true',
                 deploy_timestamp: new Date().toISOString(),
-                v1_signer_contract_id: this.context.layerConfig.config.mpc_contract_id || 'v1.signer.node0',
+                v1_signer_contract_id: this.context.layerConfig.config.mpc_contract_id || 'v1.signer.localnet',
                 mpc_node_count: (this.context.layerConfig.config.mpc_node_count || 3).toString(),
             };
             // Try to read deployment output files

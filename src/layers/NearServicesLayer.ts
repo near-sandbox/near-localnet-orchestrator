@@ -352,8 +352,12 @@ export class NearServicesLayer extends BaseLayer {
    */
   private async ensureCoreContractsSsmDocument(): Promise<string> {
     const documentName = 'near-localnet-deploy-core-contracts';
+    // Do NOT rely on process.cwd() here because some parts of the orchestrator
+    // (CDK deploy helpers) change the process CWD.
+    // Resolve relative to the orchestrator package root: <repo>/src/layers -> <repo>
+    const orchestratorRoot = path.resolve(__dirname, '..', '..');
     const documentPath = path.join(
-      process.cwd(),
+      orchestratorRoot,
       'assets',
       'ssm-documents',
       'near-localnet-deploy-core-contracts.yaml'

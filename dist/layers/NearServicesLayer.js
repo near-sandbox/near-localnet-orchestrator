@@ -339,7 +339,11 @@ class NearServicesLayer extends BaseLayer_1.BaseLayer {
      */
     async ensureCoreContractsSsmDocument() {
         const documentName = 'near-localnet-deploy-core-contracts';
-        const documentPath = path.join(process.cwd(), 'assets', 'ssm-documents', 'near-localnet-deploy-core-contracts.yaml');
+        // Do NOT rely on process.cwd() here because some parts of the orchestrator
+        // (CDK deploy helpers) change the process CWD.
+        // Resolve relative to the orchestrator package root: <repo>/src/layers -> <repo>
+        const orchestratorRoot = path.resolve(__dirname, '..', '..');
+        const documentPath = path.join(orchestratorRoot, 'assets', 'ssm-documents', 'near-localnet-deploy-core-contracts.yaml');
         if (!fs.existsSync(documentPath)) {
             throw new Error(`SSM document file not found at: ${documentPath}`);
         }

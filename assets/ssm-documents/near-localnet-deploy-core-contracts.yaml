@@ -82,10 +82,7 @@ mainSteps:
           mkdir -p "$CONFIG_DIR"
 
           if [ ! -f "$CONFIG_FILE" ]; then
-            cat > "$CONFIG_FILE" <<'EOF'
-            version = "4"
-            credentials_home_dir = "/root/.near-credentials"
-EOF
+            printf '%s\n' 'version = "4"' 'credentials_home_dir = "/root/.near-credentials"' > "$CONFIG_FILE"
           fi
 
           # Remove an existing connection block if present
@@ -95,16 +92,16 @@ EOF
                skip==0{print}' "$CONFIG_FILE" > /tmp/near-cli-config.toml
           mv /tmp/near-cli-config.toml "$CONFIG_FILE"
 
-          cat >> "$CONFIG_FILE" <<EOF
-
-          [network_connection.{{ NetworkConnectionName }}]
-          network_name = "localnet"
-          rpc_url = "{{ RpcUrl }}/"
-          wallet_url = "{{ RpcUrl }}/"
-          explorer_transaction_url = "{{ RpcUrl }}/"
-          linkdrop_account_id = "{{ LocalnetAccountId }}"
-          staking_pools_factory_account_id = "poolv1.localnet"
-EOF
+          {
+            echo ""
+            echo "[network_connection.{{ NetworkConnectionName }}]"
+            echo "network_name = \"localnet\""
+            echo "rpc_url = \"{{ RpcUrl }}/\""
+            echo "wallet_url = \"{{ RpcUrl }}/\""
+            echo "explorer_transaction_url = \"{{ RpcUrl }}/\""
+            echo "linkdrop_account_id = \"{{ LocalnetAccountId }}\""
+            echo "staking_pools_factory_account_id = \"poolv1.localnet\""
+          } >> "$CONFIG_FILE"
 
           echo "near-cli config updated at $CONFIG_FILE"
         - |

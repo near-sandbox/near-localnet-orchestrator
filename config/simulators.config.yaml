@@ -120,7 +120,7 @@ layers:
     config:
       # MPC configuration (embedded in this layer)
       mpc_node_count: 3
-      mpc_contract_id: "v1.signer.node0"
+      mpc_contract_id: "v1.signer.localnet"
       # Use a nearcore-compatible MPC image (nearcore 2.10.1 / protocol 82)
       mpc_docker_image: "nearone/mpc-node:3.1.0"
       mpc_instance_type: "t3.medium"  # Cost-optimized (~$90/month for 3 nodes)

@@ -132,13 +132,10 @@ mainSteps:
             git -C "$CONTRACTS_DIR" checkout "{{ CoreContractsGitRef }}" || true
             git -C "$CONTRACTS_DIR" pull || true
           fi
-          echo "core-contracts HEAD: $(git -C \"$CONTRACTS_DIR\" rev-parse --short HEAD || true)"
+          CORE_CONTRACTS_HEAD="$(git -C "$CONTRACTS_DIR" rev-parse --short HEAD || true)"
+          echo "core-contracts HEAD: ${CORE_CONTRACTS_HEAD}"
         - |
           bash -euxo pipefail <<'BASH'
-          LOG=/var/log/core-contracts-deploy.log
-          mkdir -p "$(dirname "$LOG")"
-          exec > >(tee -a "$LOG") 2>&1
-
           RPC="{{ RpcUrl }}"
           CONN="{{ NetworkConnectionName }}"
           ROOT="{{ LocalnetAccountId }}"

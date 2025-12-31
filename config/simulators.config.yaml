@@ -115,7 +115,8 @@ layers:
     source:
       repo_url: "file:///Users/Shai.Perednik/Documents/code_workspace/near_mobile/cross-chain-simulator"
       branch: "main"
-      cdk_path: "mpc-repo/infra/aws-cdk"
+      # Note: MPC infra is embedded under cross-chain-simulator/mpc-repo/
+      cdk_path: "cross-chain-simulator/mpc-repo/infra/aws-cdk"
       script_path: "scripts/start-localnet.sh"
     config:
       # MPC configuration (embedded in this layer)

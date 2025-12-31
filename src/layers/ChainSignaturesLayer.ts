@@ -177,7 +177,9 @@ export class ChainSignaturesLayer extends BaseLayer {
 
     const env: Record<string, string> = {
       // NEAR configuration
-      NEAR_RPC_URL: nearOutputs.outputs.rpc_url,
+      // Allow local override (e.g., SSM port-forwarding to localhost) while keeping the
+      // dependency output as the default source of truth.
+      NEAR_RPC_URL: process.env.NEAR_RPC_URL || nearOutputs.outputs.rpc_url,
       NEAR_NETWORK_ID: nearOutputs.outputs.network_id,
       NEAR_VPC_ID: nearOutputs.outputs.vpc_id || '',
 

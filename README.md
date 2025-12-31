@@ -2,7 +2,7 @@
 
 A TypeScript-based master orchestrator for managing layered NEAR Protocol simulation infrastructure deployments. This tool enables a "lego-block" approach to deploying complex multi-service NEAR ecosystems with intelligent health checking and dependency management.
 
-> **Current work**: Resume from `docs/CHECKPOINT_2025-12-31T03-45Z.md`. Parity checklist: `docs/PARITY_LAYER1_LAYER2.md`. Archived docs are in `docs/archive/2025-12-30-node0-to-localnet/`.
+> **Current work**: Resume from `docs/CHECKPOINT_LAYER3_2025-01-01T01-15Z.md`. Layer 1/2 parity checklist: `docs/PARITY_LAYER1_LAYER2.md`. Layer 3 parity checklist: `docs/PARITY_LAYER3_CHAIN_SIGNATURES.md`. Archived docs are in `docs/archive/2025-12-30-node0-to-localnet/`.
 
 ## 🎯 Overview
 
@@ -103,7 +103,9 @@ layers:
       cdk_path: "faucet/cdk"
     config:
       deploy_faucet: true
-      master_account_id: "node0"
+      # NOTE: Localnet uses the `localnet` root account (created in genesis) + its key in SSM.
+      # This field is retained for backward compatibility but is not the source of truth.
+      master_account_id: "localnet"
 
   # Layer 3: Chain Signatures - MPC infrastructure + signing API
   chain_signatures:
@@ -116,7 +118,7 @@ layers:
     config:
       # MPC configuration (embedded in this layer)
       mpc_node_count: 3
-      mpc_contract_id: "v1.signer.node0"
+      mpc_contract_id: "v1.signer.localnet"
       mpc_docker_image: "nearone/mpc-node:3.1.0"
       auto_generate_keys: true
       # Chain Signatures configuration
@@ -246,7 +248,7 @@ Last updated: 2024-12-22T10:30:00.000Z
 
 ✅ Layer 3: chain_signatures (Deployed)
    mpc_node_count: 3
-   contract_id: v1.signer.node0
+   contract_id: v1.signer.localnet
 
 ✅ Layer 4: intents_protocol (Deployed)
    mode: simulator

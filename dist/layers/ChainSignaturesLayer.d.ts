@@ -10,6 +10,7 @@
 import { BaseLayer } from './BaseLayer';
 import { VerifyResult, DeployResult, LayerOutput } from '../types';
 export declare class ChainSignaturesLayer extends BaseLayer {
+    private readonly NEAR_GENESIS_PATH;
     /**
      * Verify if Chain Signatures infrastructure is already deployed
      */
@@ -23,6 +24,12 @@ export declare class ChainSignaturesLayer extends BaseLayer {
      * MPC setup will fail when trying to parse keys (and nodes will wait up to ~10 minutes on boot).
      */
     private ensureMpcNodeSecretsPopulated;
+    /**
+     * Retrieve the NEAR base node_key (for boot nodes) and the genesis.json content (base64)
+     * from the NEAR Base EC2 instance using SSM. This keeps MPC nodes aligned with the currently
+     * deployed NEAR base chain (chain_id + genesis schema).
+     */
+    private fetchNearBootstrapInfoViaSsm;
     /**
      * Prepare environment variables for the deployment script
      */

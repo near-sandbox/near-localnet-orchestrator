@@ -13,6 +13,8 @@ import { BaseLayer } from './BaseLayer';
 import { VerifyResult, DeployResult, LayerOutput } from '../types';
 
 export class ChainSignaturesLayer extends BaseLayer {
+  private readonly NEAR_GENESIS_PATH = '/home/ubuntu/.near/localnet/node0/genesis.json';
+
   /**
    * Verify if Chain Signatures infrastructure is already deployed
    */
@@ -107,6 +109,10 @@ export class ChainSignaturesLayer extends BaseLayer {
         this.context.logger.info('Deploying MPC Infrastructure (CDK)...');
         const cdkPath = this.context.layerConfig.source.cdk_path;
         
+        // Fetch authoritative NEAR boot node + genesis from inside the VPC (SSM on the NEAR base instance).
+        // This prevents MPC nodes from accidentally using stale local config.local.json values.
+        const nearBootstrap = await this.fetchNearBootstrapInfoViaSsm(nearOutputs);
+
         // Prepare context for MPC CDK
         // MPC stack needs to know where NEAR is? Usually via config or SSM.
         // It mostly creates EC2 instances.
@@ -115,7 +121,12 @@ export class ChainSignaturesLayer extends BaseLayer {
           'region': this.context.globalConfig.aws_region,
           'vpcId': nearOutputs.outputs.vpc_id, // Put MPC in same VPC
           'nearRpcUrl': nearOutputs.outputs.rpc_url, // Pass RPC URL
-          'mpcNodeCount': (this.context.layerConfig.config.mpc_node_count || 3).toString(),
+          // IMPORTANT: mpc-repo CDK expects these exact context keys (see mpc-repo/infra/aws-cdk/bin/mpc-app.ts)
+          'nearNetworkId': nearOutputs.outputs.network_id || 'localnet',
+          'nearBootNodes': `${nearBootstrap.nodeKey}@${nearOutputs.outputs.private_ip}:24567`,
+          'nearGenesis': nearBootstrap.genesisBase64,
+          'mpcContractId': mpcConfig.mpc_contract_id || 'v1.signer.localnet',
+          'nodeCount': (this.context.layerConfig.config.mpc_node_count || 3).toString(),
         };
 
         await this.deployCdkStacks(repoPath, cdkPath, {
@@ -240,6 +251,164 @@ export class ChainSignaturesLayer extends BaseLayer {
     } else {
       this.context.logger.success('✅ MPC node secrets already populated');
     }
+  }
+
+  /**
+   * Retrieve the NEAR base node_key (for boot nodes) and the genesis.json content (base64)
+   * from the NEAR Base EC2 instance using SSM. This keeps MPC nodes aligned with the currently
+   * deployed NEAR base chain (chain_id + genesis schema).
+   */
+  private async fetchNearBootstrapInfoViaSsm(
+    nearOutputs: LayerOutput
+  ): Promise<{ nodeKey: string; genesisBase64: string }> {
+    const instanceId = nearOutputs.outputs.instance_id;
+    if (!instanceId) {
+      throw new Error('NEAR instance ID not available from Layer 1 outputs (required for MPC bootstrap info)');
+    }
+
+    // Use AWS-RunShellScript and keep output strictly machine-parseable.
+    const parameters = {
+      commands: [
+        'set -eu',
+        // Node key used for boot nodes (NEAR P2P public key)
+        'NODE_KEY=$(curl -sS http://127.0.0.1:3030/status | jq -r .node_key)',
+        // Genesis content is small (~6KB) and safe to emit as one line (no newlines).
+        `GENESIS_B64=$(base64 -w 0 ${this.NEAR_GENESIS_PATH})`,
+        'echo NODE_KEY=$NODE_KEY',
+        'echo GENESIS_B64=$GENESIS_B64',
+      ],
+    };
+
+    const sendResult = await this.context.commandExecutor.execute(
+      'aws',
+      [
+        'ssm',
+        'send-command',
+        '--instance-ids',
+        instanceId,
+        '--document-name',
+        'AWS-RunShellScript',
+        '--parameters',
+        JSON.stringify(parameters),
+        '--query',
+        'Command.CommandId',
+        '--output',
+        'text',
+        '--profile',
+        this.context.globalConfig.aws_profile,
+        '--region',
+        this.context.globalConfig.aws_region,
+      ],
+      { silent: true }
+    );
+
+    if (!sendResult.success || !sendResult.stdout) {
+      throw new Error(`Failed to send SSM command to fetch NEAR bootstrap info: ${sendResult.stderr || sendResult.stdout}`);
+    }
+
+    const commandId = sendResult.stdout.trim();
+
+    // Wait for completion (short, bounded).
+    for (let attempt = 0; attempt < 30; attempt++) {
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      const statusResult = await this.context.commandExecutor.execute(
+        'aws',
+        [
+          'ssm',
+          'get-command-invocation',
+          '--command-id',
+          commandId,
+          '--instance-id',
+          instanceId,
+          '--query',
+          'Status',
+          '--output',
+          'text',
+          '--profile',
+          this.context.globalConfig.aws_profile,
+          '--region',
+          this.context.globalConfig.aws_region,
+        ],
+        { silent: true }
+      );
+
+      if (!statusResult.success) {
+        continue;
+      }
+
+      const status = (statusResult.stdout || '').trim();
+      if (status === 'Success') {
+        break;
+      }
+      if (status === 'Failed' || status === 'Cancelled' || status === 'TimedOut') {
+        const err = await this.context.commandExecutor.execute(
+          'aws',
+          [
+            'ssm',
+            'get-command-invocation',
+            '--command-id',
+            commandId,
+            '--instance-id',
+            instanceId,
+            '--query',
+            'StandardErrorContent',
+            '--output',
+            'text',
+            '--profile',
+            this.context.globalConfig.aws_profile,
+            '--region',
+            this.context.globalConfig.aws_region,
+          ],
+          { silent: true }
+        );
+        throw new Error(`SSM command ${status}: ${(err.stdout || err.stderr || '').trim()}`);
+      }
+
+      if (attempt === 29) {
+        throw new Error('Timed out waiting for SSM command to fetch NEAR bootstrap info');
+      }
+    }
+
+    const outputResult = await this.context.commandExecutor.execute(
+      'aws',
+      [
+        'ssm',
+        'get-command-invocation',
+        '--command-id',
+        commandId,
+        '--instance-id',
+        instanceId,
+        '--query',
+        'StandardOutputContent',
+        '--output',
+        'text',
+        '--profile',
+        this.context.globalConfig.aws_profile,
+        '--region',
+        this.context.globalConfig.aws_region,
+      ],
+      { silent: true }
+    );
+
+    if (!outputResult.success) {
+      throw new Error(`Failed to read SSM output for NEAR bootstrap info: ${outputResult.stderr || outputResult.stdout}`);
+    }
+
+    const lines = (outputResult.stdout || '').split('\n').map(l => l.trim()).filter(Boolean);
+    const nodeKeyLine = lines.find(l => l.startsWith('NODE_KEY='));
+    const genesisLine = lines.find(l => l.startsWith('GENESIS_B64='));
+
+    const nodeKey = nodeKeyLine?.split('=', 2)[1]?.trim();
+    const genesisBase64 = genesisLine?.split('=', 2)[1]?.trim();
+
+    if (!nodeKey || !nodeKey.startsWith('ed25519:')) {
+      throw new Error(`Invalid NEAR node_key from SSM output: ${nodeKeyLine || '(missing)'}`);
+    }
+    if (!genesisBase64 || genesisBase64.length < 1000) {
+      throw new Error(`Invalid genesis base64 from SSM output (too short): ${genesisBase64?.length ?? 0}`);
+    }
+
+    return { nodeKey, genesisBase64 };
   }
 
   /**

@@ -365,48 +365,17 @@ done
 echo ""
 echo "=== Core Contracts Deployment Complete ==="
 `;
-        // Write script to a file first, then execute it (SSM parameters need proper JSON escaping)
-        // We'll use a two-step approach: write script, then execute
+        // Write the script and execute it in a SINGLE SSM command to avoid races
+        // (e.g. "bash /tmp/deploy-core-contracts.sh: No such file or directory").
         const scriptPath = '/tmp/deploy-core-contracts.sh';
-        // Step 1: Write the script to file
-        const writeScriptCmd = `cat > ${scriptPath} << 'SCRIPTEOF'\n${deployScript}\nSCRIPTEOF\nchmod +x ${scriptPath}`;
-        this.context.logger.info(`Writing deployment script to instance ${instanceId}...`);
-        const writeResult = await this.context.commandExecutor.execute('aws', [
-            'ssm', 'send-command',
-            '--instance-ids', instanceId,
-            '--document-name', 'AWS-RunShellScript',
-            '--parameters', `commands=["${writeScriptCmd.replace(/"/g, '\\"').replace(/\n/g, '\\n')}"]`,
-            '--timeout-seconds', '60',
-            '--profile', this.context.globalConfig.aws_profile,
-            '--region', this.context.globalConfig.aws_region,
-            '--output', 'json',
-        ], { silent: true, streamOutput: false });
-        if (!writeResult.success) {
-            throw new Error(`Failed to write deployment script: ${writeResult.stderr}`);
-        }
-        // Parse write command ID (stdout can be empty when output is streamed)
-        let writeCommandId;
-        try {
-            const writeOutputText = (writeResult.stdout || '').trim() || (writeResult.stderr || '').trim();
-            if (!writeOutputText) {
-                throw new Error('Empty output');
-            }
-            const writeOutput = JSON.parse(writeOutputText);
-            writeCommandId = writeOutput.Command.CommandId;
-        }
-        catch (error) {
-            throw new Error(`Failed to parse SSM command ID from write script output: ${error?.message || String(error)}`);
-        }
-        // Wait for write to complete
-        await new Promise(resolve => setTimeout(resolve, 5000));
-        // Step 2: Execute the script
-        this.context.logger.info(`Executing deployment script on instance ${instanceId}...`);
+        const writeAndRunCmd = `cat > ${scriptPath} << 'SCRIPTEOF'\n${deployScript}\nSCRIPTEOF\nchmod +x ${scriptPath}\nbash ${scriptPath}`;
+        this.context.logger.info(`Executing core contracts deployment via SSM on instance ${instanceId}...`);
         const commandResult = await this.context.commandExecutor.execute('aws', [
             'ssm', 'send-command',
             '--instance-ids', instanceId,
             '--document-name', 'AWS-RunShellScript',
-            '--parameters', `commands=["bash ${scriptPath}"]`,
-            '--timeout-seconds', '600', // 10 minutes
+            '--parameters', `commands=["${writeAndRunCmd.replace(/"/g, '\\"').replace(/\n/g, '\\n')}"]`,
+            '--timeout-seconds', '1800', // 30 minutes
             '--profile', this.context.globalConfig.aws_profile,
             '--region', this.context.globalConfig.aws_region,
             '--output', 'json',
@@ -430,7 +399,7 @@ echo "=== Core Contracts Deployment Complete ==="
         this.context.logger.info(`SSM command sent, waiting for completion (command ID: ${commandId})...`);
         // Wait for command completion and check status
         let attempts = 0;
-        const maxAttempts = 60; // 10 minutes max (10 second intervals)
+        const maxAttempts = 180; // 30 minutes max (10 second intervals)
         while (attempts < maxAttempts) {
             await new Promise(resolve => setTimeout(resolve, 10000)); // Wait 10 seconds
             const statusResult = await this.context.commandExecutor.execute('aws', [

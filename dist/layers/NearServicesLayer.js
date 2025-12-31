@@ -89,7 +89,9 @@ class NearServicesLayer extends BaseLayer_1.BaseLayer {
             this.context.logger.info(`Faucet stack exists (${stackName}), reading outputs...`);
             try {
                 const outputs = await this.readStackOutputs(stackName);
-                if (outputs.FaucetEndpoint) {
+                // Our faucet stack currently outputs function name/arn (and may not expose an HTTP endpoint).
+                // Treat the stack as "deployed" if we can read these outputs.
+                if (outputs.FaucetFunctionName || outputs.FaucetFunctionArn || outputs.FaucetEndpoint) {
                     return {
                         skip: true,
                         reason: 'Faucet infrastructure already deployed',
@@ -97,8 +99,9 @@ class NearServicesLayer extends BaseLayer_1.BaseLayer {
                             layer_name: 'near_services',
                             deployed: true,
                             outputs: {
-                                faucet_endpoint: outputs.FaucetEndpoint,
-                                faucet_lambda_arn: outputs.FaucetLambdaArn || '',
+                                faucet_endpoint: outputs.FaucetEndpoint || '',
+                                faucet_lambda_arn: outputs.FaucetFunctionArn || outputs.FaucetLambdaArn || '',
+                                faucet_function_name: outputs.FaucetFunctionName || '',
                                 deployed: 'true',
                             },
                             timestamp: new Date().toISOString(),
@@ -498,7 +501,8 @@ class NearServicesLayer extends BaseLayer_1.BaseLayer {
                 deployed: 'true',
                 deploy_timestamp: new Date().toISOString(),
                 faucet_endpoint: faucetOutputs.FaucetEndpoint || '',
-                faucet_lambda_arn: faucetOutputs.FaucetLambdaArn || '',
+                faucet_lambda_arn: faucetOutputs.FaucetFunctionArn || faucetOutputs.FaucetLambdaArn || '',
+                faucet_function_name: faucetOutputs.FaucetFunctionName || '',
             };
             // Add NEAR RPC URL from dependency
             const nearOutputs = this.getDependencyOutputs('near_base');

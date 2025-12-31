@@ -229,16 +229,37 @@ export abstract class BaseLayer {
     } = {}
   ): Promise<{ success: boolean; stdout: string; stderr: string; error?: string }> {
     const fullScriptPath = path.join(repoPath, scriptPath);
-    const scriptDir = path.dirname(fullScriptPath);
     const scriptName = path.basename(fullScriptPath);
 
-    this.context.logger.info(`Executing script: ${scriptName} in ${scriptDir}`);
+    this.context.logger.info(`Executing script: ${fullScriptPath}`);
+
+    const runnerCwd = options.cwd || repoPath;
+    const extraArgs = options.args || [];
+
+    // Choose execution strategy based on file extension
+    let command = 'node';
+    let args: string[] = [];
+
+    if (scriptName.endsWith('.sh')) {
+      command = 'bash';
+      args = [fullScriptPath, ...extraArgs];
+    } else if (scriptName.endsWith('.ts')) {
+      command = 'node';
+      args = ['-r', 'ts-node/register', fullScriptPath, ...extraArgs];
+    } else if (scriptName.endsWith('.js')) {
+      command = 'node';
+      args = [fullScriptPath, ...extraArgs];
+    } else {
+      // Fallback: attempt to run via node (historical behavior)
+      command = 'node';
+      args = ['-r', 'ts-node/register', fullScriptPath, ...extraArgs];
+    }
 
     const result = await this.context.commandExecutor.execute(
-      'node',
-      ['-r', 'ts-node/register', scriptName, ...(options.args || [])],
+      command,
+      args,
       {
-        cwd: options.cwd || scriptDir,
+        cwd: runnerCwd,
         env: { ...(process.env as Record<string, string>), ...options.env },
         streamOutput: true,
       }

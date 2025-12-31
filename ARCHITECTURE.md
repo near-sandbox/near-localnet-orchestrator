@@ -101,10 +101,19 @@ The NEAR Localnet Orchestrator manages a **5-layer simulation stack** for NEAR P
 
 **Provides**:
 - Faucet Lambda for token distribution
+- Core system contracts deployed under `.localnet` (for mainnet/testnet parity surface area):
+  - `wrap.localnet` (wNEAR)
+  - `whitelist.localnet`
+  - `poolv1.localnet` (staking-pool-factory)
 - (Future) Gas payer contract
 - (Future) Account management utilities
 
 **Depends on**: Layer 1 (near_base)
+
+**Implementation note (important)**:
+- Core contracts are deployed **inside the VPC** using a **custom SSM Command document** to avoid private-RPC connectivity issues.
+- Document name: `near-localnet-deploy-core-contracts`
+- Document source: `assets/ssm-documents/near-localnet-deploy-core-contracts.yaml`
 
 ### Layer 3: Chain Signatures
 

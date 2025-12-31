@@ -4,10 +4,28 @@ This file intentionally **does not** hardcode instance IDs, IPs, chain IDs, or o
 
 Use the orchestrator + CloudFormation outputs to inspect the *current* deployment.
 
+### ✅ Current status (Layer 1 + 2)
+
+- **Layer 1 (NEAR Base)**: deployed and supports `.localnet` accounts via a deterministic genesis bootstrap.
+- **Layer 2 (NEAR Services)**: deployed and verified:
+  - **Faucet** can create accounts like `alice.localnet`
+  - **Core contracts** are deployed inside the VPC (no “private RPC fetch failed”):
+    - `wrap.localnet` (wNEAR)
+    - `whitelist.localnet`
+    - `poolv1.localnet` (staking-pool-factory)
+
+Authoritative “resume” state:
+- `docs/CHECKPOINT_2025-12-31T03-45Z.md`
+
+Parity checklist (what’s still missing vs mainnet/testnet surface area):
+- `docs/PARITY_LAYER1_LAYER2.md`
+
 ### What “healthy” looks like
 
 - **Layer 1 (NEAR Base)**: RPC responds, block height increases
-- **Layer 2 (NEAR Services)**: faucet invocations succeed
+- **Layer 2 (NEAR Services)**:
+  - faucet invocations succeed
+  - core system contracts exist under `.localnet` (see parity doc)
 - **Layer 3 (Chain Signatures / MPC)**:
   - MPC nodes run the `mpc-node` container
   - MPC embedded NEAR node **syncs to NEAR Base** (same `chain_id`, catches up in height)

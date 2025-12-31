@@ -29,6 +29,10 @@ See the latest verification checkpoint:
   - **Faucet Lambda createAccount**: ✅ DONE (works for `alice.localnet`)
   - **“Helper-like” account creator service (HTTP)**: ❌ NOT DONE  
     (mainnet/testnet have helper-style flows; localnet should expose an equivalent for dev UX)
+    - Evidence (testnet + mainnet endpoints exist and expect **POST**):
+      - Testnet: `https://helper.testnet.near.org/account` (GET returns `405 Allow: POST`)
+      - Mainnet: `https://helper.mainnet.near.org/account` (GET returns `405 Allow: POST`)
+      - Also commonly referenced: `https://helper.nearprotocol.com/account` (GET returns `405 Allow: POST`)
 - **Deterministic / documented key management**:
   - Root account key stored in SSM: ✅ DONE (`/near-localnet/localnet-account-key`)
   - Rotation story / multi-env separation: ❌ NOT DONE (policy + tooling)
@@ -51,14 +55,41 @@ Source of truth for the code we deploy from:
 
 The following are **not yet deployed/verified in localnet** (but are commonly present/used on NEAR networks):
 
-- **Multisig / multisig-factory**: ❌ NOT DONE  
+- **Multisig contract**: ❌ NOT DONE  
   Used in many operational and DAO workflows.
-- **Lockup / lockup-factory**: ❌ NOT DONE  
+  - Evidence (official contract source code):
+    - `near/core-contracts`: `multisig/` ([repo](https://github.com/near/core-contracts/tree/master/multisig))
+  - Evidence (on-chain deployments we verified via public RPC):
+    - Testnet has contract code at `multisig.testnet` (non-default `code_hash`):
+      - Explorer: `https://explorer.testnet.near.org/accounts/multisig.testnet`
+    - Mainnet: `multisig.near` exists but currently has **no contract code** (default `code_hash = 111…`):
+      - Explorer: `https://explorer.near.org/accounts/multisig.near`
+  - Note: We should not assume a “canonical multisig contract account id” on mainnet; we need to define what parity means here (contract availability vs a specific well-known account).
+
+- **Lockup contract**: ❌ NOT DONE  
   Common in vesting + distribution workflows.
+  - Evidence (official contract source code):
+    - `near/core-contracts`: `lockup/` ([repo](https://github.com/near/core-contracts/tree/master/lockup))
+  - Evidence (on-chain deployments we verified via public RPC):
+    - Mainnet has contract code at `lockup.near` (non-default `code_hash`):
+      - Explorer: `https://explorer.near.org/accounts/lockup.near`
+    - Testnet: `lockup.testnet` exists but currently has **no contract code** (default `code_hash = 111…`):
+      - Explorer: `https://explorer.testnet.near.org/accounts/lockup.testnet`
+  - Note: Like multisig, testnet may not use a single canonical lockup account; we should define what we require for parity.
 - **Social DB contract (NEAR Social)**: ❌ NOT DONE  
   Used by ecosystem apps; testnet/mainnet have well-known accounts.
+- Evidence (on-chain deployments we verified via public RPC):
+  - Mainnet: `social.near` (contract code present)
+    - Explorer: `https://explorer.near.org/accounts/social.near`
+  - Testnet: `v1.social08.testnet` (contract code present)
+    - Explorer: `https://explorer.testnet.near.org/accounts/v1.social08.testnet`
 - **Linkdrop / linkdrop-like flows**: ❌ NOT DONE  
   Often used in onboarding and “create account + claim” flows.
+- Evidence (on-chain deployments we verified via public RPC):
+  - Mainnet: `linkdrop.near` (contract code present)
+    - Explorer: `https://explorer.near.org/accounts/linkdrop.near`
+  - Testnet: `linkdrop.testnet` (contract code present)
+    - Explorer: `https://explorer.testnet.near.org/accounts/linkdrop.testnet`
 - **Any other “well-known” ecosystem system accounts** (explicitly enumerated): ❌ NOT DONE  
   We need an authoritative list for “what we consider required for parity”.
 
@@ -77,11 +108,20 @@ The following are **not yet deployed/verified in localnet** (but are commonly pr
 
 - **Wallet UX** (myNEARWallet style) for localnet: ❌ NOT DONE  
   Options: host a localnet wallet UI with custom RPC, or provide a dev-only flow.
+  - Evidence (canonical wallets):
+    - Mainnet: `https://app.mynearwallet.com`
+    - Testnet: `https://testnet.mynearwallet.com`
 - **Explorer** (tx/account viewing): ❌ NOT DONE  
   Options: lightweight explorer, or integrate an indexer + UI.
+  - Evidence (canonical explorers):
+    - Mainnet: `https://explorer.near.org`
+    - Testnet: `https://explorer.testnet.near.org`
 - **Helper service equivalent** (account creation / linkdrop flows): ❌ NOT DONE
 - **Indexer API / archival access**: ❌ NOT DONE  
   Needed for many apps; localnet can run a simplified indexer.
+  - Evidence (public archival RPC endpoints exist):
+    - Mainnet: `https://archival-rpc.mainnet.near.org`
+    - Testnet: `https://archival-rpc.testnet.near.org`
 - **Relayer / meta-tx relayer** (where applicable): ❌ NOT DONE
 
 ## D) Operational parity (still within Layers 1–2)

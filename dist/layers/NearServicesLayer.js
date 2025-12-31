@@ -76,7 +76,11 @@ class NearServicesLayer extends BaseLayer_1.BaseLayer {
         }
         // Check if faucet stack already exists in AWS
         // Prefer v3 (v2 can be stuck in DELETE_IN_PROGRESS due to Lambda VPC ENI cleanup)
-        const stackNamesToCheck = ['near-localnet-faucet-v3', 'near-localnet-faucet-v2'];
+        const stackNamesToCheck = [
+            'near-localnet-faucet-v4',
+            'near-localnet-faucet-v3',
+            'near-localnet-faucet-v2',
+        ];
         for (const stackName of stackNamesToCheck) {
             const stackExists = await this.checkStackExists(stackName);
             if (!stackExists) {
@@ -474,15 +478,20 @@ class NearServicesLayer extends BaseLayer_1.BaseLayer {
             // Try to read faucet stack outputs
             let faucetOutputs = {};
             try {
-                faucetOutputs = await this.readStackOutputs('near-localnet-faucet-v3');
+                faucetOutputs = await this.readStackOutputs('near-localnet-faucet-v4');
             }
             catch (error) {
-                // Back-compat: older deployments may still be on v2
+                // Back-compat: older deployments may still be on v3/v2
                 try {
-                    faucetOutputs = await this.readStackOutputs('near-localnet-faucet-v2');
+                    faucetOutputs = await this.readStackOutputs('near-localnet-faucet-v3');
                 }
                 catch {
-                    this.context.logger.warn('Could not read faucet stack outputs');
+                    try {
+                        faucetOutputs = await this.readStackOutputs('near-localnet-faucet-v2');
+                    }
+                    catch {
+                        this.context.logger.warn('Could not read faucet stack outputs');
+                    }
                 }
             }
             const outputs = {

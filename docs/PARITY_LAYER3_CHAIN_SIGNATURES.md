@@ -12,7 +12,9 @@ This is intentionally **code-and-deployment inspection only** (no new features, 
 ## Sources (authoritative)
 
 - NEAR docs: [Chain Signatures](https://docs.near.org/concepts/abstraction/chain-signatures)
+- NEAR docs: [Getting Started with Chain Signatures](https://docs.near.org/chain-abstraction/chain-signatures/getting-started)
 - Upstream MPC implementation: [near/mpc](https://github.com/near/mpc) (also embedded as `cross-chain-simulator/mpc-repo`)
+- Omni transaction builder (payload construction helper): [near/omni-transaction-rs](https://github.com/near/omni-transaction-rs)
 - Our current Layer 3 checkpoint (deployment + health evidence): `docs/CHECKPOINT_LAYER3_2025-01-01T01-15Z.md`
 
 ---
@@ -41,6 +43,16 @@ See: [NEAR docs: Chain Signatures](https://docs.near.org/concepts/abstraction/ch
 
 Also from NEAR’s docs: Chain Signatures is a **“one way”** solution for outbound transactions; for cross-chain state access, NEAR points to Omnibridge.  
 See: [NEAR docs: Chain Signatures](https://docs.near.org/concepts/abstraction/chain-signatures)
+
+From NEAR’s “Getting Started” flow, this is explicit as step 4:
+
+- **“Relaying the Signature”**: once the signature is ready, **the client reconstructs the signed transaction** and **broadcasts it to the destination blockchain**.
+  - Source: [NEAR docs: Getting Started with Chain Signatures](https://docs.near.org/chain-abstraction/chain-signatures/getting-started)
+
+This also clarifies where the optional “transaction builder” fits:
+
+- Step 2 (“Creating the Transaction”) recommends using the **Omni Transaction** library to build the payload to be signed.
+  - Source: [near/omni-transaction-rs](https://github.com/near/omni-transaction-rs)
 
 ### Visual flow (mainnet-parity conceptual model)
 
@@ -134,7 +146,7 @@ These are the main gaps today:
 - **Broadcast step availability**
   - **Expected**: after receiving signature, an off-chain component broadcasts via `eth_sendRawTransaction`
   - **Current**: we have an Ethereum RPC deployed, but no “broadcast helper” or wired flow in this repo
-  - **Status**: ❌ NOT DONE (by design / not implemented yet)
+  - **Status**: ❌ NOT DONE (**intentionally out of scope for Layer 3**; this belongs in **Layer 5 application logic** per NEAR docs)
 
 ### P2: `domain_id=1` (Ed25519)
 

@@ -1,0 +1,47 @@
+---
+description: Index to NEAR Localnet gotchas - points to lessons-learned doc
+globs:
+  - "**/scripts/*.sh"
+  - "**/scripts/*.ts"
+  - "**/*setup*.ts"
+  - "**/*deploy*.ts"
+  - "**/mpc-repo/**/*.ts"
+alwaysApply: false
+---
+
+# NEAR Localnet Gotchas Index
+
+**Source of Truth**: `near-localnet-orchestrator/docs/lessons-learned/NEAR_LOCALNET_LESSONS_LEARNED.md`
+
+This is an index only. All details are in the lessons-learned doc.
+
+## Quick Reference by Layer
+
+| Layer | Gotchas | Topics |
+|-------|---------|--------|
+| 1: NEAR Base | #2-6 | x86_64, compilation time, pip flag, RPC access, logs |
+| 2: NEAR Services | #7-9 | VPC deployment, faucet versioning, .localnet naming |
+| 3: Chain Signatures | #10-15.9, #37-39 | MPC sync, secrets, boot nodes, genesis, keys |
+| 4: Intents Protocol | #16-17 | Config dependencies, real infrastructure |
+| Cross-cutting | #18-24 | Account naming, key management |
+| AWS CDK | #29-33 | Multi-stack, cfn-signal, Nag, profile |
+| Networking | #34-36 | VPC endpoints, security groups |
+
+## Common Error → Gotcha Mapping
+
+| Error | See Gotcha |
+|-------|------------|
+| "No such domain" | #13, #15.5 |
+| "Access key has never been observed" | #15.9 |
+| MPC 0 peers, stuck at block #0 | #15.5 (boot nodes mismatch) |
+| Genesis hash mismatch | #15.6, #15.7 |
+| "LackBalanceForState" | #39 |
+| "missing field `parameters`" | Common Errors section |
+| Keys don't match on-chain | #11.5, #37 |
+
+## When to Reference
+
+- **Deploying**: Review relevant layer gotchas first
+- **Debugging MPC**: Start with #10-15.9
+- **Key issues**: Check #11.5, #37, #38
+- **Full reset needed**: See "Full Stack Reset Procedure" (line 1100+)

@@ -1,0 +1,101 @@
+---
+alwaysApply: true
+description: Master entry rule for 5-layer NEAR Localnet Simulator Stack - coordinates all repos
+---
+
+# NEAR Localnet Simulator - Master Guide
+
+**This is the master entry rule for the entire NEAR Localnet Simulator workspace.**
+
+## 5-Layer Architecture
+
+```
+Layer 5: User Applications    → Your dApp (not managed)
+Layer 4: Intents Protocol     → near-intents-simulator (1Click API)
+Layer 3: Chain Signatures     → cross-chain-simulator (MPC + signing)
+Layer 2: NEAR Services        → near-localnet-services (faucet)
+Layer 1: NEAR Base            → AWSNodeRunner (RPC node)
+```
+
+## Repository Mapping
+
+| Layer | Name | Repository | Entry Rule |
+|-------|------|------------|------------|
+| 1 | near_base | `AWSNodeRunner/` | `near-base-entry.mdc` |
+| 2 | near_services | `near-localnet-services/` | `services-entry.mdc` |
+| 3 | chain_signatures | `cross-chain-simulator/` | `chain-signatures-entry.mdc` |
+| 4 | intents_protocol | `near-intents-simulator/` | `intents-entry.mdc` |
+
+## Critical Guardrails
+
+### AWS Profile
+All AWS CLI and CDK commands MUST use:
+```bash
+--profile shai-sandbox-profile
+```
+
+### MPC is Embedded in Layer 3
+MPC infrastructure is NOT a separate layer. It's embedded within `cross-chain-simulator`:
+- Location: `cross-chain-simulator/cross-chain-simulator/mpc-repo/`
+- Deploys as part of Layer 3
+
+### Linear Dependencies
+```
+Layer 1 → Layer 2 → Layer 3 → Layer 4 → Layer 5
+```
+Each layer depends on the layer below it.
+
+## Orchestration Commands
+
+```bash
+# Deploy all layers
+npx near-orchestrator deploy
+
+# Deploy specific layers
+npx near-orchestrator deploy near_base near_services
+
+# Check status
+npx near-orchestrator status
+
+# Verify health
+npx near-orchestrator verify
+
+# Destroy all
+npx near-orchestrator destroy
+```
+
+## Layer Outputs
+
+| Layer | Key Outputs |
+|-------|-------------|
+| 1 | `rpc_url`, `vpc_id`, `network_id` |
+| 2 | `faucet_endpoint`, `faucet_lambda_arn` |
+| 3 | `v1_signer_contract_id`, `mpc_node_endpoints` |
+| 4 | `intents_simulator_ready`, `supported_chains` |
+
+## Source of Truth
+
+- **Architecture**: `/CORRECTED_ARCHITECTURE.md`
+- **Config**: `near-localnet-orchestrator/config/simulators.config.yaml`
+- **Gotchas & Debugging**: `near-localnet-orchestrator/docs/lessons-learned/NEAR_LOCALNET_LESSONS_LEARNED.md`
+
+## Terminology
+
+Use:
+- "Layer 3: Chain Signatures (includes MPC)"
+- "chain_signatures" (layer name)
+
+Avoid:
+- "MPC Layer" or "MPC Core Layer"
+- "Layer 1.5" or "optional layer"
+- "cross_chain_app" (old name)
+
+## Layer-Specific Rules
+
+Each layer has its own entry rule with specialized guidance:
+- Layer 1: CDK patterns, NEAR node setup, x86_64 requirement
+- Layer 2: Lambda deployment, faucet configuration
+- Layer 3: MPC runtime, AWS value discovery, v1.signer contract
+- Layer 4: Adapters, error handling, TypeScript patterns
+
+Request these rules when working in specific layers.

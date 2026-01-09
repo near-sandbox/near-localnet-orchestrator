@@ -1,0 +1,133 @@
+---
+alwaysApply: false
+description: Layer 3 progressive deployment strategy - chunk-by-chunk approach with verification gates
+globs:
+  - "**/cross-chain-simulator/**/*.ts"
+  - "**/mpc-repo/**/*.ts"
+  - "**/scripts/start-localnet.sh"
+  - "**/scripts/*mpc*.sh"
+---
+
+# Layer 3: Progressive Deployment Strategy
+
+**Primary Reference**: `near-localnet-orchestrator/docs/LAYER3_PROGRESSIVE_DEPLOYMENT.md`
+
+## Critical: Genesis-First Deployment Order
+
+**NEVER deploy MPC infrastructure before collecting genesis data from NEAR Base.**
+
+**Correct Order:**
+1. ✅ Validate Layer 1 & 2 prerequisites
+2. ✅ Collect genesis.json + node_key from NEAR Base
+3. ✅ Deploy MPC infrastructure WITH genesis data
+4. ✅ Verify MPC nodes sync
+5. ✅ Continue with application layer (accounts, contract, etc.)
+
+**Why This Order Matters:**
+- MPC nodes need NEAR genesis.json baked into deployment
+- MPC nodes need boot_nodes public key (NEAR node_key)
+- Without correct genesis, MPC nodes show 0 peers and never sync
+- This is the root cause of "1 step forward, 2 steps back" issues
+
+## 11 Progressive Chunks
+
+| Chunk | Focus | Time | Type |
+|-------|-------|------|------|
+| 3.0 | Prerequisites Validation | ~5 min | Verification |
+| 3.1 | Collect Genesis Data | ~5 min | Data Collection |
+| 3.2 | Deploy MPC Infrastructure | ~10 min | Infrastructure |
+| 3.3 | Verify MPC Sync | ~5 min | Verification |
+| 3.4 | MPC Accounts | ~5 min | Application |
+| 3.5 | Contract Deploy | ~2 min | Application |
+| 3.6 | Contract Init | ~1 min | Application |
+| 3.7 | Domain Voting | ~2 min | Application |
+| 3.8 | DKG (ONE-TIME) | ~10 min | Initialization |
+| 3.9 | Verification | ~2 min | Testing |
+| 3.10 | Demo (Optional) | ~5 min | Testing |
+
+**Total:** ~45-50 minutes for complete Layer 3 deployment
+
+## Timing Clarification
+
+**⚠️ CRITICAL:** The ~10 minute DKG wait is a **ONE-TIME** initial setup cost.
+
+- **During Deployment (Chunk 3.8):** ~10 minutes for DKG + Beaver triple generation
+- **After Deployment:** Signing is **FAST** (~2-3 seconds per signature)
+
+From MPC code:
+> "When a request comes in, a signature can be generated using a presignature and one round of communication."
+
+One round = ~1.2s (NEAR block time), giving you the fast cross-chain experience you see on mainnet.
+
+## Check-In Gates
+
+After EACH chunk, STOP and verify:
+1. All success criteria met
+2. No blockers present
+3. Document any concerns in tracking worksheet
+4. Get confirmation before proceeding to next chunk
+
+**Do NOT proceed if:**
+- Any success criteria failed
+- Unresolved blockers exist
+- Key mismatch detected (GOTCHA #11.5)
+- Genesis/boot_nodes mismatch (GOTCHA #15.5, #15.6)
+
+## Key Gotchas for Layer 3
+
+Critical gotchas to prevent during progressive deployment:
+
+| Gotcha | Prevention | Chunk |
+|--------|------------|-------|
+| #10 | Collect genesis BEFORE deploying MPC | 3.1 → 3.2 |
+| #11.5 | Verify key matching before voting | 3.4, 3.7 |
+| #15.5 | Match boot_nodes to NEAR node_key | 3.1, 3.2 |
+| #15.6 | Use byte-identical genesis | 3.1, 3.2 |
+| #15.7 | Document actual chain_id | 3.1 |
+| #15.8 | Never hardcode AWS values | All chunks |
+| #37 | Use mpc-setup.ts for accounts | 3.4 |
+| #39 | Fund contract with ~60 NEAR | 3.4 |
+
+## Deployment State Tracking
+
+Use the tracking worksheet in the progressive deployment doc to record:
+- Chunk completion status
+- Timestamp
+- Duration
+- Errors/concerns encountered
+- Resolution applied
+
+This creates an audit trail to prevent repeating past mistakes.
+
+## Commands
+
+All commands in progressive deployment doc use:
+- `AWS_PROFILE=shai-sandbox-profile`
+- Dynamic value discovery (no hardcoding)
+- Verification after each step
+- Error handling and diagnosis
+
+## If Layer 3 Breaks
+
+1. **Identify which chunk failed** (use tracking worksheet)
+2. **Check relevant gotchas** (referenced in that chunk)
+3. **Fix the specific issue** (don't restart entire layer)
+4. **Resume from failed chunk** (earlier chunks already verified)
+5. **Document resolution** (for future reference)
+
+## Success Definition
+
+Layer 3 is complete when:
+- ✅ All chunks 3.0-3.9 marked complete (3.10 optional)
+- ✅ Address derivation returns valid addresses (instant)
+- ✅ Transaction signing completes in ~2-3 seconds
+- ✅ No "No such domain" errors
+- ✅ MPC nodes show healthy status
+
+## Reference Documents
+
+- **Primary**: `docs/LAYER3_PROGRESSIVE_DEPLOYMENT.md` (this strategy)
+- **Gotchas**: `docs/lessons-learned/NEAR_LOCALNET_LESSONS_LEARNED.md`
+- **Architecture**: `/CORRECTED_ARCHITECTURE.md`
+- **Layer 3 Code**: `cross-chain-simulator/src/localnet/`
+- **MPC CDK**: `cross-chain-simulator/mpc-repo/infra/aws-cdk/`

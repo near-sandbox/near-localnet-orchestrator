@@ -433,7 +433,7 @@ export class ChainSignaturesLayer extends BaseLayer {
       // MPC configuration (embedded in this layer)
       MPC_NODE_COUNT: (mpcConfig.mpc_node_count || 3).toString(),
       MPC_CONTRACT_ID: mpcConfig.mpc_contract_id || 'v1.signer.localnet',
-      MPC_DOCKER_IMAGE: mpcConfig.mpc_docker_image || 'nearone/mpc-node:3.1.0',
+      MPC_DOCKER_IMAGE: mpcConfig.mpc_docker_image || 'nearone/mpc-node:3.2.0',
       AUTO_GENERATE_KEYS: mpcConfig.auto_generate_keys !== false ? 'true' : 'false',
 
       // Chain Signatures configuration
@@ -625,7 +625,31 @@ export class ChainSignaturesLayer extends BaseLayer {
       const repoUrl = this.context.layerConfig.source.repo_url;
       const repoPath = await this.ensureRepository(repoUrl, this.context.layerConfig.source.branch);
 
-      // Check for cleanup script
+      // 1. Destroy MPC CDK stack (EC2 instances, Secrets, Cloud Map, etc.)
+      if (this.context.layerConfig.source.cdk_path) {
+        this.context.logger.info('Destroying MPC CDK stack...');
+        const cdkRelativePath = this.context.layerConfig.source.cdk_path;
+        const cdkPath = path.join(repoPath, cdkRelativePath);
+        
+        const destroyResult = await this.context.cdkManager.destroy(
+          cdkPath,
+          {
+            profile: this.context.globalConfig.aws_profile,
+            region: this.context.globalConfig.aws_region,
+            stacks: ['MpcStandaloneStack'],
+            force: true,
+          }
+        );
+
+        if (destroyResult.success) {
+          this.context.logger.success('MPC CDK stack destroyed');
+        } else {
+          this.context.logger.warn(`MPC CDK stack destruction failed: ${destroyResult.error}`);
+          // Continue with cleanup even if CDK destroy fails
+        }
+      }
+
+      // 2. Check for cleanup script
       const cleanupScript = this.context.layerConfig.config.cleanup_script;
       if (cleanupScript) {
         this.context.logger.info('Running cleanup script');
@@ -637,7 +661,7 @@ export class ChainSignaturesLayer extends BaseLayer {
         }
       }
 
-      // Clean up generated files
+      // 3. Clean up generated files
       await this.cleanupGeneratedFiles(repoPath);
 
       this.context.logger.success('Chain Signatures Layer destroyed successfully');

@@ -119,7 +119,7 @@ layers:
       # MPC configuration (embedded in this layer)
       mpc_node_count: 3
       mpc_contract_id: "v1.signer.localnet"
-      mpc_docker_image: "nearone/mpc-node:3.1.0"
+      mpc_docker_image: "nearone/mpc-node:3.2.0"
       auto_generate_keys: true
       # Chain Signatures configuration
       deploy_v1_signer_contract: true

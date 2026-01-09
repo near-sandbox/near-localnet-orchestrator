@@ -1,6 +1,7 @@
 ---
-alwaysApply: true
-description: NEAR Localnet Orchestrator - master deployment orchestration for 5-layer NEAR simulator stack
+alwaysApply: false
+description: NEAR Localnet Orchestrator - detailed orchestration patterns and layer implementation
+globs: src/**/*.ts, config/*.yaml
 ---
 
 # NEAR Localnet Orchestrator Guide

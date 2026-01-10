@@ -1,0 +1,63 @@
+{
+  "checkpoint_name": "pre-layer3-deployment",
+  "version": "1.0.0",
+  "timestamp": "2026-01-10T06:02:29Z",
+  "git_commits": {
+    "orchestrator": "44440e65e175d9d08edc360ff814234af348e6fe",
+    "cross-chain-simulator": "bd0efdc4290e3d2fc7be89add0691993756a1282",
+    "mpc-repo": "0562925df66f969694cfa304df2d446fdf7a3dfc",
+    "AWSNodeRunner": "119fed8ad4b6e38e2967e7bfb0ba58b6cb5c3c02",
+    "near-localnet-services": "417caccec6cb4d4591d7c6f327789a11561a9b96"
+  },
+  "layers": {
+    "near_base": {
+      "deployed": true,
+      "verified": true,
+      "stack_status": "CREATE_COMPLETE",
+      "outputs": {
+        "rpc_url": "http://10.0.1.12:3030",
+        "network_id": "localnet",
+        "instance_id": "i-0cd31695b2fae55bc",
+        "private_ip": "10.0.1.12",
+        "vpc_id": "vpc-0eede65ab241b366f",
+        "near_version": "2.10.1"
+      },
+      "timestamp": "2026-01-10T06:02:29Z"
+    },
+    "near_services": {
+      "deployed": true,
+      "verified": true,
+      "stack_name": "near-localnet-faucet-v6",
+      "stack_status": "CREATE_COMPLETE",
+      "outputs": {
+        "faucet_lambda_arn": "arn:aws:lambda:us-east-1:311843862895:function:near-localnet-faucet-v6-FaucetFunction0A265281-aF7rICg6mtIO",
+        "faucet_endpoint": ""
+      },
+      "timestamp": "2026-01-10T06:02:29Z"
+    },
+    "chain_signatures": {
+      "deployed": false,
+      "verified": false,
+      "chunks_completed": [],
+      "outputs": {
+        "mpc_contract_id": "v1.signer.localnet",
+        "mpc_node_0_instance_id": "",
+        "mpc_node_1_instance_id": "",
+        "mpc_node_2_instance_id": ""
+      },
+      "timestamp": null
+    }
+  },
+  "layer3_progressive_deployment": {
+    "chunk_3_0_prerequisites": {"status": "not_started", "timestamp": null, "errors": []},
+    "chunk_3_1_collect_genesis": {"status": "not_started", "timestamp": null, "errors": []},
+    "chunk_3_2_deploy_mpc": {"status": "not_started", "timestamp": null, "errors": []},
+    "chunk_3_3_verify_sync": {"status": "not_started", "timestamp": null, "errors": []},
+    "chunk_3_4_accounts": {"status": "not_started", "timestamp": null, "errors": []},
+    "chunk_3_5_contract_deploy": {"status": "not_started", "timestamp": null, "errors": []},
+    "chunk_3_6_contract_init": {"status": "not_started", "timestamp": null, "errors": []},
+    "chunk_3_7_domain_voting": {"status": "not_started", "timestamp": null, "errors": []},
+    "chunk_3_8_dkg": {"status": "not_started", "timestamp": null, "errors": []},
+    "chunk_3_9_verification": {"status": "not_started", "timestamp": null, "errors": []}
+  }
+}

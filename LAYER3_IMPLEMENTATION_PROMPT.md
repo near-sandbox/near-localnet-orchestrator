@@ -7,50 +7,84 @@
 ## Prompt for Next Chat
 
 ```
-I need to deploy Layer 3 (Chain Signatures with MPC) using a progressive, chunk-by-chunk approach.
-
-**Primary Plan Document:**
-@near-localnet-orchestrator/docs/LAYER3_PROGRESSIVE_DEPLOYMENT.md
+I need to deploy the complete NEAR Localnet Simulator stack (Layers 1, 2, and 3), with Layer 3 using a progressive, chunk-by-chunk approach.
 
 **Current Status:**
-- ✅ AWS account is clean and verified
-- ✅ Layer 1 (NEAR Base) deployed: <FILL IN STATUS>
-- ✅ Layer 2 (NEAR Services/Faucet) deployed: <FILL IN STATUS>
-- ⬜ Layer 3 (Chain Signatures) NOT deployed yet
+- ✅ AWS account is clean and verified (no existing infrastructure)
+- ⬜ Layer 1 (NEAR Base) NOT deployed yet - Known to work
+- ⬜ Layer 2 (NEAR Services/Faucet) NOT deployed yet - Known to work
+- ⬜ Layer 3 (Chain Signatures with MPC) NOT deployed yet - Needs progressive approach
 
-**Approach:**
-We will deploy Layer 3 in 11 progressive chunks (3.0 through 3.10). After EACH chunk:
-1. You will run the verification commands
+**Deployment Plan:**
+
+**PHASE 1: Deploy Known-Working Layers (~25-35 minutes)**
+
+Step 1: Deploy Layer 1 (NEAR Base)
+- Deploy via AWSNodeRunner or orchestrator
+- Verify RPC is responding
+- Document: NEAR_INSTANCE, NEAR_PRIVATE_IP, node_key, chain_id
+- ✅ Report status and wait for confirmation
+
+Step 2: Deploy Layer 2 (NEAR Services/Faucet)
+- Deploy faucet Lambda
+- Verify faucet endpoint is operational
+- Document: FAUCET_ENDPOINT
+- ✅ Report status and wait for confirmation
+
+**PHASE 2: Progressive Layer 3 Deployment (~40-50 minutes)**
+
+Follow detailed plan: @near-localnet-orchestrator/docs/LAYER3_PROGRESSIVE_DEPLOYMENT.md
+
+Deploy Layer 3 in 11 progressive chunks (3.0 through 3.10). After EACH chunk:
+1. Run verification commands from the plan doc
 2. Check all success criteria
-3. Report status to me
-4. Wait for my confirmation before proceeding to next chunk
+3. Report status to me with results
+4. WAIT for my confirmation before proceeding to next chunk
 
-**Critical Constraints:**
-- Genesis data MUST be collected BEFORE deploying MPC infrastructure (Chunks 3.1 → 3.2)
-- Key matching is CRITICAL between Secrets Manager and on-chain (verified in multiple chunks)
+**Critical Architecture Constraints:**
 - Use AWS profile: shai-sandbox-profile
-- Never hardcode AWS values (discover dynamically)
+- **GENESIS FIRST:** Collect genesis data from Layer 1 BEFORE deploying MPC infrastructure (Chunks 3.1 → 3.2)
+- **KEY MATCHING:** Verify Secrets Manager ↔ on-chain key matching before domain voting
+- Never hardcode AWS values (discover dynamically from CloudFormation)
+- MPC nodes MUST be deployed in same VPC as Layer 1
 
-**History:**
+**History - Why Progressive Approach:**
 Layer 3 has been failing repeatedly over 2 weeks due to:
-- Deploying MPC before collecting genesis (now fixed in chunk order)
-- Key mismatches between Secrets Manager and on-chain accounts
-- Genesis/boot_nodes mismatches causing 0 peers
-- Various issues documented in NEAR_LOCALNET_LESSONS_LEARNED.md
+- ❌ Deploying MPC infrastructure before collecting genesis data → NOW FIXED (Chunk 3.1 comes before 3.2)
+- ❌ Key mismatches between Secrets Manager and on-chain accounts → NOW VERIFIED (multiple checkpoints)
+- ❌ Genesis/boot_nodes mismatches causing MPC nodes to show 0 peers → NOW PREVENTED (genesis-first approach)
+- ❌ Various issues documented in NEAR_LOCALNET_LESSONS_LEARNED.md gotchas #10-15.9
+
+**Timing Expectations:**
+- Layer 1 deployment: ~20-25 minutes
+- Layer 2 deployment: ~5-10 minutes  
+- Layer 3 chunks 3.0-3.7: ~20-30 minutes
+- Layer 3 chunk 3.8 (DKG): ~10 minutes (ONE-TIME initial setup)
+- Layer 3 chunks 3.9-3.10: ~5-10 minutes
+- **Total:** ~60-80 minutes for complete stack
+
+**After deployment:** Chain Signatures signing will be FAST (~2-3 seconds per signature, matching mainnet NEAR + IOTEX behavior). The 10-minute wait only happens ONCE during initial DKG.
 
 **Goal:**
-Complete all 11 chunks successfully, with full tracking in the deployment worksheet. End state is a working Chain Signatures system where:
-- Address derivation is instant
-- Transaction signing takes ~2-3 seconds (not 10 minutes!)
-- Cross-chain demo completes successfully
+Complete Layers 1, 2, and all 11 Layer 3 chunks successfully. End state:
+- ✅ NEAR Base RPC responding
+- ✅ Faucet operational
+- ✅ MPC nodes synced with 1+ peers
+- ✅ v1.signer contract in "Running" state
+- ✅ Address derivation: instant
+- ✅ Transaction signing: ~2-3 seconds
+- ✅ Cross-chain demo working
 
-**Let's start with Chunk 3.0: Prerequisites Validation**
+**Let's start with PHASE 1: Deploy Layers 1 & 2**
 
 Please:
-1. Read the plan document to understand all 11 chunks
-2. Execute Chunk 3.0 verification commands
-3. Report results and success criteria
-4. Wait for my confirmation before proceeding to Chunk 3.1
+1. Deploy Layer 1 (NEAR Base) first
+2. Verify Layer 1 health (RPC responding, blocks > 0, document node_key and chain_id)
+3. Report Layer 1 status and wait for my confirmation
+4. Deploy Layer 2 (NEAR Services/Faucet)
+5. Verify Layer 2 health (faucet endpoint working)
+6. Report Layer 2 status and wait for my confirmation
+7. Then we'll proceed to PHASE 2: Layer 3 progressive deployment starting with Chunk 3.0
 ```
 
 ---
@@ -66,10 +100,11 @@ Before starting the new chat, ensure you have:
 - [ ] AWS Region: `us-east-1`
 
 ### Prerequisites Confirmed
-- [ ] AWS credentials valid (tested earlier - ✅)
-- [ ] Layer 1 deployed or ready to deploy
-- [ ] Layer 2 deployed or ready to deploy
-- [ ] No existing MPC infrastructure (clean slate)
+- [x] AWS credentials valid (confirmed clean account ✅)
+- [x] No existing infrastructure (clean slate ✅)
+- [ ] Ready to deploy Layer 1 (NEAR Base) - ~20-25 minutes
+- [ ] Ready to deploy Layer 2 (NEAR Services) - ~5-10 minutes
+- [ ] Ready to deploy Layer 3 progressively - ~40-50 minutes
 
 ### Documents Ready
 - [ ] Progressive deployment guide: `docs/LAYER3_PROGRESSIVE_DEPLOYMENT.md`
@@ -111,6 +146,37 @@ The document you have (`LAYER3_PROGRESSIVE_DEPLOYMENT.md`) is ready to use as th
 
 ---
 
+## If Layers 1 & 2 Already Deployed
+
+If you already have Layers 1 & 2 running, modify the prompt:
+
+**Change:**
+```
+**Current Status:**
+- ✅ AWS account is clean and verified
+- ⬜ Layer 1 (NEAR Base) NOT deployed yet
+```
+
+**To:**
+```
+**Current Status:**
+- ✅ AWS account is clean and verified
+- ✅ Layer 1 (NEAR Base) ALREADY DEPLOYED
+  - Instance: i-xxxxx
+  - Private IP: 10.0.x.x
+  - RPC responding: YES
+- ✅ Layer 2 (NEAR Services) ALREADY DEPLOYED
+  - Faucet endpoint: https://xxx.execute-api...
+- ⬜ Layer 3 NOT deployed yet
+
+**Approach:**
+Skip Phase 1 (Layers 1 & 2 already operational). Start directly with Layer 3 Chunk 3.0: Prerequisites Validation.
+```
+
+This way the agent will skip deployment and just verify Layers 1 & 2 health before proceeding to Layer 3 chunks.
+
+---
+
 ## Execution Strategy for New Chat
 
 ### Phase 1: Context Setting (First Message)
@@ -143,31 +209,62 @@ For each chunk:
 > [Paste prompt from above]
 
 **Agent:**
-> I've read the progressive deployment plan. Starting with Chunk 3.0: Prerequisites Validation.
+> I understand. We'll deploy in 2 phases:
+> - Phase 1: Layers 1 & 2 (known to work)
+> - Phase 2: Layer 3 progressive (11 chunks with verification gates)
 > 
-> Running verification commands...
-> [Output of commands]
+> Starting Phase 1: Deploying Layer 1 (NEAR Base)...
+> [Deploys via CDK]
+> [Verifies RPC health]
 > 
-> **Success Criteria Check:**
-> - ✅ near-localnet-infrastructure: CREATE_COMPLETE
-> - ✅ NEAR RPC responding: block height 12345
-> - ✅ Faucet deployed: CREATE_COMPLETE
-> - ✅ localnet account exists with keys
+> **Layer 1 Status:** COMPLETE ✅
+> - RPC URL: http://10.0.5.132:3030
+> - Instance: i-xxxxx
+> - Block height: 12345
+> - Chain ID: test-chain-abc123
+> - Node Key: ed25519:xxxxx
+> 
+> Ready to deploy Layer 2? Please confirm.
+
+**You:**
+> Confirmed. Deploy Layer 2.
+
+**Agent:**
+> Deploying Layer 2 (NEAR Services/Faucet)...
+> [Deploys faucet Lambda]
+> [Verifies endpoint]
+> 
+> **Layer 2 Status:** COMPLETE ✅
+> - Faucet endpoint: https://xxx.execute-api.us-east-1.amazonaws.com/prod
+> 
+> **Phase 1 Complete!** Both Layers 1 & 2 are operational.
+> 
+> Ready to start Phase 2: Layer 3 Progressive Deployment (Chunk 3.0)?
+
+**You:**
+> Yes, proceed to Layer 3 Chunk 3.0
+
+**Agent:**
+> Starting Chunk 3.0: Prerequisites Validation...
+> [Runs verification commands]
 > 
 > **Chunk 3.0 Status:** COMPLETE ✅
+> - Layer 1 healthy
+> - Layer 2 healthy
+> - localnet account verified
 > 
-> Ready to proceed to Chunk 3.1 (Collect Genesis Data)? Please confirm.
+> Ready for Chunk 3.1 (Collect Genesis Data)? Please confirm.
 
 **You:**
 > Confirmed. Proceed to 3.1
 
 **Agent:**
-> Starting Chunk 3.1: Collect Genesis Data from NEAR Base...
+> Collecting genesis data from NEAR Base...
 > [Executes collection commands]
 > [Reports results]
 > Ready for Chunk 3.2? Please confirm.
 
-... (continues for all 11 chunks)
+... (continues for all 11 Layer 3 chunks)
 
 ---
 
@@ -198,7 +295,16 @@ If some chunks already complete:
 Copy this to a separate file or notion doc to track progress:
 
 ```markdown
-# Layer 3 Deployment Tracking - [DATE]
+# Complete Stack Deployment Tracking - [DATE]
+
+## Phase 1: Foundation Layers
+
+| Layer | Status | Start Time | Duration | Errors/Concerns | Resolution |
+|-------|--------|------------|----------|----------------|------------|
+| Layer 1: NEAR Base | ⬜ | | | | |
+| Layer 2: NEAR Services | ⬜ | | | | |
+
+## Phase 2: Layer 3 Progressive Chunks
 
 | Chunk | Status | Start Time | Duration | Errors/Concerns | Resolution |
 |-------|--------|------------|----------|----------------|------------|
@@ -216,15 +322,34 @@ Copy this to a separate file or notion doc to track progress:
 
 ## Environment Variables Collected
 
+### Phase 1: Layers 1 & 2
 ```bash
+# Layer 1 (NEAR Base)
 export NEAR_INSTANCE=
 export NEAR_PRIVATE_IP=
 export NEAR_NODE_KEY=
 export NEAR_CHAIN_ID=
+export NEAR_VPC_ID=
+
+# Layer 2 (NEAR Services)
+export FAUCET_ENDPOINT=
+export FAUCET_LAMBDA_ARN=
+```
+
+### Phase 2: Layer 3
+```bash
+# From Chunk 3.1
 export NEAR_BOOT_NODES=
+export GENESIS_FILE=/tmp/near-layer3-genesis/genesis.json
+export GENESIS_HASH=
+
+# From Chunk 3.2
 export MPC_NODE_0=
 export MPC_NODE_1=
 export MPC_NODE_2=
+
+# For orchestrator
+export MASTER_ACCOUNT_PRIVATE_KEY=  # From SSM /near-localnet/localnet-account-key
 ```
 
 ## Key Observations
@@ -253,21 +378,31 @@ export MPC_NODE_2=
 
 ## Success Definition
 
-**Layer 3 is COMPLETE when:**
+**PHASE 1 SUCCESS (Layers 1 & 2):**
+1. ✅ Layer 1 deployed: NEAR RPC responding, blocks > 0
+2. ✅ Layer 2 deployed: Faucet endpoint operational
+3. ✅ localnet master account exists with keys
+4. ✅ All infrastructure IDs documented (instance IDs, IPs, keys)
+
+**PHASE 2 SUCCESS (Layer 3):**
 1. ✅ All chunks 3.0-3.9 marked complete in worksheet (3.10 optional)
 2. ✅ MPC nodes synced with 1+ peers
 3. ✅ Contract state: "Running"
 4. ✅ Address derivation: Instant response
-5. ✅ Transaction signing: ~2-3 seconds
+5. ✅ Transaction signing: ~2-3 seconds (NOT 10 minutes!)
 6. ✅ No "No such domain" errors
 7. ✅ No key mismatch errors
 8. ✅ Tracking worksheet completed with all resolutions documented
 
-**You'll know it's working when:**
-- Bitcoin/Ethereum address derivation returns instantly
-- Signing requests complete in seconds (not minutes!)
-- MPC node logs show active participation
-- No repeated failures requiring redeployment
+**COMPLETE STACK SUCCESS:**
+- ✅ NEAR Base RPC responding at private IP
+- ✅ Faucet Lambda operational
+- ✅ MPC nodes synced and healthy
+- ✅ v1.signer contract in "Running" state
+- ✅ Bitcoin/Ethereum address derivation returns instantly
+- ✅ Signing requests complete in ~2-3 seconds (matching mainnet behavior)
+- ✅ MPC node logs show active participation
+- ✅ No repeated failures requiring redeployment
 
 ---
 
@@ -277,9 +412,35 @@ export MPC_NODE_2=
 
 **To begin:**
 1. Copy the prompt from the "Prompt for Next Chat" section above
-2. Start a new chat
-3. Paste the prompt
-4. Let the agent work through chunks with check-ins
-5. Use the tracking worksheet to monitor progress
+2. Customize if Layers 1 & 2 are already deployed (see "If Layers 1 & 2 Already Deployed" section)
+3. Start a new chat
+4. Paste the prompt
+5. Let the agent work through:
+   - **Phase 1:** Deploy & verify Layers 1 & 2 (if needed)
+   - **Phase 2:** Progressive Layer 3 deployment (11 chunks with check-ins)
+6. Use the tracking worksheet to monitor progress
 
-Good luck! This progressive approach should finally break the "1 step forward, 2 steps back" cycle. 🚀
+---
+
+## 📝 Summary
+
+### ✅ What's Ready
+- **Cursor Rules:** Updated with layer3-progressive-deployment.mdc
+- **Implementation Plan:** LAYER3_PROGRESSIVE_DEPLOYMENT.md (11 chunks)
+- **Implementation Prompt:** This document (ready to copy/paste)
+- **Tracking Worksheet:** Template included above
+
+### ✅ Key Improvements
+- **Genesis-First Order:** Chunks 3.1 → 3.2 prevents sync failures
+- **Two-Phase Approach:** Deploy known-working layers first, then progressive Layer 3
+- **Check-In Gates:** Verify each chunk before proceeding
+- **Timing Clarity:** 10-min DKG is ONE-TIME; signing is fast (~2-3 sec) afterwards
+
+### 🚀 You're Ready!
+Your plan is solid and complete. The progressive approach should finally break the "1 step forward, 2 steps back" cycle by:
+- Deploying with correct genesis order
+- Verifying each component before moving forward
+- Documenting issues for resolution
+- Preventing key mismatches
+
+**Good luck with the deployment!** 🎯

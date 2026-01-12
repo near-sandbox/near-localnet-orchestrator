@@ -150,6 +150,75 @@ When debugging, check these log files on the EC2 instance:
 | `/var/log/nearup.log` | NEAR daemon logs |
 | `/var/log/near-init-complete.log` | Initialization marker |
 
+### 🚨 GOTCHA #6.5: NEAR Base P2P Must Bind to 0.0.0.0, Not 127.0.0.1 (CRITICAL FOR MPC)
+
+> **If MPC nodes show `peers: null` and connection refused to port 24567, NEAR Base node0 is binding to localhost only.**
+
+**The Problem:**
+NEAR Base node0 starts with `neard run` without specifying `--network-addr`, causing it to bind P2P to `127.0.0.1:24567` by default. MPC nodes in the VPC cannot connect to localhost of a different machine.
+
+**Symptoms:**
+```bash
+# On MPC node logs:
+tier2 failed to connect to ed25519:7PGseFbWxvYVgZ89K1uTJKYoKetWs7BJtbyXDzfbAcqX@10.0.1.12:24567
+err="tcp::Stream::connect(): TcpStream::connect(): Connection refused (os error 111)"
+
+# MPC node /status shows:
+{
+  "peers": null,           # Should be >= 1
+  "block": 281717,
+  "syncing": false,
+  "chain_id": "test-chain-klXRp"
+}
+```
+
+**Root Cause:**
+In `AWSNodeRunner/lib/near/lib/infrastructure-stack.ts` around line 275:
+```bash
+# Current (BROKEN for MPC peering):
+su - ubuntu -c "nohup ~/nearcore/target/release/neard --home ~/.near/localnet/node0 run > ~/neard-node0.log 2>&1 &"
+# This binds P2P to 127.0.0.1:24567 by default
+```
+
+**Impact:**
+- ✅ NEAR Base works fine standalone (4 localnet nodes peer internally)
+- ✅ RPC port 3030 works (explicitly bound to 0.0.0.0 by neard)
+- ❌ MPC nodes cannot establish P2P connections to NEAR Base
+- ❌ MPC indexers show null peers (critical for proper operation)
+- ⚠️ MPC nodes CAN read blockchain state via RPC (may appear to work)
+- ❌ But MPC coordination requires proper P2P sync (may fail later)
+
+**The Fix:**
+Start node0 with explicit `--network-addr` to bind to all interfaces:
+```bash
+# Fixed (allows MPC nodes to peer):
+PRIVATE_IP=$(curl -s http://169.254.169.254/latest/meta-data/local-ipv4)
+su - ubuntu -c "nohup ~/nearcore/target/release/neard --home ~/.near/localnet/node0 run --network-addr 0.0.0.0:24567 > ~/neard-node0.log 2>&1 &"
+
+# Also update boot node string for node1-3:
+BOOT_NODE="${BOOT_PUB}@${PRIVATE_IP}:24567"  # Use private IP, not 127.0.0.1
+```
+
+**Why This Matters:**
+The MPC `start.sh` explicitly states (line 19-20):
+```bash
+# boot_nodes must be filled in or else the node will not have any peers.
+```
+
+And the MPC README confirms:
+> "NEAR Indexer: this is a NEAR node that tracks the shard where the signing smart contract is on."
+
+MPC nodes run **full NEAR indexer nodes**, not RPC-only clients. They need proper P2P connectivity to:
+1. Sync blocks efficiently from NEAR Base
+2. Maintain blockchain state consistency
+3. Detect contract events reliably
+4. Coordinate MPC operations properly
+
+**Related Gotchas:**
+- See GOTCHA #15.5 for boot_nodes public key matching
+- See GOTCHA #15.6 for genesis hash matching
+- See GOTCHA #10 for MPC sync requirements
+
 ---
 
 ## Layer 2: NEAR Services - The Utilities
